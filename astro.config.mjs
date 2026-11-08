@@ -1,18 +1,24 @@
-import { defineConfig } from 'astro/config';
+﻿import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import starlightThemeMdbook from 'starlight-theme-mdbook';
 
 export default defineConfig({
-  site: 'https://yourdomain.com',
-  plugins: [
+  integrations: [
     starlight({
-      title: 'My Web',
-      plugins: [
-        starlightThemeMdbook(),
-      ],
+      title: '3DTweets',
+      locales: {
+        root: { label: 'Čeština', lang: 'cs' },
+      },
+      pagefind: false,
+      pagination: false,
+      customCss: ['./src/styles/site.css'],
+      components: {
+        Header: './src/components/SiteHeader.astro',
+      },
       sidebar: [
-        { label: 'O nás', slug: 'o-nas' },
-        { label: 'Oblíbené modely', slug: 'oblibene-modely' },
+        {
+          label: 'Obsah',
+          items: [{ autogenerate: { directory: '/' } }],
+        },
       ],
     }),
   ],

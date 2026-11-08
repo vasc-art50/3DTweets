@@ -1,6 +1,20 @@
 {
+  "name": "3dtweets",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
   "dependencies": {
     "@astrojs/starlight": "^0.42.10",
-    "starlight-theme-mdbook": "^0.1.5"
+    "astro": "^7.2.10"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
   }
 }

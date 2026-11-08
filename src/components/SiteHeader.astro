@@ -1,0 +1,45 @@
+---
+const links = [
+  { label: 'Úvod', href: '/#_top', activePath: '/' },
+  { label: 'Seznam materiálů', href: '/seznam-materialu/', activePath: '/seznam-materialu/' },
+  { label: 'Oblíbené modely', href: '/oblibene-modely/', activePath: '/oblibene-modely/' },
+  { label: 'Naše práce', href: '/nase-prace/', activePath: '/nase-prace/' },
+  { label: 'O nás', href: '/o-nas/', activePath: '/o-nas/' },
+];
+---
+
+<div class="site-header">
+  <a class="brand" href="/" aria-label="3DTweets – úvod">
+    <img
+      class="brand-logo"
+      src="https://78ae74a1da.cbaul-cdnwnd.com/b8a020c3346e009b7b558ad5c14f343b/200000064-d0637d0639/Sn%C3%ADmek%20obrazovky%202024-07-08%20120245.png?ph=78ae74a1da"
+      alt=""
+      width="68"
+      height="45"
+    />
+    <span class="brand-tagline">Tweak your world!</span>
+  </a>
+  <nav class="site-nav" aria-label="Hlavní navigace">
+    {links.map(({ label, href, activePath }) => (
+      <a
+        href={href}
+        aria-current={Astro.url.pathname === activePath ? 'page' : undefined}
+      >
+        {label}
+      </a>
+    ))}
+  </nav>
+  <details class="mobile-menu">
+    <summary>Menu</summary>
+    <nav aria-label="Mobilní navigace">
+      {links.map(({ label, href, activePath }) => (
+        <a
+          href={href}
+          aria-current={Astro.url.pathname === activePath ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+  </details>
+</div>
