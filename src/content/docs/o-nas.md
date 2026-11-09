@@ -22,12 +22,22 @@ description: Poznejte 3DTweets, náš příběh a přístup k 3D designu a tisku
       udělátka, která nám udělají radost profesionálním designem.
     </p>
   </div>
-  <img
-    class="about-photo"
-    src="/images/about-design.jpeg"
-    alt="Práce na návrhu 3D modelu"
-    loading="lazy"
-  />
+  <picture>
+    <source
+      type="image/webp"
+      srcSet="/images/about-design-400.webp 400w, /images/about-design-800.webp 800w, /images/about-design-1200.webp 1200w, /images/about-design.webp 1600w"
+      sizes="(max-width: 58rem) 100vw, 34rem"
+    />
+    <img
+      class="about-photo"
+      src="/images/about-design.jpeg"
+      width="1880"
+      height="1254"
+      alt="Práce na návrhu 3D modelu"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
 </div>
 
 <section class="about-contact">

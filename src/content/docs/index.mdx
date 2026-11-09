@@ -58,12 +58,22 @@ hero:
     </p>
     <p><a href="/nase-prace/">Číst dále →</a></p>
   </div>
-  <img
-    class="work-photo"
-    src="/images/printer-work.jpeg"
-    alt="Detail 3D tiskárny při tisku"
-    loading="lazy"
-  />
+  <picture>
+    <source
+      type="image/webp"
+      srcSet="/images/printer-work-400.webp 400w, /images/printer-work-800.webp 800w, /images/printer-work-1200.webp 1200w, /images/printer-work.webp 1600w"
+      sizes="(max-width: 58rem) 100vw, 34rem"
+    />
+    <img
+      class="work-photo"
+      src="/images/printer-work.jpeg"
+      width="1880"
+      height="1254"
+      alt="Detail 3D tiskárny při tisku"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
 </section>
 
 <section class="home-section" id="materialy">

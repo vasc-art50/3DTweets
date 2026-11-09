@@ -30,7 +30,10 @@ const links = [
     ))}
   </nav>
   <details class="mobile-menu">
-    <summary>Menu</summary>
+    <summary>
+      Navigace
+      <span aria-hidden="true">☰</span>
+    </summary>
     <nav aria-label="Mobilní navigace">
       {links.map(({ label, href, activePath }) => (
         <a
