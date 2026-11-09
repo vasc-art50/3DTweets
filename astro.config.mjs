@@ -10,7 +10,9 @@ export default defineConfig({
       },
       pagefind: false,
       pagination: false,
-      customCss: ['./src/styles/site.css'],
+      head: [
+        { tag: 'link', attrs: { rel: 'stylesheet', href: '/site.css' } },
+      ],
       components: {
         Header: './src/components/SiteHeader.astro',
       },

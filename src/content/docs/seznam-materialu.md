@@ -1,71 +1,34 @@
 ---
 title: Seznam materiálů
 description: Barvy a typy filamentu, které používáme při 3D tisku.
-template: splash
 ---
 
-Nejčastěji tiskneme z PLA. Pro průhledné a odolnější výtisky občas sáhneme
-také po PETG.
-
-<div className="material-grid">
-  <article className="material-card">
-    <div><h2>Galaxy Black</h2><p>Černá s třpytkami jako noční obloha.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Lipstick Red</h2><p>Sytá rtěnková červená.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Orange</h2><p>Klasická výrazná oranžová.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Marble Grey</h2><p>Kamenný vzhled pro modely na vystavení.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Simply Green</h2><p>Svěží zelená pro veselé výtisky.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Oh My Gold</h2><p>Zlatá barva pro výrazné detaily.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Blend Royal Blue</h2><p>Sytá královská modrá.</p><p>Prusa Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Ultramarine Blue Transparent</h2><p>Průsvitná mořská modrá.</p><p>Prusa Original</p></div>
-    <span className="material-type">PETG</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Yellow</h2><p>Jasná žlutá.</p><p>Sunlu</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Jet Black</h2><p>Univerzální černá klasika.</p><p>Creality Original</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Stone Age Dark</h2><p>Tmavý mramorový vzhled.</p><p>Spectrum</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Stone Age Light</h2><p>Světlý mramorový vzhled.</p><p>Spectrum</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Yellow Green</h2><p>Svítí ve tmě jako světluška.</p><p>Spectrum</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Thermoactive Red</h2><p>Barva reagující na teplo.</p><p>Spectrum</p></div>
-    <span className="material-type">PLA</span>
-  </article>
-  <article className="material-card">
-    <div><h2>Wood</h2><p>Filament se vzhledem dřeva.</p><p>Spectrum</p></div>
-    <span className="material-type">PLA</span>
-  </article>
+<div class="materials-table-wrap" role="region" aria-label="Seznam materiálů" tabindex="0">
+  <table class="materials-table">
+    <thead>
+      <tr>
+        <th scope="col">Barva / název</th>
+        <th scope="col">Popis</th>
+        <th scope="col">Výrobce</th>
+        <th scope="col">Materiál</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Galaxy Black</th><td>Černá jako noc s třpytkami zářícími jako hvězdy na noční obloze</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Lipstick Red</th><td>Červená jako vaše rtíky</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Orange</th><td>Oranžová klasika</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Marble Grey</th><td>Mramorová šedá, ideální na modely k vystavení</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Simply Green</th><td>Zelená jako travička pro žabičky a Duo sovičky</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Oh My Gold</th><td>Nádherná sluníčková</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Blend Royal Blue</th><td>Modrá je dobrá, ale tahle je nejlepší</td><td>Průša Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Ultramarine Blue Transparent</th><td>Mořská modrá je božská a PETG ještě k tomu</td><td>Průša Original</td><td>PETG</td></tr>
+      <tr><th scope="row">Yellow</th><td>Žlutá jako luční kvítky</td><td>Sunlu</td><td>PLA</td></tr>
+      <tr><th scope="row">Jet Black</th><td>Černá klasika</td><td>Creality Original</td><td>PLA</td></tr>
+      <tr><th scope="row">Stone Age Dark</th><td>Tmavý mramorový vzhled ideální na modely k vystavení</td><td>Spectrum</td><td>PLA</td></tr>
+      <tr><th scope="row">Stone Age light</th><td>Světlý mramorový vzhled ideální na modely k vystavení</td><td>Spectrum</td><td>PLA</td></tr>
+      <tr><th scope="row">Yellow Green</th><td>Svítí ve tmě jako světluška</td><td>Spectrum</td><td>PLA</td></tr>
+      <tr><th scope="row">Thermoactive Red</th><td>Speciální filament reagující na teplo</td><td>Spectrum</td><td>PLA</td></tr>
+      <tr><th scope="row">Wood</th><td>Velmi speciální filament imitující dřevo ... Grootova oblíbená</td><td>Spectrum</td><td>PLA</td></tr>
+    </tbody>
+  </table>
 </div>
