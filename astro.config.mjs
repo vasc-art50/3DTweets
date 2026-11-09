@@ -2,6 +2,7 @@
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+  site: 'https://www.3dtweets.com',
   integrations: [
     starlight({
       title: '3DTweets',
