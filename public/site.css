@@ -1,24 +1,26 @@
 :root {
   color-scheme: dark;
-  --sl-color-accent-low: #1b3d34;
-  --sl-color-accent: #68d3b1;
-  --sl-color-accent-high: #c5f3e2;
-  --sl-color-text-accent: #7de0be;
-  --sl-color-text: #e5eee9;
-  --sl-color-bg: #101714;
-  --sl-color-bg-nav: #141d19;
-  --sl-color-bg-sidebar: #101714;
-  --sl-color-hairline: #2a3731;
-  --sl-color-hairline-shade: #35433c;
+  --sl-color-accent-low: #542715;
+  --sl-color-accent: #ff7138;
+  --sl-color-accent-high: #ffc09f;
+  --sl-color-text-accent: #ff8959;
+  --sl-color-text: #f0efed;
+  --sl-color-bg: #111111;
+  --sl-color-bg-nav: #171717;
+  --sl-color-bg-sidebar: #111111;
+  --sl-color-hairline: #303030;
+  --sl-color-hairline-shade: #424242;
   --sl-nav-height: 3.75rem;
   --sl-content-pad-x: clamp(1.25rem, 4vw, 3rem);
   --page-width: 76rem;
-  --ink: #e5eee9;
-  --muted: #a4b2aa;
-  --paper: #101714;
-  --surface: #19221e;
-  --accent: #68d3b1;
-  --accent-dark: #a4ebd0;
+  --ink: #f0efed;
+  --muted: #aaa7a3;
+  --paper: #111111;
+  --surface: #1a1a1a;
+  --accent: #ff7138;
+  --accent-dark: #ff986f;
+  --border: #303030;
+  --deep-surface: #151515;
 }
 
 html {
@@ -52,7 +54,7 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   background: var(--accent-dark);
-  box-shadow: 0 0.5rem 1.5rem rgb(26 39 34 / 20%);
+  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 35%);
   color: #fff;
   text-decoration: none;
 }
@@ -65,9 +67,9 @@ main picture {
   height: var(--sl-nav-height);
   padding-inline: var(--sl-content-pad-x);
   border: 0;
-  background: rgb(20 29 25 / 94%);
-  box-shadow: 0 1px 0 rgb(229 238 233 / 8%);
-  backdrop-filter: blur(14px);
+  background: rgb(23 23 23 / 94%);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 7%);
+  backdrop-filter: blur(16px);
 }
 
 .site-header {
@@ -90,23 +92,24 @@ main picture {
   white-space: nowrap;
 }
 
-.brand-logo {
-  display: block;
-  width: 2.8rem;
-  height: auto;
+.brand-name {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.055em;
 }
 
 .brand-tagline {
   color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: clamp(0.8rem, 1.7vw, 1.5rem);
+  gap: clamp(0.65rem, 1.5vw, 1.35rem);
 }
 
 .mobile-menu {
@@ -121,7 +124,7 @@ main picture {
   gap: 0.55rem;
   padding: 0.4rem 0.75rem;
   border: 1px solid var(--sl-color-hairline);
-  border-radius: 0.55rem;
+  border-radius: 0.4rem;
   color: var(--ink);
   cursor: pointer;
   list-style: none;
@@ -151,7 +154,7 @@ main picture {
   padding: 0.5rem 0;
   color: var(--muted);
   font-size: 0.82rem;
-  font-weight: 550;
+  font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
   transition: color 160ms ease;
@@ -159,7 +162,7 @@ main picture {
 
 .site-header nav a:hover,
 .site-header nav a[aria-current="page"] {
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
 .site-header nav a[aria-current="page"]::after {
@@ -240,10 +243,10 @@ main .hero {
   min-height: clamp(13rem, 27vh, 20rem);
   padding: clamp(1.5rem, 4vh, 2.75rem) max(var(--sl-content-pad-x), calc((100vw - var(--page-width)) / 2));
   background:
-    linear-gradient(90deg, rgb(13 27 24 / 88%) 0%, rgb(13 27 24 / 68%) 43%, rgb(13 27 24 / 10%) 100%),
+    linear-gradient(90deg, rgb(12 12 12 / 91%) 0%, rgb(12 12 12 / 72%) 43%, rgb(12 12 12 / 16%) 100%),
     url("/images/hero-printer.jpeg") 62% center / cover no-repeat;
   background:
-    linear-gradient(90deg, rgb(13 27 24 / 88%) 0%, rgb(13 27 24 / 68%) 43%, rgb(13 27 24 / 10%) 100%),
+    linear-gradient(90deg, rgb(12 12 12 / 91%) 0%, rgb(12 12 12 / 72%) 43%, rgb(12 12 12 / 16%) 100%),
     image-set(url("/images/hero-printer.webp") type("image/webp"), url("/images/hero-printer.jpeg") type("image/jpeg")) 62% center / cover no-repeat;
 }
 
@@ -263,8 +266,8 @@ main .hero h1 {
   margin: 0;
   color: #fff;
   font-size: clamp(3.5rem, 8vw, 6rem);
-  font-weight: 650;
-  letter-spacing: -0.075em;
+  font-weight: 800;
+  letter-spacing: -0.085em;
   line-height: 0.95;
 }
 
@@ -304,14 +307,14 @@ main:has(.hero) .sl-markdown-content {
 .home-section h2,
 .sl-markdown-content h2,
 .sl-markdown-content h3 {
-  color: var(--accent-dark);
+  color: var(--ink);
 }
 
 .home-section h2,
 .sl-markdown-content h2 {
   margin-top: 0;
   font-size: clamp(1.5rem, 2.3vw, 1.9rem);
-  font-weight: 620;
+  font-weight: 750;
   letter-spacing: -0.04em;
   line-height: 1.15;
 }
@@ -351,8 +354,8 @@ main:has(.hero) .sl-markdown-content {
 .service {
   min-width: 0;
   padding: 0.9rem 0.65rem;
-  border: 1px solid #2a3731;
-  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
   background: var(--surface);
   color: var(--accent);
   text-align: center;
@@ -373,7 +376,7 @@ main:has(.hero) .sl-markdown-content {
   margin: 0;
   color: var(--ink);
   font-size: 0.84rem;
-  font-weight: 600;
+  font-weight: 650;
   line-height: 1.35;
 }
 
@@ -389,7 +392,7 @@ main:has(.hero) .sl-markdown-content {
 .about-photo {
   min-height: 11rem;
   max-height: 16rem;
-  border-radius: 0.75rem;
+  border-radius: 0.55rem;
 }
 
 .tool-grid {
@@ -398,14 +401,14 @@ main:has(.hero) .sl-markdown-content {
 
 .tool-card {
   padding: 1.15rem;
-  border: 1px solid #2a3731;
-  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
   background: var(--surface);
 }
 
 .tool-card h3 {
   margin: 0 0 0.75rem;
-  color: var(--accent-dark);
+  color: var(--accent);
   font-size: 1.2rem;
   font-weight: 620;
 }
@@ -415,7 +418,7 @@ main:has(.hero) .sl-markdown-content {
 }
 
 .tool-card p:last-child {
-  color: var(--accent-dark);
+  color: var(--accent);
   font-size: 0.9rem;
   font-weight: 550;
 }
@@ -423,6 +426,7 @@ main:has(.hero) .sl-markdown-content {
 .home-section a,
 .sl-markdown-content a {
   color: var(--accent);
+  font-weight: 600;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
@@ -436,8 +440,8 @@ main:has(.hero) .sl-markdown-content {
   max-width: var(--page-width);
   margin: 0 auto;
   padding: 2rem var(--sl-content-pad-x);
-  border-radius: 0.75rem;
-  background: #19372f;
+  border-radius: 0.55rem;
+  background: #351a11;
   text-align: center;
 }
 
@@ -454,10 +458,10 @@ main:has(.hero) .sl-markdown-content {
 .materials-table-wrap {
   max-width: 100%;
   overflow-x: auto;
-  border: 1px solid #2a3731;
-  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
   background: var(--surface);
-  scrollbar-color: #54776a #19221e;
+  scrollbar-color: #8b452a #1a1a1a;
 }
 
 .materials-table {
@@ -470,13 +474,13 @@ main:has(.hero) .sl-markdown-content {
 .materials-table th,
 .materials-table td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #2a3731;
+  border-bottom: 1px solid var(--border);
   vertical-align: top;
   line-height: 1.55;
 }
 
 .materials-table thead th {
-  background: #1e2b25;
+  background: #24201e;
   color: var(--accent-dark);
   font-size: 0.78rem;
   font-weight: 700;
@@ -518,24 +522,25 @@ main:has(.hero) .sl-markdown-content {
 .work-project {
   min-width: 0;
   padding: 0.6rem;
-  border: 1px solid #2a3731;
-  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
   background: var(--surface);
   color: var(--ink) !important;
   text-decoration: none !important;
-  transition: border-color 160ms ease, transform 160ms ease;
+  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
 }
 
 .work-project picture {
   width: 100%;
   overflow: hidden;
   border-radius: 0.55rem;
-  background: #111815;
+  background: var(--deep-surface);
 }
 
 .work-project:hover {
   transform: translateY(-2px);
-  border-color: #68a88f;
+  border-color: var(--accent);
+  background: #202020;
 }
 
 .work-project img {
@@ -543,7 +548,7 @@ main:has(.hero) .sl-markdown-content {
   aspect-ratio: 1;
   margin-bottom: 0.75rem;
   border-radius: 0.55rem;
-  background: #111815;
+  background: var(--deep-surface);
   object-fit: contain;
 }
 
@@ -560,8 +565,8 @@ main:has(.hero) .sl-markdown-content {
   min-width: 0;
   overflow: hidden;
   padding: 1rem 1rem 1.25rem;
-  border: 1px solid #2a3731;
-  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
   background: var(--surface);
 }
 
@@ -569,7 +574,7 @@ main:has(.hero) .sl-markdown-content {
   aspect-ratio: 16 / 10;
   margin-bottom: 1.1rem;
   border-radius: 0.55rem;
-  background: #111815;
+  background: var(--deep-surface);
   object-fit: cover;
 }
 
@@ -607,14 +612,14 @@ main:has(.hero) .sl-markdown-content {
 .about-contact {
   margin: 3rem 0;
   padding: 1.6rem 1.8rem;
-  border: 1px solid #2a3731;
-  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
   background: var(--surface);
 }
 
 .about-contact h2 {
   margin: 0 0 0.5rem;
-  color: var(--ink);
+  color: var(--accent);
   font-size: 1.35rem;
   letter-spacing: -0.025em;
 }
@@ -628,8 +633,8 @@ main:has(.hero) .sl-markdown-content {
   padding: 1.75rem clamp(1.3rem, 4vw, 3rem);
   border: 0;
   border-left: 3px solid var(--accent);
-  border-radius: 0 0.8rem 0.8rem 0;
-  background: #19251f;
+  border-radius: 0 0.55rem 0.55rem 0;
+  background: #1a1a1a;
 }
 
 .about-story p {
@@ -657,12 +662,8 @@ main:has(.hero) .sl-markdown-content {
     gap: 0.65rem;
   }
 
-  .brand-logo {
-    width: 2.5rem;
-  }
-
   .brand-tagline {
-    font-size: 0.82rem;
+    font-size: 0.7rem;
   }
 
   .site-nav {
@@ -688,9 +689,9 @@ main:has(.hero) .sl-markdown-content {
     gap: 0;
     padding: 0.55rem 1.25rem;
     border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.75rem;
+    border-radius: 0.55rem;
     background: var(--surface);
-    box-shadow: 0 1rem 2rem rgb(26 39 34 / 12%);
+    box-shadow: 0 1rem 2rem rgb(0 0 0 / 35%);
   }
 
   .mobile-menu nav a {
@@ -742,10 +743,10 @@ main:has(.hero) .sl-markdown-content {
   main .hero {
     min-height: 15rem;
     background:
-      linear-gradient(90deg, rgb(13 27 24 / 83%) 0%, rgb(13 27 24 / 56%) 100%),
+      linear-gradient(90deg, rgb(12 12 12 / 88%) 0%, rgb(12 12 12 / 58%) 100%),
       url("/images/hero-printer.jpeg") 58% center / cover no-repeat;
     background:
-      linear-gradient(90deg, rgb(13 27 24 / 83%) 0%, rgb(13 27 24 / 56%) 100%),
+      linear-gradient(90deg, rgb(12 12 12 / 88%) 0%, rgb(12 12 12 / 58%) 100%),
       image-set(url("/images/hero-printer.webp") type("image/webp"), url("/images/hero-printer.jpeg") type("image/jpeg")) 58% center / cover no-repeat;
   }
 
