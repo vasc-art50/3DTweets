@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 # docs compression backups
 AGENTS.original.md
+.astro/
+Thumbs.db
