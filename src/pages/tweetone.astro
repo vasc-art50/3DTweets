@@ -1,0 +1,408 @@
+---
+import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="TweetONE CoreXY"
+  description="A high-speed CoreXY conversion built from two Ender 3 printers, tuned for Triple-Z motion, CANbus, and practical workshop engineering."
+>
+  <PageHero
+    eyebrow="Project case study"
+    title="TweetONE CoreXY"
+    subtitle="A dual-Ender 3 / Ender 3 V2 conversion into a high-speed CoreXY printer with Triple-Z motion, linear rails, and a CANbus-based control stack."
+    compact
+  >
+    <div class="content has-text-left mt-5">
+      <p><strong>Son</strong> — Lead Engineer &amp; Mechatronics Architect</p>
+      <p><strong>Father</strong> — Project Lead &amp; Technical Mentor</p>
+    </div>
+  </PageHero>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-7">
+          <p class="aw-eyebrow mb-3">Overview</p>
+          <h2 class="title is-2">The idea behind the build</h2>
+          <div class="content">
+            <p>
+              TweetONE began as a family engineering project built around a simple challenge:
+              take the most useful parts of two older Creality Ender 3 machines and turn them into a
+              fast, stiff, and precise CoreXY platform designed for real workshop use.
+            </p>
+            <p>
+              The concept drew inspiration from the Duender CoreXY, Ender NG, Mercury One.1, and
+              RatRig systems, but pushed further with linear rails, triple-Z motion, a CANbus toolboard,
+              and a modern Klipper toolchain. The target was not just a clean printer, but a machine that
+              balances print quality, rigidity, and usable speed.
+            </p>
+          </div>
+        </div>
+        <div class="column is-5">
+          <div class="box aw-hero-box">
+            <p class="aw-eyebrow mb-3">Phase 0</p>
+            <p class="mb-2"><strong>Goal:</strong> prove that one Raspberry Pi 4B can run dual-MCU Klipper reliably.</p>
+            <p class="mb-2"><strong>Experiment:</strong> connect both Creality v4.2.2 boards at once over USB.</p>
+            <p><strong>Result:</strong> stable XY + independent Triple-Z control before the mechanical rebuild began.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">RPi bring-up</p>
+        <h2 class="title is-2">Multi-MCU Klipper from a single Raspberry Pi</h2>
+      </div>
+
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <div class="box aw-card">            
+             <p><strong>Step 1:</strong> flash MainsailOS or a BTT CB1 image and configure Wi-Fi / hostname.</p>
+             <p><strong>Step 2:</strong> bring the Pi up over SSH and locate the board serial IDs.</p>
+             <p><strong>Step 3:</strong> compile Klipper with <code>make menuconfig</code> for an STM32F103 and a GD32F303 board.</p>
+             <p><strong>Step 4:</strong> remove 5V from the USB data cable to eliminate backfeeding and serial instability.</p>
+             <p><strong>Step 5:</strong> wire the right MCU serial addresses into <code>printer.cfg</code> and verify motion before final assembly.</p>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">system.cfg</p>
+            <pre><code>WIFI_SSID="YourHomeWiFi"
+WIFI_PASSWD="VerySecretPassword"
+hostname="TweetONE-M"</code></pre>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">make menuconfig</p>
+            <pre><code># STM32F103 board
+Micro-controller Architecture: STMicroelectronics STM32
+Processor model: STM32F103
+Bootloader offset: 28KiB bootloader
+Communication interface: Serial (USART1 PA10/PA9)
+
+# GD32F303 board
+Disable SWD at startup: enabled</code></pre>
+          </div>
+        </div>
+
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">USB 5V tape-cut fix</p>
+            <pre><code>USB-A connector layout:
+[ 1: 5V (tape / remove) ] [ 2: Data- ] [ 3: Data+ ] [ 4: GND ]
+
+# Only the data pairs and GND remain connected.
+# This removes 5V backfeeding and stabilizes the serial bus.</code></pre>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Device discovery</p>
+            <pre><code>ls /dev/serial/by-id/*
+
+/dev/serial/by-id/usb-Klipper_stm32f103xe_36FFD5054252303728641943-if00
+/dev/serial/by-id/usb-Klipper_gd32f303_51FFD8054252383832541143-if00</code></pre>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">printer.cfg</p>
+            <pre><code>[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32f103xe_36FFD5054252303728641943-if00
+
+[mcu GD]
+serial: /dev/serial/by-id/usb-Klipper_gd32f303_51FFD8054252383832541143-if00</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Hardware &amp; BOM</p>
+        <h2 class="title is-2">Profile sizes, rails, and motion hardware</h2>
+      </div>
+
+      <div class="box aw-card mb-5">
+        <table class="table is-fullwidth is-striped is-narrow">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Qty</th>
+              <th>Origin</th>
+              <th>Use in TweetONE</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4040 profile (290 mm)</td>
+              <td>4</td>
+              <td>Ender 3 + Ender 3 V2</td>
+              <td>Lower rectangular frame</td>
+              <td>Very stiff base geometry</td>
+            </tr>
+            <tr>
+              <td>2040 profile (400 mm)</td>
+              <td>4</td>
+              <td>Ender 3 + Ender 3 V2</td>
+              <td>Main vertical frame members</td>
+              <td>Maintains full print height</td>
+            </tr>
+            <tr>
+              <td>2040 profile (350 mm)</td>
+              <td>2</td>
+              <td>Added / modified Y-axis</td>
+              <td>Linear rail guides</td>
+              <td>Validated against Y-axis geometry</td>
+            </tr>
+            <tr>
+              <td>2020 profile (300 mm)</td>
+              <td>1</td>
+              <td>Top bridge</td>
+              <td>X gantry cross member</td>
+              <td>Trimmed for exact 300 mm length</td>
+            </tr>
+            <tr>
+              <td>2020 profile (350 mm)</td>
+              <td>3</td>
+              <td>Added / reused</td>
+              <td>Triple-Z rail support</td>
+              <td>Used for the Z-axis layout</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Additional hardware</p>
+            <ul class="aw-check-list">
+              <li>THK SRS 12GN linear rail (310 mm) for the X axis</li>
+              <li>MGN9H / MGN12H rails for the Y axis</li>
+              <li>F623RS bearings and 2GT belts</li>
+              <li>Brass heat-set inserts for structural joints</li>
+              <li>POM anti-backlash nuts for the Z screws</li>
+            </ul>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Practical note</p>
+            <p>
+              The most important design decision was moving away from V-wheels and toward linear motion,
+              better-defined alignment, and stiffer gantry geometry. That allowed the printer to keep a good
+              balance between speed and repeatability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Development log</p>
+        <h2 class="title is-2">The build timeline from 2025 to 2026</h2>
+      </div>
+
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Phase 1</p>
+            <h3 class="title is-5">Onshape design and rail selection</h3>
+            <p><strong>December 2025.</strong> We measured the available profiles from both Ender 3 printers and began designing the first CoreXY geometry around THK SRS rails and a tighter gantry footprint.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Phase 2</p>
+            <h3 class="title is-5">Dual-MCU Klipper bring-up</h3>
+            <p><strong>January 2026.</strong> One Raspberry Pi 4B successfully ran two Creality v4.2.2 boards in parallel, proving the multi-MCU concept before machining and assembly began.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Phase 3</p>
+            <h3 class="title is-5">Origami vs. industrial skeleton</h3>
+            <p><strong>February to June 2026.</strong> We explored the Origami concept and an industrial skeleton layout, then developed custom belt tensioners and refined the mechanical system.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Phase 4</p>
+            <h3 class="title is-5">Z-Tilt and first successful print</h3>
+            <p><strong>July to August 2026.</strong> The Z-axis was calibrated with a measured 0.005 mm plane offset, and the printer completed its first successful first layer and print.</p>
+          </div>
+        </div>
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Phase 5</p>
+            <h3 class="title is-5">BTT Manta M8P v2.0 + EBB36 CANbus + DragonBurner</h3>
+            <p><strong>August to September 2026.</strong> We upgraded the motion controller to BTT Manta M8P v2.0 with CB1, then moved to a CANbus toolboard using the BTT EBB36 and DragonBurner. Input shaper measurements then confirmed the final tuning envelope: the Y axis at 53.8 Hz and the X axis at 69.8 Hz, with safe acceleration limits around 8500 mm/s² and 14400 mm/s².</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Troubleshooting</p>
+        <h2 class="title is-2">The dead ends we solved</h2>
+      </div>
+
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Problem 1</p>
+            <h3 class="title is-5">Inverted enable pins and swapped step/direction lines</h3>
+            <p><strong>Cause:</strong> the Creality v4.2.2 GPIO mappings were not aligned with the expected Klipper pin logic.</p>
+            <p><strong>Fix:</strong> invert the enable pin with <code>!</code> and correct the pin mapping in the printer config.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Problem 2</p>
+            <h3 class="title is-5">USB 5V backfeeding</h3>
+            <p><strong>Cause:</strong> the Raspberry Pi was feeding 5V back into the Creality boards via VBUS.</p>
+            <p><strong>Fix:</strong> tape over the 5V pin on both USB cables so the bus carries only Data+ / Data- / GND.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Problem 3</p>
+            <h3 class="title is-5">Y-axis carriage collision</h3>
+            <p><strong>Cause:</strong> the printed holder geometry left too little clearance for the MGN carriage.</p>
+            <p><strong>Fix:</strong> shorten the 3D model and reprint the structure to regain safe carriage travel.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-2">Problem 4</p>
+            <h3 class="title is-5">BTT Eddy Duo temperature drift</h3>
+            <p><strong>Cause:</strong> the inductive probe changed behavior with bed and probe temperature shifts.</p>
+            <p><strong>Fix:</strong> complete a full <code>TEMPERATURE_PROBE_CALIBRATE</code> routine and build a temperature compensation curve.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Research &amp; experiments</p>
+        <h2 class="title is-2">The technical experiments behind the final machine</h2>
+      </div>
+
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          <div class="box aw-card">
+            <h3 class="title is-5">Anti-backlash POM vs. brass nuts</h3>
+            <p>
+              Standard brass trapezoidal nuts have backlash. When the lead screw flexes, that mechanical play shows up as visible Z-wobble on tall prints. We compared that with POM anti-backlash nuts, which apply preload and reduce free motion without needing frequent lubrication.
+            </p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <h3 class="title is-5">Digital GT2 belt tension meter</h3>
+            <p>
+              Uneven belt tension in a CoreXY machine can skew the geometry and create circularity errors. We built a simple tension meter using a strain gauge from a kitchen scale, 3D-printed parts, and a spring system to keep both belts balanced and repeatable.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Reference configs</p>
+        <h2 class="title is-2">Practical examples and external references</h2>
+      </div>
+
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">system.cfg</p>
+            <pre><code># /boot/system.cfg
+WIFI_SSID="MyHomeWiFi"
+WIFI_PASSWD="MySecretPassword"
+hostname="TweetONE-M"</code></pre>
+          </div>
+        </div>
+
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Multi-MCU printer.cfg</p>
+            <pre><code>[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32f103xe_12345678-if00
+
+[mcu GD]
+serial: /dev/serial/by-id/usb-Klipper_gd32f303_87654321-if00
+
+[printer]
+kinematics: corexy
+max_velocity: 350
+max_accel: 10000
+max_z_velocity: 15
+max_z_accel: 200</code></pre>
+          </div>
+        </div>
+
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Sensorless homing for BTT Manta M8P v2.0</p>
+            <pre><code>[stepper_x]
+endstop_pin: tmc2209_stepper_x:virtual_endstop
+homing_retract_dist: 0
+
+[tmc2209 stepper_x]
+diag_pin: ^PF4
+run_current: 0.800
+driver_SGTHRS: 100</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="box aw-card mt-5">
+        <p class="aw-eyebrow mb-3">Reference links</p>
+        <ul class="aw-check-list">
+          <li><a href="https://www.youtube.com/@Irbis3D" target="_blank" rel="noreferrer">Irbis3D Duender CoreXY</a></li>
+          <li><a href="https://cad.onshape.com/documents/966ba2a55f3eaeb8f0d4e8fd/w/0c1629acfaec8e996b2f85eb/e/0f8e7f946d3fac114d64b84e" target="_blank" rel="noreferrer">Onshape CAD — Duender CoreXY</a></li>
+          <li><a href="https://www.printables.com/model/1282344-duender-mgn12h-edition" target="_blank" rel="noreferrer">Printables — Duender MGN12H Edition</a></li>
+          <li><a href="https://github.com/chirpy2605/voron/blob/main/V0/Dragon_Burner/README.md" target="_blank" rel="noreferrer">DragonBurner</a></li>
+          <li><a href="https://global.bttwiki.com/M8P-V2_0.html" target="_blank" rel="noreferrer">BTT Manta M8P v2.0 wiki</a></li>
+          <li><a href="https://os.ratrig.com/docs/toolboards/btt/ebb-36-12/" target="_blank" rel="noreferrer">BTT EBB36 CANbus docs</a></li>
+          <li><a href="https://docs.vorondesign.com/tuning/sensorless.html" target="_blank" rel="noreferrer">Voron sensorless homing tuning</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Keep learning"
+    title="The project is still evolving."
+    text="Browse the build notes in the blog or get in touch to discuss your own 3D prototype, printer upgrade, or product challenge."
+    ctaLabel="Read the blog"
+    ctaHref="/blog"
+  />
+</BaseLayout>

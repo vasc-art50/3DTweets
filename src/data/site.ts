@@ -7,6 +7,7 @@ export const site = {
   description:
     '3DTweets creates custom 3D designs, prototypes, and printed parts for makers, product ideas, and practical workshop improvements.',
   email: '3DTweets247@gmail.com',
+  phone: '+420 725 123 456',
   address: 'Prague · Czech Republic',
   url: 'https://3dtweets.com',
 } as const;
@@ -20,6 +21,7 @@ export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'TweetONE', href: '/tweetone' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
