@@ -1,10 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="24" fill="#0e1216"/>
-  <g fill="#ff6b35">
-    <rect x="18" y="48" width="12" height="32" rx="4"/>
-    <rect x="98" y="48" width="12" height="32" rx="4"/>
-    <rect x="34" y="40" width="8" height="48" rx="3"/>
-    <rect x="86" y="40" width="8" height="48" rx="3"/>
-    <rect x="44" y="56" width="40" height="16" rx="6"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140" fill="none">
+  <!-- Owl Head & Brows -->
+  <path d="M84 18 L120 27 L156 18 L142 36 L120 45 L98 36 Z" fill="#0D9494" />
+  <!-- Left Eye Ring -->
+  <path d="M98 34 A15 15 0 1 0 118 46 L112 42 A8 8 0 1 1 102 36 Z" fill="#0D9494" />
+  <!-- Right Eye Ring -->
+  <path d="M142 34 A15 15 0 1 1 122 46 L128 42 A8 8 0 1 0 138 36 Z" fill="#0D9494" />
+  <!-- Central V-Chevron -->
+  <path d="M82 54 L120 92 L158 54 L167 63 L120 110 L73 63 Z" fill="#0D9494" />
+  <!-- Left Wing -->
+  <path d="M24 54 L82 54 L94 66 L36 66 Z" fill="#0D9494" />
+  <path d="M40 72 L86 72 L96 82 L50 82 Z" fill="#0D9494" />
+  <path d="M56 88 L90 88 L100 98 L66 98 Z" fill="#0D9494" />
+  <!-- Right Wing -->
+  <path d="M216 54 L158 54 L146 66 L204 66 Z" fill="#0D9494" />
+  <path d="M200 72 L154 72 L144 82 L190 82 Z" fill="#0D9494" />
+  <path d="M184 88 L150 88 L140 98 L174 98 Z" fill="#0D9494" />
 </svg>

@@ -7,45 +7,45 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    title: 'Group Classes',
+    title: '3D Design & CAD Modeling',
     description:
-      'High-energy HIIT, strength circuits, spin, and mobility sessions led by certified coaches. Every class is scalable to your level.',
-    details: ['15+ classes every week', 'All levels welcome', 'Member drop-in or class packs'],
-    format: '45–60 min · Studio floor',
+      'We turn sketches, references, and rough ideas into clean, printable 3D models that work in the real world.',
+    details: ['Concept sketches to CAD', 'Print-ready geometry', 'Functional, compact designs'],
+    format: 'Custom project · Design-led',
   },
   {
-    title: 'Personal Training',
+    title: 'Custom 3D Printing',
     description:
-      'One-to-one programming built around your goals, your schedule, and your body. Sessions include a full movement assessment to start.',
-    details: ['Custom training plans', 'Form coaching in every session', 'Monthly progress reviews'],
-    format: '60 min · By appointment',
+      'Reliable additive manufacturing for prototypes, replacement parts, workshop fixtures, and small production runs.',
+    details: ['Prototype and functional parts', 'Material guidance', 'Short lead times'],
+    format: 'Small batches · On-demand',
   },
   {
-    title: 'Nutrition Coaching',
+    title: 'Printer Tuning & Upgrades',
     description:
-      'Practical, judgement-free guidance built around real meals and real schedules. No cleanses, no rigid plans — just habits that last.',
-    details: ['Weekly check-ins', 'Meal templates, not meal police', 'Works with any dietary style'],
-    format: '6-week programme · Weekly check-ins',
+      'Hands-on calibration, maintenance advice, and practical hardware upgrades to help your printer run more consistently.',
+    details: ['First-layer tuning', 'Firmware and setup advice', 'Workshop build logs'],
+    format: 'Consultation · Setup support',
   },
   {
-    title: 'Recovery & Mobility',
+    title: 'Prototype Development',
     description:
-      'Guided stretching, foam rolling, and breathwork sessions for busy nervous systems. Short practices you can use anywhere.',
-    details: ['Drop-in friendly', 'No previous experience needed', 'Includes take-home routines'],
-    format: '30 min · Drop-in sessions',
+      'We iterate quickly from concept to test print, improving fit, strength, and usability without wasting material.',
+    details: ['Fast prototype loops', 'Fit and assembly checks', 'Design refinement'],
+    format: 'Iterative · Design-focused',
   },
   {
-    title: 'Open Gym Access',
+    title: 'Workshop Hardware',
     description:
-      'Full access to squat racks, free weights, and conditioning zones. Coaching support is always on the floor when you need a spot.',
-    details: ['7 days a week', 'Early and late hours', 'Barbell, dumbbell, and bodyweight zones'],
-    format: 'Membership · 05:30–23:00',
+      'From bracketry to holders, jigs, and functional accessories, we build the parts that make a workshop more practical.',
+    details: ['Custom fixtures', 'Useful add-ons', 'Problem-solving prints'],
+    format: 'Practical builds · Custom fit',
   },
   {
-    title: 'Online Coaching',
+    title: 'Product & Build Logs',
     description:
-      'Train anywhere with remote programming, video form checks, and a coach on chat. Same standards as the studio, minus the commute.',
-    details: ['Syncs with your own equipment', 'Weekly video feedback', 'Flexible pause when life happens'],
-    format: 'Monthly · App-based',
+      'We document what works, what changes, and why — so the next version is easier, smarter, and faster to produce.',
+    details: ['Build notes', 'Material choices', 'Improvement tracking'],
+    format: 'Open project insights',
   },
 ];

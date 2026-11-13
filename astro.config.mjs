@@ -10,12 +10,12 @@ export default defineConfig({
     server: {
       watch: {
         usePolling: true,
+        interval: 1000,
+        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/.astro/**'],
       },
     },
     css: {
       preprocessorOptions: {
-        // Bulma 1.0.4 still uses the legacy Sass if() function; silence the
-        // dependency warning without hiding warnings from our own styles.
         scss: {
           silenceDeprecations: ['if-function'],
         },

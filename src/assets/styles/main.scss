@@ -48,7 +48,7 @@
 @use 'bulma/sass/helpers/flexbox';
 
 // Project-specific additions. Kept separate from Bulma component styles.
-// Prefix: "aw-" (Astro Wellness) to avoid collisions with Bulma classes.
+// Prefix: "aw-" (3D Tweets) to avoid collisions with Bulma classes.
 // Dark is the default theme; `[data-theme='light']` flips every token.
 :root {
   --aw-ink: #0e1216;

@@ -7,28 +7,28 @@ export interface TeamMember {
 
 export const team: TeamMember[] = [
   {
-    name: 'Mara Ellis',
-    role: 'Founder & Head Coach',
-    bio: 'Mara has coached strength training for twelve years and still believes the best programme is the one you actually show up for.',
-    initials: 'ME',
+    name: 'Design & CAD',
+    role: 'Concept development',
+    bio: 'We turn sketches and rough ideas into practical 3D models designed for printability, function, and tidy assembly.',
+    initials: 'DC',
   },
   {
-    name: 'Jonah Reed',
-    role: 'Strength & Conditioning Coach',
-    bio: 'A former competitive powerlifter, Jonah builds programmes that make you stronger without making your joints pay for it.',
-    initials: 'JR',
+    name: 'Prototype Lab',
+    role: 'Testing & iteration',
+    bio: 'Every concept is checked against real use: fit, durability, strength, and the amount of time worth spending on a print.',
+    initials: 'PL',
   },
   {
-    name: 'Priya Nair',
-    role: 'Mobility & Recovery Coach',
-    bio: 'Priya specialises in the work most gyms skip: the warm-up, the cool-down, and the sleep. Your future self will thank her.',
-    initials: 'PN',
+    name: 'Printer Setup',
+    role: 'Tuning & hardware',
+    bio: 'We dial in the printer, calibrate the details, and keep the workflow steady enough to bring new ideas to life faster.',
+    initials: 'PS',
   },
   {
-    name: 'Diego Santos',
-    role: 'Nutrition Coach',
-    bio: 'Diego helps members fuel training and recover properly — with food they enjoy, not a spreadsheet of numbers.',
-    initials: 'DS',
+    name: 'Workshop Notes',
+    role: 'Build logs & process',
+    bio: 'We learn from every test, log the decisions that matter, and keep improving the next iteration without wasting effort.',
+    initials: 'WN',
   },
 ];
 
@@ -39,18 +39,18 @@ export interface Value {
 
 export const values: Value[] = [
   {
-    title: 'Strong for life',
+    title: 'Print-ready thinking',
     description:
-      'We train for the body you take into your sixties, not a look for one summer. Every programme is built to last.',
+      'Every model is designed with real manufacturing constraints in mind: strength, weight, tolerances, and a sensible amount of effort.',
   },
   {
-    title: 'Coaching, not barking',
+    title: 'Practical problem-solving',
     description:
-      'No yelling, no ego. Our coaches explain the why behind every set so you can train intelligently on your own.',
+      'We focus on what actually works for the project, not on unnecessary complexity or showy design choices.',
   },
   {
-    title: 'Everyone belongs',
+    title: 'Built for iteration',
     description:
-      'Whatever your starting point, the floor is yours. We scale every class and meet you exactly where you are.',
+      'Good ideas improve through testing. We prototype early, learn quickly, and keep the workflow efficient from concept to print.',
   },
 ];

@@ -1,45 +1,54 @@
 ---
-title: "How to build a training routine you'll actually keep"
-description: "Consistency beats intensity. Here is a simple framework for designing a weekly routine that survives real life."
+title: "From Ender 3 Pro to Prusa MK4: what changed in our workflow"
+description: "The upgrade was not just about speed — it changed the way we think about calibration, quality checks, and design iteration."
 pubDate: 2026-10-08
-tags: ["training", "habits", "beginner"]
+tags: ["printer", "workflow", "prusa"]
 ---
 
-The biggest mistake new members make is designing a routine they can only follow
-on perfect weeks. Then real life happens, the routine breaks, and the guilt does
-the rest.
+When we started with the Ender 3 Pro, we learned quickly that a 3D printer is
+not just a machine — it is a system of settings, habits, and patience. Every
+print taught us something new: how a slightly different bed level changes the
+first layer, how a minor retraction change affects the surface finish, and how
+long it takes to accept that most problems are not random at all.
 
-A routine you keep beats a routine you admire. Here is the framework we use with
-members during their first month.
+That learning curve was part of the fun, but it also meant every project took a
+little longer than it should have.
 
-## Start with the minimum viable week
+## The biggest change was consistency
 
-Pick **three slots** you can defend for four weeks. That is it — three. If a week
-turns out to be lighter than expected, a fourth session is a bonus, not the plan.
+The Prusa MK4 gave us a much more stable baseline. We still tune settings, but
+we no longer spend half the print session chasing avoidable problems. The first
+layer is easier to trust, the overall print quality is more predictable, and we
+can focus more energy on designing instead of fighting the machine.
 
-## Attach training to an existing anchor
+That shift matters for more than convenience. It changes the pace of the whole
+workflow.
 
-Training sticks better when it is attached to something already in your day.
-"Gym at 7:00 after dropping the kids" beats "gym sometime this week". Same hour,
-same days, same trigger.
+## We moved faster without losing control
 
-## Make the first session physically easy
+With the Ender, every project felt like a small experiment. With the MK4, we can
+iterate faster and still keep a handle on quality. We can test proportions,
+refine tolerances, and decide whether a part is worth keeping before we spend a
+lot of time on reprints.
 
-The first set of the week sets the psychological tone. Start light enough that
-showing up feels like the win. Intensity is something you earn later in the week,
-not something you need to prove on Monday.
+That is the real advantage of a good printer: it helps convert good ideas into
+useful results instead of turning every prototype into a patience exercise.
 
-## Review every four weeks
+## The workflow now feels more deliberate
 
-Once a month, ask two questions:
+A clearer setup has changed the way we work:
 
-- Did I hit my three sessions most weeks?
-- Do I still enjoy what I am doing?
+- We start with a clean, stable print environment.
+- We test the first layer before committing to the full part.
+- We judge design choices by function, not just looks.
+- We treat each revision like a small improvement, not a reset.
 
-If the answer to either is no, change the plan before you change your attitude.
-Training variety exists precisely for this.
+The machine is still only part of the system. The real win is a workflow that
+lets us spend more time thinking clearly and less time debugging avoidable
+issues.
 
 ## The takeaway
 
-Consistency is a scheduling problem before it is a motivation problem. Solve the
-schedule and motivation mostly takes care of itself.
+Upgrading the printer changed more than our print speed. It changed how we plan,
+how we judge quality, and how quickly we can turn a rough idea into a useful,
+print-ready result.

@@ -8,23 +8,23 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      'I joined for the classes and stayed for the coaching. Eighteen months in, I am stronger than I ever was in my twenties — and I actually look forward to training.',
-    name: 'Sam Rivera',
-    role: 'Member since 2025',
-    initials: 'SR',
+      'We needed a practical part that looked good, fit properly, and did not waste hours in trial-and-error. The process was fast, clear, and genuinely useful.',
+    name: 'Workshop client',
+    role: 'Prototype project',
+    initials: 'WC',
   },
   {
     quote:
-      'After two kids and a long break from the gym, I was terrified of walking into a weight room again. The coaches scaled everything and never made it feel like a big deal.',
-    name: 'Talia Bennett',
-    role: 'Member since 2024',
-    initials: 'TB',
+      'The difference was in the details: better tolerances, smarter geometry, and a final model that actually felt built for real use instead of just looking good on screen.',
+    name: 'Product idea',
+    role: 'Custom design',
+    initials: 'PI',
   },
   {
     quote:
-      'The recovery coaching changed more for me than any workout. I sleep better, my old back pain is gone, and I finally understand how to train without wrecking myself.',
-    name: 'Marcus Cole',
-    role: 'Member since 2026',
-    initials: 'MC',
+      'We kept iterating until the geometry and print setup matched the function. That balance saved time and made the end result much more stable in practice.',
+    name: 'Print test',
+    role: 'Workshop build',
+    initials: 'PT',
   },
 ];

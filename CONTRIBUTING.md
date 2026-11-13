@@ -1,4 +1,4 @@
-# Contributing to Astro Wellness
+# Contributing to 3D Tweets
 
 Thanks for helping out! This document outlines how to contribute to the Astro
 Wellness gym template.

@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # TODO: replace example.com with your real domain when you deploy.
-Sitemap: https://example.com/sitemap-index.xml
+Sitemap: https://www.3dtweets.com/sitemap-index.xml

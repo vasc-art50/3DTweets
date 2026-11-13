@@ -1,40 +1,44 @@
 ---
-title: "Recovery basics: sleep, food, and the rest days you skip"
-description: "Training breaks down muscle. Recovery builds it back stronger. Here is what actually moves the needle on rest."
+title: "Designing functional 3D-printed parts: balancing strength and print time"
+description: "A practical part is not just a model — it is a trade-off between geometry, material, durability, and reasonable printing effort."
 pubDate: 2026-09-24
 updatedDate: 2026-10-02
-tags: ["recovery", "nutrition", "sleep"]
+tags: ["design", "prototype", "materials"]
 ---
 
-You do not get stronger in the gym. You get stronger **between** sessions, while
-you sleep and eat and rest. The best programme in the world is wasted on a body
-that never recovers.
+A printed part can look great on the screen and still fail in use. That is why
+we focus on function first: the model has to survive the real environment, fit
+cleanly, and not consume more printing time than the job deserves.
 
-## Sleep is the first recovery tool
+### The first question is not \"how strong\" — it is \"what is this for?\" 
 
-Most of your growth hormone release happens in deep sleep. Seven to nine hours is
-not a luxury for athletes — it is the cheapest performance intervention available.
+A decorative bracket, a workshop mount, and a mechanical load-bearing part all
+need different design decisions. For some parts, a simple, compact geometry is
+enough; for others, wall thickness, infill, and print orientation make a bigger
+difference than the raw material choice.
 
-Practical version: keep a consistent bedtime, even on weekends. Dim the lights an
-hour before bed. Treat sleep like a training session you cannot reschedule.
+## Print time is often the hidden design constraint
 
-## Eat around the training, not instead of it
+It is easy to overbuild a part. More walls, denser infill, and extra supports can
+make a model stronger, but they also add time, cost, and more room for error.
+The best design is the one that gets the job done without adding unnecessary
+complexity.
 
-You need protein to rebuild, carbohydrates to refuel, and enough total food to
-support the work. A useful rule of thumb: eat a meal with protein and carbs within
-two hours after training.
+That is where good iteration helps. We test the geometry, refine the weak points,
+and choose the simplest version that still does the work.
 
-That does not mean shakes and chicken breast forever. It means the post-workout
-meal is the one on the schedule and the one you do not skip.
+## Tolerances matter more than people expect
 
-## Rest days are part of the programme
+One of the biggest practical lessons in 3D printing is that fit is everything.
+A part that is too loose falls apart in use; a part that is too tight becomes a
+frustration before it even gets installed.
 
-A rest day is not a failed training day. It is the day your body does the actual
-building. Light walking, stretching, or simply doing nothing are all legitimate.
-
-If you feel you must do *something*, do mobility or breathwork — the recovery
-sessions our coaches teach were designed exactly for these days.
+This is where small changes matter: a little extra clearance here, a slightly
+different chamfer there, or a better orientation in the slicer can make a huge
+difference in the final result.
 
 ## The takeaway
 
-More training is rarely the answer. Better recovery almost always is.
+A strong printed part is usually the result of good decisions, not brute-force
+settings. Balance strength with material choices, geometry, and print effort, and
+you get parts that are both useful and efficient to produce.

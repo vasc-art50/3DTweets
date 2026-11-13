@@ -1,6 +1,6 @@
 # Security Policy
 
-Astro Wellness is a statically generated marketing template (Astro) with **no
+3D Tweets is a statically generated marketing template (Astro) with **no
 backend, database, authentication, or user-submitted content**. There are no
 secrets, credentials, or server-side endpoints in this repository.
 

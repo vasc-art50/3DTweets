@@ -9,12 +9,12 @@ import { services } from '../data/services';
 
 <BaseLayout
   title="Services"
-  description="Group classes, personal training, nutrition coaching, recovery work, and open gym access — all under one roof."
+  description="3D design, custom printing, prototypes, and printer tuning for practical products and workshop solutions."
 >
   <PageHero
     eyebrow="Services &amp; pricing"
-    title="Everything you need, one membership."
-    subtitle="Pick a service or combine them. Every plan starts with a free trial class, because you should feel the gym before you commit."
+    title="Design, print, refine."
+    subtitle="From a rough idea to a tested part or custom build, we help turn the smartest concept into something that works in the real world."
     compact
   />
 
@@ -40,10 +40,10 @@ import { services } from '../data/services';
   <section class="section aw-section aw-section-alt">
     <div class="container">
       <div class="aw-section-head">
-        <p class="aw-eyebrow mb-2">Membership</p>
-        <h2 class="title is-2">Plans that scale with you</h2>
+        <p class="aw-eyebrow mb-2">Project options</p>
+        <h2 class="title is-2">Clear, straightforward project scopes</h2>
         <p class="subtitle is-6">
-          No contracts, cancel anytime, and every plan includes the free trial class.
+          Transparent planning, practical iteration, and no unnecessary complexity.
         </p>
       </div>
 
@@ -55,7 +55,7 @@ import { services } from '../data/services';
                 {plan.highlighted && <div class="aw-plan-badge">Most popular</div>}
                 <h3 class="title is-4">{plan.name}</h3>
                 <p class="aw-price mb-2">
-                  ${plan.price} <span>{plan.period}</span>
+                  {plan.price} <span>{plan.period}</span>
                 </p>
                 <p class="mb-4">{plan.description}</p>
                 <ul class="aw-check-list mb-4">
@@ -76,8 +76,8 @@ import { services } from '../data/services';
   </section>
 
   <CtaBand
-    eyebrow="Not sure which plan?"
-    title="Book a free class and decide later."
-    text="Try the floor first. Our coaches will happily recommend the right starting point — and the right plan is the one you will actually use."
+    eyebrow="Not sure where to start?"
+    title="Discuss your idea and decide later."
+    text="Share the idea, the problem, or the part you need and we will suggest the most practical route forward."
   />
 </BaseLayout>

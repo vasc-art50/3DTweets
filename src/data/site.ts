@@ -1,19 +1,14 @@
 /**
  * Global site metadata and navigation.
- * Keeping this in one place avoids copy-pasted strings across layouts.
- * All values are template placeholders — edit them when you adopt the template.
  */
 export const site = {
-  name: 'Astro Wellness',
-  tagline: 'Train hard. Recover smart.',
+  name: '3DTweets',
+  tagline: 'Design. Print. Build.',
   description:
-    'Astro Wellness is a modern gym for strength, conditioning, and recovery. Group classes, personal training, and nutrition coaching under one roof.',
-  // All contact details are placeholders — replace before going live.
-  email: 'hello@example.com',
-  phone: '+1 (555) 010-2030',
-  address: '123 Example Street · Example City, EX',
-  // Used by the sitemap and canonical URLs. Keep in sync with astro.config.mjs.
-  url: 'https://example.com',
+    '3DTweets creates custom 3D designs, prototypes, and printed parts for makers, product ideas, and practical workshop improvements.',
+  email: '3DTweets247@gmail.com',
+  address: 'Prague · Czech Republic',
+  url: 'https://3dtweets.com',
 } as const;
 
 export interface NavItem {

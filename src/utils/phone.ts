@@ -1,4 +1,5 @@
 /** Build a safe `tel:` href from a phone number, stripping non-dialable chars. */
-export function telHref(phone: string): string {
+export function telHref(phone?: string): string {
+  if (!phone) return '';
   return `tel:${phone.replace(/[^+\d]/g, '')}`;
 }

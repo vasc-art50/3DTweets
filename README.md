@@ -1,4 +1,4 @@
-# Astro Wellness — Gym Template
+# 3D Tweets — Gym Template
 
 A modern, dark, energetic **gym template** built with [Astro](https://astro.build)
 and [Bulma](https://bulma.io). It ships with a full set of pages, an SEO-ready
@@ -117,7 +117,7 @@ survives SPA navigation.
 ## Customisation guide
 
 1. **Site identity** — edit `src/data/site.ts`: name, tagline, description,
-   email, phone, address, and `url` (keep it in sync with `astro.config.mjs`).
+   email, address, and `url` (keep it in sync with `astro.config.mjs`).
 2. **Navigation** — add or remove entries in `navItems` in `src/data/site.ts`.
 3. **Services / team / pricing / testimonials** — edit the matching files in
    `src/data/`.
