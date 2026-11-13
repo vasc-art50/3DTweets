@@ -1,28 +1,25 @@
-﻿import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+// @ts-check
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
+// https://astro.build/config
 export default defineConfig({
-  site: 'https://www.3dtweets.com',
-  integrations: [
-    starlight({
-      title: '3DTweets',
-      locales: {
-        root: { label: 'Čeština', lang: 'cs' },
+  site: 'https://3dtweets.com',
+  integrations: [sitemap()],
+  vite: {
+    server: {
+      watch: {
+        usePolling: true,
       },
-      pagefind: false,
-      pagination: false,
-      head: [
-        { tag: 'link', attrs: { rel: 'stylesheet', href: '/site.css' } },
-      ],
-      components: {
-        Header: './src/components/SiteHeader.astro',
-      },
-      sidebar: [
-        {
-          label: 'Obsah',
-          items: [{ autogenerate: { directory: '/' } }],
+    },
+    css: {
+      preprocessorOptions: {
+        // Bulma 1.0.4 still uses the legacy Sass if() function; silence the
+        // dependency warning without hiding warnings from our own styles.
+        scss: {
+          silenceDeprecations: ['if-function'],
         },
-      ],
-    }),
-  ],
+      },
+    },
+  },
 });
