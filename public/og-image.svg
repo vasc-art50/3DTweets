@@ -1,23 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1a222b"/>
-      <stop offset="1" stop-color="#0e1216"/>
+    <!-- Base Dark Background Gradient -->
+    <linearGradient id="bg-base" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#11161D" />
+      <stop offset="100%" stop-color="#171E26" />
     </linearGradient>
-    <radialGradient id="glow" cx="0.85" cy="0.2" r="0.6">
-      <stop offset="0" stop-color="#ff6b35" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#ff6b35" stop-opacity="0"/>
+
+    <!-- Warm Orange Ambient Glow (Top-Right) -->
+    <radialGradient id="orange-glow" cx="82%" cy="22%" r="65%" fx="82%" fy="22%">
+      <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.34" />
+      <stop offset="45%" stop-color="#FF5A1F" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#141A21" stop-opacity="0" />
     </radialGradient>
+
+    <!-- Subtle Diagonal Engineering Grid -->
+    <pattern id="diag-grid" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)">
+      <line x1="0" y1="0" x2="0" y2="80" stroke="#FFFFFF" stroke-opacity="0.03" stroke-width="1" />
+      <line x1="0" y1="0" x2="80" y2="0" stroke="#FFFFFF" stroke-opacity="0.02" stroke-width="1" />
+    </pattern>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
-  <g fill="#ff6b35">
-    <rect x="180" y="290" width="20" height="50" rx="7"/>
-    <rect x="330" y="290" width="20" height="50" rx="7"/>
-    <rect x="210" y="275" width="14" height="80" rx="5"/>
-    <rect x="306" y="275" width="14" height="80" rx="5"/>
-    <rect x="228" y="299" width="74" height="32" rx="10"/>
-  </g>
-  <text x="430" y="330" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800" letter-spacing="4" fill="#f4f7f9">3D Tweets</text>
-  <text x="430" y="385" font-family="Arial, Helvetica, sans-serif" font-size="30" letter-spacing="2" fill="#9aa7b0">Train hard. Recover smart.</text>
+
+  <!-- Background Layers -->
+  <rect width="1200" height="630" fill="url(#bg-base)" />
+  <rect width="1200" height="630" fill="url(#diag-grid)" />
+  <rect width="1200" height="630" fill="url(#orange-glow)" />
+
+  <!-- Subtle Accent Eyebrow -->
+  <text x="600" y="258" text-anchor="middle" fill="#FF5A1F" font-family="system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="7">
+    DESIGN · PRINT · BUILD
+  </text>
+
+  <!-- Centered Bold Wordmark -->
+  <text x="600" y="348" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif" font-size="96" font-weight="800" letter-spacing="4">
+    3D TWEETS
+  </text>
+
+  <!-- Subtle Bottom Domain Tag -->
+  <text x="600" y="404" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="2">
+    3dtweets.com
+  </text>
 </svg>
