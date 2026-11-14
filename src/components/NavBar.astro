@@ -112,7 +112,6 @@ function isActive(path: string): boolean {
               lang="en"
               aria-current={locale === 'en' ? 'page' : undefined}
             >EN</a>
-            <span aria-hidden="true">|</span>
             <a
               class:list={['navbar-item', { 'is-active': locale === 'cs' }]}
               href={localeSwitchUrl(currentPath, 'cs')}

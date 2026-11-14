@@ -10,7 +10,7 @@ export interface Plan {
 export const plans: Plan[] = [
   {
     name: 'Custom Print',
-    price: 'From €40',
+    price: 'From €10',
     period: 'per project',
     description: 'Fast, straightforward 3D printing for a part, test piece, or small functional batch.',
     features: ['Material and print setup guidance', 'One-off or short-run production', 'Practical fit and print review'],
@@ -18,7 +18,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Design + Prototype',
-    price: 'From €120',
+    price: 'From €50',
     period: 'per concept',
     description: 'A smarter path from idea to 3D model, printed prototype, and a practical improvement loop.',
     features: [
@@ -47,7 +47,7 @@ export const plans: Plan[] = [
 export const plansCs: Plan[] = [
   {
     name: 'Zakázkový tisk',
-    price: 'Od 40 €',
+    price: 'Od 250 Kč',
     period: 'za projekt',
     description: 'Rychlý a přímočarý 3D tisk jednoho dílu, zkušebního vzorku nebo malé funkční série.',
     features: ['Doporučení materiálu a nastavení tisku', 'Jednotlivé kusy i malé série', 'Praktická kontrola lícování a tisknutelnosti'],
@@ -55,7 +55,7 @@ export const plansCs: Plan[] = [
   },
   {
     name: 'Návrh a prototyp',
-    price: 'Od 120 €',
+    price: 'Od 3 000 Kč',
     period: 'za koncept',
     description: 'Promyšlená cesta od nápadu přes 3D model až k vytištěnému prototypu a jeho praktickému doladění.',
     features: ['CAD modelování a zpřesnění konceptu', 'Iterace prototypu a zkoušky tisku', 'Úpravy pro vyšší pevnost a použitelnost', 'Jasná doporučení pro realizaci'],
@@ -64,7 +64,7 @@ export const plansCs: Plan[] = [
   {
     name: 'Vývoj produktu',
     price: 'Individuálně',
-    period: 'nabídka na míru',
+    period: 'na míru',
     description: 'Pro rozsáhlejší vývoj produktu, funkční sestavy nebo podrobnější řešení pro dílnu.',
     features: ['Kompletní návrh a prototypování', 'Ladění tisku a výběr materiálu', 'Iterace podle testů v reálném provozu', 'Dokumentace pro další úpravy'],
     highlighted: false,
