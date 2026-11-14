@@ -14,7 +14,7 @@ export const plans: Plan[] = [
     period: 'per project',
     description: 'Fast, straightforward 3D printing for a part, test piece, or small functional batch.',
     features: ['Material and print setup guidance', 'One-off or short-run production', 'Practical fit and print review'],
-    highlighted: false,
+    highlighted: true,
   },
   {
     name: 'Design + Prototype',
@@ -40,6 +40,6 @@ export const plans: Plan[] = [
       'Iteration based on real-world testing',
       'Documentation for future revisions',
     ],
-    highlighted: false,
+    highlighted: true,
   },
 ];
