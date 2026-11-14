@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar.astro';
 import { site } from '../data/site';
 import { alternateLocaleUrls, getLocale } from '../i18n/utils';
 import { ui } from '../i18n/ui';
-import '../assets/styles/main.scss';
+import mainStylesUrl from '../assets/styles/main.scss?url';
 
 interface Props {
   title: string;
@@ -39,6 +39,7 @@ const fontUrl =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <link rel="stylesheet" href={mainStylesUrl} />
 
     <script is:inline>
       // Apply the theme before first paint to avoid a flash of the wrong theme.
@@ -111,7 +112,7 @@ const fontUrl =
   <body>
     <a class="aw-skip-link" href="#main-content">{text.skipToContent}</a>
     <NavBar />
-    <main id="main-content">
+    <main id="main-content" data-pagefind-body>
       <slot />
     </main>
     <Footer />

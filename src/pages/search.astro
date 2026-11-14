@@ -1,0 +1,52 @@
+---
+import Search from 'astro-pagefind/components/Search.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLocale } from '../i18n/utils';
+import { ui } from '../i18n/ui';
+
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale].search;
+const searchInstance = 'site-search';
+---
+
+<BaseLayout title={text.title} description={text.description}>
+  <section class="section aw-section" aria-labelledby="search-title">
+    <div class="container">
+      <header class="aw-section-head">
+        <p class="aw-eyebrow">{text.eyebrow}</p>
+        <h1 id="search-title" class="title is-1">{text.title}</h1>
+        <p class="subtitle">{text.description}</p>
+      </header>
+
+      <div id="search" class="aw-search-container">
+        <Search
+          instance={searchInstance}
+          className="pagefind-ui"
+          searchboxOptions={{ autofocus: true, placeholder: text.placeholder }}
+          configOptions={{ lang: locale }}
+        />
+        <pagefind-summary instance={searchInstance}></pagefind-summary>
+        <pagefind-results instance={searchInstance}></pagefind-results>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const focusSearchInput = () => {
+    const searchbox = document.querySelector('pagefind-searchbox');
+    const input =
+      searchbox?.querySelector<HTMLInputElement>('input') ??
+      searchbox?.shadowRoot?.querySelector<HTMLInputElement>('input') ??
+      document.querySelector<HTMLInputElement>('.pagefind-ui__search-input');
+
+    input?.focus({ preventScroll: true });
+  };
+
+  const scheduleSearchFocus = () => {
+    requestAnimationFrame(focusSearchInput);
+  };
+
+  document.addEventListener('astro:page-load', scheduleSearchFocus);
+  void customElements.whenDefined('pagefind-searchbox').then(scheduleSearchFocus);
+</script>

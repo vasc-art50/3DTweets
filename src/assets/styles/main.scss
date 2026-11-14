@@ -86,6 +86,60 @@
   color-scheme: light;
 }
 
+// Keep both Pagefind's legacy UI and current component UI in sync with the
+// active site theme. These variables inherit the changing `--aw-*` tokens.
+:root {
+  --pagefind-ui-primary: var(--aw-accent);
+  --pagefind-ui-text: var(--aw-text);
+  --pagefind-ui-background: var(--aw-ink-raised);
+  --pagefind-ui-border: var(--aw-border);
+  --pagefind-ui-tag: var(--aw-ink-soft);
+
+  --pf-text: var(--aw-text);
+  --pf-text-secondary: var(--aw-muted);
+  --pf-text-muted: var(--aw-muted);
+  --pf-background: var(--aw-ink-raised);
+  --pf-border: var(--aw-border);
+  --pf-border-focus: var(--aw-accent);
+  --pf-skeleton: var(--aw-ink-soft);
+  --pf-skeleton-shine: var(--aw-ink-raised);
+  --pf-hover: var(--aw-ink-soft);
+  --pf-mark: var(--aw-accent);
+  --pf-outline-focus: var(--aw-accent);
+  --pf-font: inherit;
+}
+
+.aw-search-container {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  --pf-searchbox-max-width: 100%;
+}
+
+.aw-search-container .pagefind-ui,
+.aw-search-container .pagefind-ui__form,
+.aw-search-container pagefind-summary,
+.aw-search-container pagefind-results {
+  display: block;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  float: none;
+}
+
+[data-theme='dark'] .aw-search-container {
+  --pf-text: var(--aw-text);
+  --pf-text-secondary: var(--aw-muted);
+  --pf-text-muted: var(--aw-muted);
+  --pf-background: var(--aw-ink-raised);
+  --pf-border: var(--aw-border);
+  --pf-border-focus: var(--aw-muted);
+  --pf-hover: var(--aw-ink-soft);
+  --pf-outline-focus: var(--aw-muted);
+}
+
 // Visible focus on keyboard navigation everywhere, matching the accent.
 :focus-visible {
   outline: 2px solid var(--aw-accent);

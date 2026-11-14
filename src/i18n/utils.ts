@@ -12,7 +12,7 @@ function stripLocale(pathname: string): string {
 function isLocalizedRoute(pathname: string): boolean {
   const path = stripLocale(pathname).replace(/\/+$/, '') || '/';
   return (
-    ['/', '/about', '/services', '/tweetone', '/contact', '/blog'].includes(path) ||
+    ['/', '/about', '/services', '/tweetone', '/contact', '/blog', '/search'].includes(path) ||
     /^\/blog\/[^/]+$/.test(path)
   );
 }
