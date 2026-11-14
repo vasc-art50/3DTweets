@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Improved readability and hover feedback for outlined pricing-plan buttons.
 - Theme resetting to light after client-side navigation — re-applied on
   `astro:page-load`.
 - Theme toggle and burger listeners being lost after SPA navigation.

@@ -62,7 +62,10 @@ import { services } from '../data/services';
                   {plan.features.map((feature) => <li>{feature}</li>)}
                 </ul>
                 <a
-                  class:list={['button is-fullwidth', plan.highlighted ? 'is-primary' : 'is-outlined']}
+                  class:list={[
+                    'button is-fullwidth aw-plan-button',
+                    plan.highlighted ? 'is-primary' : 'is-outlined',
+                  ]}
                   href="/contact"
                 >
                   Start with {plan.name}

@@ -27,7 +27,7 @@ export const plans: Plan[] = [
       'Design tweaks for strength and usability',
       'Clear build recommendations',
     ],
-    highlighted: true,
+    highlighted: false,
   },
   {
     name: 'Product Development',
@@ -40,6 +40,6 @@ export const plans: Plan[] = [
       'Iteration based on real-world testing',
       'Documentation for future revisions',
     ],
-    highlighted: true,
+    highlighted: false,
   },
 ];

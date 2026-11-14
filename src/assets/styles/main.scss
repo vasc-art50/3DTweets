@@ -370,6 +370,22 @@ main {
   margin-top: 1.5rem;
 }
 
+.aw-plan-button.is-outlined {
+  color: var(--aw-muted);
+  border-color: var(--aw-muted);
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--aw-accent);
+    border-color: var(--aw-accent);
+    box-shadow: 0 0 0.75rem var(--aw-accent-soft);
+  }
+}
+
 /* -------------------------------- Stats ------------------------------- */
 
 .aw-stat-number {
