@@ -129,10 +129,9 @@ survives SPA navigation.
    `og-image.png` is the social share image (1200×630; `og-image.svg` is its
    editable source). Swap in real photos anytime — they are not required for
    the layout to look complete.
-6. **Contact form** — the site is fully static, so the form validates in the
-   browser and opens the visitor's email client with the message pre-filled,
-   addressed to `site.email`. Replace it with a form endpoint (e.g. Formspree,
-   Netlify Forms, or your own API) for a real backend.
+6. **Contact form** — submissions from both the English and Czech contact pages
+   are sent through Web3Forms. Manage the access key and submitted messages in
+   the [Web3Forms dashboard](https://app.web3forms.com/dashboard).
 7. **SEO before deploy** — set `site` in `astro.config.mjs` to your real domain,
    update the `Sitemap` URL in `public/robots.txt`, and regenerate/overwrite
    `og-image.png` with your own branding.

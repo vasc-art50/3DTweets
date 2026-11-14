@@ -54,8 +54,9 @@ export const ui = {
       messagePlaceholder: 'Tell us about your idea, dimensions, material, and timeline.',
       replyTime: 'We usually reply within one to two working days.',
       send: 'Send message',
-      openingEmail: 'Opening your email client…',
-      subject: 'Website enquiry',
+      sending: 'Sending…',
+      success: 'Thank you! Your message has been sent.',
+      error: 'Sorry, your message could not be sent. Please try again.',
     },
     notFound: {
       title: 'Page not found',
@@ -122,8 +123,9 @@ export const ui = {
       messagePlaceholder: 'Popište svůj nápad, rozměry, materiál a termín.',
       replyTime: 'Obvykle odpovídáme během jednoho až dvou pracovních dnů.',
       send: 'Odeslat zprávu',
-      openingEmail: 'Otevírá se e-mailový klient…',
-      subject: 'Poptávka z webu',
+      sending: 'Odesílám…',
+      success: 'Děkujeme, zpráva byla úspěšně odeslána.',
+      error: 'Zprávu se nepodařilo odeslat. Zkuste to prosím znovu.',
     },
     notFound: {
       title: 'Stránka nenalezena',
