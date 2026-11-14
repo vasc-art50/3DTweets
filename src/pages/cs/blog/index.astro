@@ -1,0 +1,49 @@
+---
+import BlogCard from '../../../components/BlogCard.astro';
+import PageHero from '../../../components/PageHero.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { readingTime } from '../../../utils/reading-time';
+import { localeUrl } from '../../../i18n/utils';
+
+const posts = (await getCollection('blogCs')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Praktické poznámky k 3D návrhu, ladění tiskáren a vývoji prototypů z dílny 3DTweets."
+>
+  <PageHero
+    eyebrow="Zápisník z dílny"
+    title="Poznámky z našich projektů."
+    subtitle="Praktické články o 3D návrhu, seřizování tiskáren, prototypech a drobných vylepšeních, díky kterým projekt funguje lépe."
+    compact
+  />
+  <section class="section aw-section">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="columns is-multiline">
+          {posts.map((post) => (
+            <div class="column is-4">
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                tags={post.data.tags}
+                href={localeUrl('cs', `/blog/${post.id}`)}
+                readingTime={readingTime(post.body ?? '', 'cs')}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="has-text-centered">
+          Zatím tu žádné články nejsou. Zastavte se později nebo nám
+          <a href={localeUrl('cs', '/contact')}> napište</a>, o čem byste si chtěli přečíst.
+        </p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

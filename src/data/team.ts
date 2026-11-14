@@ -54,3 +54,45 @@ export const values: Value[] = [
       'Good ideas improve through testing. We prototype early, learn quickly, and keep the workflow efficient from concept to print.',
   },
 ];
+
+export const teamCs: TeamMember[] = [
+  {
+    name: 'Konstrukce a CAD',
+    role: 'Vývoj konceptu',
+    bio: 'Z náčrtů a prvotních představ vytváříme praktické 3D modely s ohledem na tisknutelnost, funkci i snadnou montáž.',
+    initials: 'DC',
+  },
+  {
+    name: 'Prototypová dílna',
+    role: 'Testování a iterace',
+    bio: 'Každý návrh ověřujeme v praxi: kontrolujeme lícování, odolnost, pevnost i to, kolik času dává smysl do tisku investovat.',
+    initials: 'PL',
+  },
+  {
+    name: 'Nastavení tiskáren',
+    role: 'Ladění a hardware',
+    bio: 'Kalibrujeme tiskárny a jejich detaily tak, aby byl pracovní postup spolehlivý a nové nápady šlo realizovat rychleji.',
+    initials: 'PS',
+  },
+  {
+    name: 'Dílenské zápisy',
+    role: 'Dokumentace a postupy',
+    bio: 'Z každého testu si odnášíme poznatky, zaznamenáváme důležitá rozhodnutí a zlepšujeme další iteraci bez zbytečné práce.',
+    initials: 'WN',
+  },
+];
+
+export const valuesCs: Value[] = [
+  {
+    title: 'Návrh připravený k tisku',
+    description: 'Při konstrukci počítáme se skutečnými výrobními omezeními: pevností, hmotností, tolerancemi i přiměřenou náročností.',
+  },
+  {
+    title: 'Praktické řešení problémů',
+    description: 'Hledáme to, co projektu skutečně pomůže, ne zbytečnou složitost ani efektní řešení bez užitku.',
+  },
+  {
+    title: 'Prostor pro další iterace',
+    description: 'Dobré nápady se zlepšují testováním. Prototypujeme včas, rychle se učíme a držíme celý postup efektivní.',
+  },
+];

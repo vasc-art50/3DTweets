@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Complete Czech-language site under `/cs/`, including localized navigation,
+  page metadata, translated service content and blog articles, language
+  switching, and `hreflang` alternates.
 - Dark / light mode with a navbar toggle; preference persisted in
   `localStorage` and inferred from `prefers-color-scheme` on first visit.
 - Client-side page navigation with fade transitions via Astro

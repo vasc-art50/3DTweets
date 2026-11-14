@@ -1,0 +1,246 @@
+---
+import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="TweetONE CoreXY"
+  description="Rychlá tiskárna CoreXY přestavěná ze dvou tiskáren Ender 3. Využívá trojitou osu Z, lineární vedení, CANbus a praktické konstrukční řešení."
+>
+  <PageHero
+    eyebrow="Případová studie projektu"
+    title="TweetONE CoreXY"
+    subtitle="Přestavba tiskáren Ender 3 a Ender 3 V2 na rychlou tiskárnu CoreXY s trojitou osou Z, lineárním vedením a řízením přes CANbus."
+    compact
+  >
+    <div class="content has-text-left mt-5">
+      <p><strong>Syn</strong> — hlavní konstruktér a architekt mechatroniky</p>
+      <p><strong>Otec</strong> — vedoucí projektu a technický mentor</p>
+    </div>
+  </PageHero>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-7">
+          <p class="aw-eyebrow mb-3">Přehled</p>
+          <h2 class="title is-2">Myšlenka za stavbou</h2>
+          <div class="content">
+            <p>TweetONE začal jako rodinný konstrukční projekt s jednoduchou výzvou: využít nejlepší součásti dvou starších tiskáren Creality Ender 3 a postavit z nich rychlou, tuhou a přesnou tiskárnu CoreXY pro skutečnou práci v dílně.</p>
+            <p>Inspirací byly projekty Duender CoreXY, Ender NG, Mercury One.1 a RatRig. Naše řešení přidalo lineární vedení, trojitou osu Z, nástrojovou desku CANbus a moderní sestavu Klipperu. Cílem nebyla jen čistá konstrukce, ale vyvážení kvality tisku, tuhosti a praktické rychlosti.</p>
+          </div>
+        </div>
+        <div class="column is-5">
+          <div class="box aw-hero-box">
+            <p class="aw-eyebrow mb-3">Fáze 0</p>
+            <p class="mb-2"><strong>Cíl:</strong> ověřit, že Raspberry Pi 4B spolehlivě řídí Klipper s více MCU.</p>
+            <p class="mb-2"><strong>Test:</strong> současně připojit obě desky Creality v4.2.2 přes USB.</p>
+            <p><strong>Výsledek:</strong> stabilní pohyb XY a nezávislé řízení trojité osy Z ještě před mechanickou přestavbou.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">První spuštění Raspberry Pi</p>
+        <h2 class="title is-2">Klipper s více MCU z jednoho Raspberry Pi</h2>
+      </div>
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p><strong>Krok 1:</strong> nahrajte MainsailOS nebo obraz BTT CB1 a nastavte Wi-Fi a název hostitele.</p>
+            <p><strong>Krok 2:</strong> připojte se k Raspberry Pi přes SSH a zjistěte sériová ID desek.</p>
+            <p><strong>Krok 3:</strong> pomocí <code>make menuconfig</code> připravte Klipper pro desku STM32F103 i GD32F303.</p>
+            <p><strong>Krok 4:</strong> odpojte 5V vodič v USB kabelu, aby nedocházelo k napájení desek zpět ani k nestabilitě sériové linky.</p>
+            <p><strong>Krok 5:</strong> zapište správné adresy MCU do <code>printer.cfg</code> a ověřte pohyb před konečnou montáží.</p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">system.cfg</p>
+            <pre><code>WIFI_SSID="YourHomeWiFi"
+WIFI_PASSWD="VerySecretPassword"
+hostname="TweetONE-M"</code></pre>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">make menuconfig</p>
+            <pre><code># STM32F103 board
+Micro-controller Architecture: STMicroelectronics STM32
+Processor model: STM32F103
+Bootloader offset: 28KiB bootloader
+Communication interface: Serial (USART1 PA10/PA9)
+
+# GD32F303 board
+Disable SWD at startup: enabled</code></pre>
+          </div>
+        </div>
+        <div class="column is-12">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Odstranění 5 V z USB</p>
+            <pre><code>USB-A connector layout:
+[ 1: 5V (tape / remove) ] [ 2: Data- ] [ 3: Data+ ] [ 4: GND ]
+
+# Připojené zůstávají jen datové vodiče a zem.
+# Tím se odstraní zpětné napájení 5 V a stabilizuje sériová sběrnice.</code></pre>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Vyhledání zařízení</p>
+            <pre><code>ls /dev/serial/by-id/*
+
+/dev/serial/by-id/usb-Klipper_stm32f103xe_36FFD5054252303728641943-if00
+/dev/serial/by-id/usb-Klipper_gd32f303_51FFD8054252383832541143-if00</code></pre>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">printer.cfg</p>
+            <pre><code>[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32f103xe_36FFD5054252303728641943-if00
+
+[mcu GD]
+serial: /dev/serial/by-id/usb-Klipper_gd32f303_51FFD8054252383832541143-if00</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Hardware a kusovník</p>
+        <h2 class="title is-2">Profily, vedení a pohybová soustava</h2>
+      </div>
+      <div class="box aw-card mb-5">
+        <table class="table is-fullwidth is-striped is-narrow">
+          <thead><tr><th>Součást</th><th>Počet</th><th>Původ</th><th>Využití v TweetONE</th><th>Poznámka</th></tr></thead>
+          <tbody>
+            <tr><td>Profil 4040 (290 mm)</td><td>4</td><td>Ender 3 + Ender 3 V2</td><td>Spodní obdélníkový rám</td><td>Velmi tuhá základna</td></tr>
+            <tr><td>Profil 2040 (400 mm)</td><td>4</td><td>Ender 3 + Ender 3 V2</td><td>Hlavní svislé části rámu</td><td>Zachovává plnou výšku tisku</td></tr>
+            <tr><td>Profil 2040 (350 mm)</td><td>2</td><td>Upravená osa Y</td><td>Vedení lineárních kolejnic</td><td>Ověřeno vůči geometrii osy Y</td></tr>
+            <tr><td>Profil 2020 (300 mm)</td><td>1</td><td>Horní příčka</td><td>Příčný nosník osy X</td><td>Zkrácen přesně na 300 mm</td></tr>
+            <tr><td>Profil 2020 (350 mm)</td><td>3</td><td>Nové / znovu použité</td><td>Podpora trojité osy Z</td><td>Součást rozložení osy Z</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Další hardware</p>
+            <ul class="aw-check-list">
+              <li>Lineární kolejnice THK SRS 12GN (310 mm) pro osu X</li>
+              <li>Kolejnice MGN9H / MGN12H pro osu Y</li>
+              <li>Ložiska F623RS a řemeny 2GT</li>
+              <li>Mosazné závitové vložky pro konstrukční spoje</li>
+              <li>Matice POM proti vůli na trapézových šroubech osy Z</li>
+            </ul>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="box aw-card">
+            <p class="aw-eyebrow mb-3">Praktická poznámka</p>
+            <p>Nejdůležitějším rozhodnutím byl přechod od kladek V-wheel k lineárnímu vedení, přesnějšímu ustavení a tužší geometrii portálu. Díky tomu si tiskárna zachovává dobrý poměr rychlosti a opakovatelnosti.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Zápis z vývoje</p>
+        <h2 class="title is-2">Časová osa stavby 2025–2026</h2>
+      </div>
+      <div class="columns is-multiline">
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Fáze 1</p><h3 class="title is-5">Návrh v Onshape a výběr kolejnic</h3><p><strong>Prosinec 2025.</strong> Zaměřili jsme dostupné profily z obou tiskáren Ender 3 a začali navrhovat geometrii CoreXY s kolejnicemi THK SRS a kompaktnějším portálem.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Fáze 2</p><h3 class="title is-5">Spuštění Klipperu se dvěma MCU</h3><p><strong>Leden 2026.</strong> Raspberry Pi 4B úspěšně řídilo dvě desky Creality v4.2.2 současně a ověřilo koncepci více MCU ještě před obráběním a montáží.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Fáze 3</p><h3 class="title is-5">Origami, nebo průmyslová konstrukce</h3><p><strong>Únor až červen 2026.</strong> Zkoumali jsme koncepci Origami i průmyslovou konstrukci a následně navrhli vlastní napínáky řemenů a zpřesnili mechaniku.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Fáze 4</p><h3 class="title is-5">Z-Tilt a první úspěšný výtisk</h3><p><strong>Červenec až srpen 2026.</strong> Osa Z byla kalibrována s naměřenou odchylkou roviny 0,005 mm. Tiskárna zvládla první úspěšnou první vrstvu i celý výtisk.</p></div></div>
+        <div class="column is-12"><div class="box aw-card"><p class="aw-eyebrow mb-2">Fáze 5</p><h3 class="title is-5">BTT Manta M8P v2.0 + EBB36 CANbus + DragonBurner</h3><p><strong>Srpen až září 2026.</strong> Řadič pohybu jsme upgradovali na BTT Manta M8P v2.0 s CB1 a následně na CANbus nástrojovou desku BTT EBB36 s DragonBurnerem. Měření Input Shaperu potvrdilo výsledné nastavení: osa Y 53,8 Hz a osa X 69,8 Hz, s bezpečným zrychlením přibližně 8 500 mm/s² a 14 400 mm/s².</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head"><p class="aw-eyebrow mb-2">Řešení problémů</p><h2 class="title is-2">Slepé uličky, které jsme překonali</h2></div>
+      <div class="columns is-multiline">
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Problém 1</p><h3 class="title is-5">Invertované piny enable a prohozené signály step/direction</h3><p><strong>Příčina:</strong> mapování GPIO na desce Creality v4.2.2 neodpovídalo očekávané logice pinů v Klipperu.</p><p><strong>Řešení:</strong> invertovat pin enable pomocí <code>!</code> a opravit mapování v konfiguraci tiskárny.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Problém 2</p><h3 class="title is-5">Zpětné napájení 5 V přes USB</h3><p><strong>Příčina:</strong> Raspberry Pi napájelo desky Creality přes vodič VBUS.</p><p><strong>Řešení:</strong> zakrýt 5V pin na obou USB kabelech; propojené zůstanou pouze Data+, Data− a GND.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Problém 3</p><h3 class="title is-5">Kolize vozíku osy Y</h3><p><strong>Příčina:</strong> tištěný držák neposkytoval vozíku MGN dostatečnou vůli.</p><p><strong>Řešení:</strong> zkrátit 3D model a vytisknout upravenou konstrukci, aby měl vozík bezpečný rozsah pohybu.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><p class="aw-eyebrow mb-2">Problém 4</p><h3 class="title is-5">Teplotní drift sondy BTT Eddy Duo</h3><p><strong>Příčina:</strong> indukční sonda měnila chování podle teploty podložky a samotné sondy.</p><p><strong>Řešení:</strong> provést kompletní kalibraci <code>TEMPERATURE_PROBE_CALIBRATE</code> a vytvořit teplotní kompenzační křivku.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head"><p class="aw-eyebrow mb-2">Výzkum a experimenty</p><h2 class="title is-2">Technické experimenty za výslednou tiskárnou</h2></div>
+      <div class="columns is-multiline">
+        <div class="column is-6"><div class="box aw-card"><h3 class="title is-5">Matice POM proti vůli vs. mosazné matice</h3><p>Standardní mosazné trapézové matice mají vůli. Při průhybu šroubu se vůle projeví viditelným zvlněním osy Z na vysokých výtiscích. Porovnali jsme je s předepnutými maticemi POM, které omezují volný pohyb a nevyžadují časté mazání.</p></div></div>
+        <div class="column is-6"><div class="box aw-card"><h3 class="title is-5">Digitální měřič napnutí řemenů GT2</h3><p>Nerovnoměrné napnutí řemenů u CoreXY může zkreslit geometrii a způsobit chyby kruhovitosti. Sestavili jsme jednoduchý měřič z tenzometru kuchyňské váhy, 3D tištěných dílů a pružinového mechanismu, který pomáhá oba řemeny napnout rovnoměrně a opakovatelně.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head"><p class="aw-eyebrow mb-2">Referenční konfigurace</p><h2 class="title is-2">Praktické ukázky a externí zdroje</h2></div>
+      <div class="columns is-multiline">
+        <div class="column is-12"><div class="box aw-card"><p class="aw-eyebrow mb-3">system.cfg</p><pre><code># /boot/system.cfg
+WIFI_SSID="MyHomeWiFi"
+WIFI_PASSWD="MySecretPassword"
+hostname="TweetONE-M"</code></pre></div></div>
+        <div class="column is-12"><div class="box aw-card"><p class="aw-eyebrow mb-3">printer.cfg pro více MCU</p><pre><code>[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32f103xe_12345678-if00
+
+[mcu GD]
+serial: /dev/serial/by-id/usb-Klipper_gd32f303_87654321-if00
+
+[printer]
+kinematics: corexy
+max_velocity: 350
+max_accel: 10000
+max_z_velocity: 15
+max_z_accel: 200</code></pre></div></div>
+        <div class="column is-12"><div class="box aw-card"><p class="aw-eyebrow mb-3">Sensorless homing pro BTT Manta M8P v2.0</p><pre><code>[stepper_x]
+endstop_pin: tmc2209_stepper_x:virtual_endstop
+homing_retract_dist: 0
+
+[tmc2209 stepper_x]
+diag_pin: ^PF4
+run_current: 0.800
+driver_SGTHRS: 100</code></pre></div></div>
+      </div>
+      <div class="box aw-card mt-5">
+        <p class="aw-eyebrow mb-3">Odkazy na zdroje</p>
+        <ul class="aw-check-list">
+          <li><a href="https://www.youtube.com/@Irbis3D" target="_blank" rel="noreferrer">Irbis3D Duender CoreXY</a></li>
+          <li><a href="https://cad.onshape.com/documents/966ba2a55f3eaeb8f0d4e8fd/w/0c1629acfaec8e996b2f85eb/e/0f8e7f946d3fac114d64b84e" target="_blank" rel="noreferrer">CAD v Onshape — Duender CoreXY</a></li>
+          <li><a href="https://www.printables.com/model/1282344-duender-mgn12h-edition" target="_blank" rel="noreferrer">Printables — Duender MGN12H Edition</a></li>
+          <li><a href="https://github.com/chirpy2605/voron/blob/main/V0/Dragon_Burner/README.md" target="_blank" rel="noreferrer">DragonBurner</a></li>
+          <li><a href="https://global.bttwiki.com/M8P-V2_0.html" target="_blank" rel="noreferrer">Dokumentace BTT Manta M8P v2.0</a></li>
+          <li><a href="https://os.ratrig.com/docs/toolboards/btt/ebb-36-12/" target="_blank" rel="noreferrer">Dokumentace BTT EBB36 CANbus</a></li>
+          <li><a href="https://docs.vorondesign.com/tuning/sensorless.html" target="_blank" rel="noreferrer">Ladění sensorless homingu Voron</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Učíme se dál"
+    title="Projekt se stále vyvíjí."
+    text="Projděte si zápisy z vývoje na blogu nebo nám napište o svém 3D prototypu, úpravě tiskárny či výzvě při vývoji produktu."
+    ctaLabel="Přejít na blog"
+    ctaHref="/blog"
+  />
+</BaseLayout>

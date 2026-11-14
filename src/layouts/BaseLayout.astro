@@ -3,6 +3,8 @@ import { ClientRouter } from 'astro:transitions';
 import Footer from '../components/Footer.astro';
 import NavBar from '../components/NavBar.astro';
 import { site } from '../data/site';
+import { alternateLocaleUrls, getLocale } from '../i18n/utils';
+import { ui } from '../i18n/ui';
 import '../assets/styles/main.scss';
 
 interface Props {
@@ -21,6 +23,9 @@ const {
   schema,
 } = Astro.props;
 
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale];
+const alternateUrls = alternateLocaleUrls(Astro.url.pathname);
 const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fontUrl =
@@ -28,7 +33,7 @@ const fontUrl =
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -64,6 +69,14 @@ const fontUrl =
 
     <!-- Canonical + Open Graph -->
     <link rel="canonical" href={canonical} />
+    {
+      alternateUrls && (
+        <>
+          <link rel="alternate" hreflang="en" href={new URL(alternateUrls.en, Astro.site)} />
+          <link rel="alternate" hreflang="cs" href={new URL(alternateUrls.cs, Astro.site)} />
+        </>
+      )
+    }
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
@@ -96,7 +109,7 @@ const fontUrl =
     }
   </head>
   <body>
-    <a class="aw-skip-link" href="#main-content">Skip to main content</a>
+    <a class="aw-skip-link" href="#main-content">{text.skipToContent}</a>
     <NavBar />
     <main id="main-content">
       <slot />

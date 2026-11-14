@@ -5,6 +5,14 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://3dtweets.com',
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'cs'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [sitemap()],
   vite: {
     server: {

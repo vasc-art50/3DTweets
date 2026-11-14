@@ -2,16 +2,23 @@
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+import { getLocale } from '../i18n/utils';
+import { ui } from '../i18n/ui';
+
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale].form;
 ---
 
 <BaseLayout
-  title="Contact"
-  description="Get in touch about a custom 3D model, prototype, print project, or printer setup question."
+  title={text.contact}
+  description={locale === 'cs'
+    ? 'Ozvěte se nám s poptávkou 3D modelu, prototypu, zakázkového tisku nebo s dotazem k nastavení tiskárny.'
+    : 'Get in touch about a custom 3D model, prototype, print project, or printer setup question.'}
 >
   <PageHero
-    eyebrow="Contact"
-    title="Let’s talk."
-    subtitle="Tell us what you need and we will suggest the most practical route from idea to print. No sales script, just honest advice."
+    eyebrow={text.contact}
+    title={text.title}
+    subtitle={text.subtitle}
     compact
   />
 
@@ -19,45 +26,49 @@ import { site } from '../data/site';
     <div class="container">
       <div class="columns">
         <div class="column is-5">
-          <h2 class="title is-4">Get in touch</h2>
+          <h2 class="title is-4">{text.getInTouch}</h2>
           <div class="aw-contact-list">
             <div>
-              <p class="aw-contact-label mb-1">Location</p>
-              <p>{site.address}</p>
+              <p class="aw-contact-label mb-1">{text.location}</p>
+              <p>{locale === 'cs' ? 'Praha · Česká republika' : site.address}</p>
             </div>
             <div>
               <p class="aw-contact-label mb-1">Email</p>
               <a href={`mailto:${site.email}`}>{site.email}</a>
             </div>
             <div>
-              <p class="aw-contact-label mb-1">Working hours</p>
+              <p class="aw-contact-label mb-1">{text.workingHours}</p>
               <p>
-                Mon–Fri · 09:00–18:00<br />
-                Sat · By appointment<br />
-                Sun · Closed
+                {text.hours}<br />
+                {text.saturday}<br />
+                {text.sunday}
               </p>
             </div>
           </div>
 
           <div class="aw-notice mt-5">
-            Prefer to send a sketch or a model reference? Include a short summary
-            and we will help you decide the best next step.
+            {text.notice}
           </div>
         </div>
 
         <div class="column is-6 is-offset-1">
-          <h2 class="title is-4">Send a message</h2>
+          <h2 class="title is-4">{text.sendMessage}</h2>
 
-          <form id="contact-form" data-email={site.email}>
+          <form
+            id="contact-form"
+            data-email={site.email}
+            data-subject-label={text.subject}
+            data-opening-status={text.openingEmail}
+          >
             <div class="field">
-              <label class="label" for="contact-name">Name</label>
+              <label class="label" for="contact-name">{text.name}</label>
               <div class="control">
                 <input
                   class="input"
                   id="contact-name"
                   name="name"
                   type="text"
-                  placeholder="Your name"
+                  placeholder={text.namePlaceholder}
                   autocomplete="name"
                   required
                 />
@@ -65,14 +76,14 @@ import { site } from '../data/site';
             </div>
 
             <div class="field">
-              <label class="label" for="contact-email">Email</label>
+              <label class="label" for="contact-email">{text.email}</label>
               <div class="control">
                 <input
                   class="input"
                   id="contact-email"
                   name="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder={text.emailPlaceholder}
                   autocomplete="email"
                   required
                 />
@@ -80,37 +91,33 @@ import { site } from '../data/site';
             </div>
 
             <div class="field">
-              <label class="label" for="contact-interest">I am interested in</label>
+              <label class="label" for="contact-interest">{text.interest}</label>
               <div class="control">
                 <div class="select is-fullwidth">
                   <select id="contact-interest" name="interest">
-                    <option>3D design &amp; CAD</option>
-                    <option>Custom 3D printing</option>
-                    <option>Prototype development</option>
-                    <option>Printer tuning &amp; upgrades</option>
-                    <option>Not sure yet</option>
+                    {text.interests.map((interest) => <option>{interest}</option>)}
                   </select>
                 </div>
               </div>
             </div>
 
             <div class="field">
-              <label class="label" for="contact-message">Message</label>
+              <label class="label" for="contact-message">{text.message}</label>
               <div class="control">
                 <textarea
                   class="textarea"
                   id="contact-message"
                   name="message"
-                  placeholder="Tell us about your idea, dimensions, material, and timeline."
+                  placeholder={text.messagePlaceholder}
                   rows="5"
                   required></textarea>
               </div>
-              <p class="help">We usually reply within one to two working days.</p>
+              <p class="help">{text.replyTime}</p>
             </div>
 
             <div class="field">
               <div class="control">
-                <button class="button is-primary" type="submit">Send message</button>
+                <button class="button is-primary" type="submit">{text.send}</button>
               </div>
             </div>
 
@@ -138,13 +145,15 @@ import { site } from '../data/site';
     const interest = String(data.get('interest') ?? '');
     const message = String(data.get('message') ?? '');
 
-    const subject = encodeURIComponent(`Website enquiry: ${interest}`);
+    const subjectLabel = form.dataset.subjectLabel ?? 'Website enquiry';
+    const openingStatus = form.dataset.openingStatus ?? 'Opening your email client…';
+    const subject = encodeURIComponent(`${subjectLabel}: ${interest}`);
     const body = encodeURIComponent(`${message}\n\n— ${name} (${from})`);
 
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
 
     if (status) {
-      status.textContent = 'Opening your email client…';
+      status.textContent = openingStatus;
     }
   });
 </script>

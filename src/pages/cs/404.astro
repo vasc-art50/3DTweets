@@ -1,0 +1,17 @@
+---
+import PageHero from '../../components/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLocale, localeUrl } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+
+const text = ui[getLocale(Astro.currentLocale)].notFound;
+---
+
+<BaseLayout title={text.title} description={text.description}>
+  <PageHero eyebrow={text.eyebrow} title={text.heading} subtitle={text.subtitle} compact>
+    <div class="buttons is-centered mt-5">
+      <a class="button is-primary is-medium" href={localeUrl('cs', '/')}>{text.home}</a>
+      <a class="button is-medium is-outlined" href={localeUrl('cs', '/contact')}>{text.contact}</a>
+    </div>
+  </PageHero>
+</BaseLayout>

@@ -28,3 +28,24 @@ export const testimonials: Testimonial[] = [
     initials: 'PT',
   },
 ];
+
+export const testimonialsCs: Testimonial[] = [
+  {
+    quote: 'Potřebovali jsme praktický díl, který dobře vypadá, přesně sedí a nevyžaduje hodiny pokusů. Postup byl rychlý, srozumitelný a opravdu užitečný.',
+    name: 'Zákazník z dílny',
+    role: 'Prototypový projekt',
+    initials: 'ZK',
+  },
+  {
+    quote: 'Rozhodly detaily: přesnější tolerance, chytřejší geometrie a výsledný model navržený pro skutečné používání, ne jen pro dobrý dojem na obrazovce.',
+    name: 'Produktový nápad',
+    role: 'Zakázkový návrh',
+    initials: 'PN',
+  },
+  {
+    quote: 'Postupně jsme ladili geometrii i nastavení tisku, dokud neodpovídaly funkci. Ušetřilo nám to čas a výsledek je v praxi výrazně stabilnější.',
+    name: 'Tisková zkouška',
+    role: 'Dílenský projekt',
+    initials: 'TZ',
+  },
+];

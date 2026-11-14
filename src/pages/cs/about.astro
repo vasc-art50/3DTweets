@@ -1,0 +1,97 @@
+---
+import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { teamCs, valuesCs } from '../../data/team';
+---
+
+<BaseLayout
+  title="O nás"
+  description="3DTweets je tým zaměřený na 3D návrh, prototypování a funkční tisk. Věnujeme se 3D tisku a zakázkovému modelování od roku 2020."
+>
+  <PageHero
+    eyebrow="O nás"
+    title="3DTweets"
+    subtitle="Jsme mladý tým se zájmem o 3D návrh, vývoj produktů a praktický tisk. S péčí, kreativitou a důrazem na funkčnost měníme nápady v užitečné věci."
+    compact
+  />
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-7">
+          <h2 class="title is-2 mb-4">Proč to děláme</h2>
+          <div class="content">
+            <p>Naše cesta 3D tiskem začala v roce 2020 s tiskárnou Ender 3 Pro. Učili jsme se základy údržby, kalibrace i ladění — a zjistili, kolik trpělivosti vyžaduje spolehlivý výsledek.</p>
+            <p>V roce 2023 jsme přešli na Original Prusa MK4. Zrychlila náš pracovní postup a usnadnila převádění nových nápadů a modelů do praxe.</p>
+            <p>Náš cíl je jednoduchý: najít nejlepší rovnováhu mezi kvalitou tisku a vynaloženým úsilím a kreativně i přesně řešit skutečné problémy.</p>
+            <p>Vedle zakázkového modelování a tisku vyvíjíme také vlastní tiskárnu CoreXY TweetONE ze součástí dvou tiskáren Ender.</p>
+          </div>
+        </div>
+        <div class="column is-5">
+          <div class="box aw-hero-box">
+            <p class="aw-eyebrow mb-3">Ve zkratce</p>
+            <ul class="content">
+              <li>Od roku 2020: Ender 3 Pro</li>
+              <li>Od roku 2023: Original Prusa MK4</li>
+              <li>Každý den převádíme nápady do podoby vhodné pro tisk</li>
+              <li>Vyvíjíme vlastní tiskárnu CoreXY TweetONE</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Na čem nám záleží</p>
+        <h2 class="title is-2">Naše hodnoty</h2>
+      </div>
+      <div class="columns">
+        {valuesCs.map((value, index) => (
+          <div class="column is-4">
+            <div class="box aw-card">
+              <p class="aw-value-number mb-2">{String(index + 1).padStart(2, '0')}</p>
+              <h3 class="title is-5">{value.title}</h3>
+              <p>{value.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Tým</p>
+        <h2 class="title is-2">Konstruktéři, návrháři a řešitelé problémů</h2>
+        <p class="subtitle is-6">Malá dílna a důraz na výsledek, který má skutečné využití.</p>
+      </div>
+      <div class="columns">
+        {teamCs.map((member) => (
+          <div class="column is-3">
+            <div class="box aw-card">
+              <div class="is-flex is-align-items-center mb-4">
+                <span class="aw-avatar mr-4" aria-hidden="true">{member.initials}</span>
+                <div>
+                  <h3 class="title is-5 mb-1">{member.name}</h3>
+                  <p class="aw-form-note">{member.role}</p>
+                </div>
+              </div>
+              <p>{member.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Podívejte se, co tvoříme"
+    title="Nejlepší je začít rozhovorem."
+    text="Popište nám svůj nápad, součást nebo výzvu při vývoji produktu. Pomůžeme vám vybrat nejpraktičtější další krok."
+  />
+</BaseLayout>

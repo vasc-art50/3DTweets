@@ -49,3 +49,42 @@ export const services: Service[] = [
     format: 'Open project insights',
   },
 ];
+
+export const servicesCs: Service[] = [
+  {
+    title: '3D návrh a CAD modelování',
+    description: 'Z náčrtů, referencí a hrubých nápadů vytváříme přesné 3D modely připravené k tisku i praktickému použití.',
+    details: ['Od konceptu k CAD modelu', 'Geometrie připravená k tisku', 'Funkční a kompaktní návrhy'],
+    format: 'Zakázkový projekt · návrh na míru',
+  },
+  {
+    title: 'Zakázkový 3D tisk',
+    description: 'Spolehlivá aditivní výroba prototypů, náhradních dílů, dílenských přípravků i menších sérií.',
+    details: ['Prototypy a funkční díly', 'Doporučení vhodného materiálu', 'Krátké dodací lhůty'],
+    format: 'Malé série · výroba na objednávku',
+  },
+  {
+    title: 'Seřízení a úpravy tiskáren',
+    description: 'Praktická kalibrace, doporučení k údržbě a smysluplné hardwarové úpravy pro spolehlivější tisk.',
+    details: ['Seřízení první vrstvy', 'Doporučení k firmwaru a nastavení', 'Zápisy z dílenských úprav'],
+    format: 'Konzultace · podpora při nastavení',
+  },
+  {
+    title: 'Vývoj prototypů',
+    description: 'Rychle převádíme koncept do zkušebního výtisku a postupně ladíme rozměry, pevnost i použitelnost.',
+    details: ['Rychlé prototypové iterace', 'Kontrola lícování a sestavení', 'Úpravy konstrukčního návrhu'],
+    format: 'Iterativní vývoj · návrh na míru',
+  },
+  {
+    title: 'Dílenské příslušenství',
+    description: 'Navrhujeme držáky, přípravky, montážní prvky a další funkční doplňky, které zjednoduší práci v dílně.',
+    details: ['Zakázkové přípravky', 'Užitečné doplňky', 'Tisk řešení konkrétních problémů'],
+    format: 'Praktická řešení · přesně na míru',
+  },
+  {
+    title: 'Dokumentace projektů',
+    description: 'Zaznamenáváme ověřená řešení, změny i jejich důvody, aby další iterace byla jednodušší a rychlejší.',
+    details: ['Poznámky ze stavby', 'Volba materiálů', 'Sledování vylepšení'],
+    format: 'Otevřená projektová dokumentace',
+  },
+];

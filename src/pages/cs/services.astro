@@ -1,0 +1,73 @@
+---
+import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { plansCs } from '../../data/pricing';
+import { servicesCs } from '../../data/services';
+import { localeUrl } from '../../i18n/utils';
+---
+
+<BaseLayout
+  title="Služby"
+  description="3D návrh, zakázkový tisk, vývoj prototypů a ladění tiskáren pro praktické produkty i řešení do dílny."
+>
+  <PageHero
+    eyebrow="Služby a ceny"
+    title="Navrhnout. Vytisknout. Vyladit."
+    subtitle="Od prvotního nápadu po otestovaný díl nebo zakázkovou sestavu pomáháme proměnit dobrý koncept ve funkční řešení."
+    compact
+  />
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Čemu se věnujeme</p>
+        <h2 class="title is-2">Naše služby</h2>
+      </div>
+      <div class="columns is-multiline">
+        {servicesCs.map((service) => (
+          <div class="column is-4"><ServiceCard {...service} /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Možnosti spolupráce</p>
+        <h2 class="title is-2">Jasně vymezený rozsah projektu</h2>
+        <p class="subtitle is-6">Transparentní plánování, praktické iterace a žádná zbytečná složitost.</p>
+      </div>
+      <div class="columns" style="--column-gap: 1.5rem">
+        {plansCs.map((plan) => (
+          <div class="column is-4">
+            <div class:list={['box aw-card aw-plan', { 'is-highlighted': plan.highlighted }]}>
+              {plan.highlighted && <div class="aw-plan-badge">Nejčastější volba</div>}
+              <h3 class="title is-4">{plan.name}</h3>
+              <p class="aw-price mb-2">{plan.price} <span>{plan.period}</span></p>
+              <p class="mb-4">{plan.description}</p>
+              <ul class="aw-check-list mb-4">
+                {plan.features.map((feature) => <li>{feature}</li>)}
+              </ul>
+              <a
+                class:list={[
+                  'button is-fullwidth aw-plan-button',
+                  plan.highlighted ? 'is-primary' : 'is-outlined',
+                ]}
+                href={localeUrl('cs', '/contact')}
+              >Začít: {plan.name}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Nevíte, kde začít?"
+    title="Nejdřív nápad probereme, rozhodnout se můžete později."
+    text="Popište nám svůj nápad, problém nebo součást, kterou potřebujete, a navrhneme praktický postup."
+  />
+</BaseLayout>

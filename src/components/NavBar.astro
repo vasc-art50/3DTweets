@@ -1,19 +1,24 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-import { navItems, site } from '../data/site';
+import { site } from '../data/site';
+import { getLocale, localeSwitchUrl, localeUrl } from '../i18n/utils';
+import { ui } from '../i18n/ui';
 
 const currentPath = Astro.url.pathname;
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale];
 
-function isActive(href: string): boolean {
-  return href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+function isActive(path: string): boolean {
+  const href = localeUrl(locale, path);
+  return path === '/' ? currentPath === href : currentPath.startsWith(href);
 }
 ---
 
 <header>
-  <nav class="navbar aw-navbar" aria-label="Main navigation">
+  <nav class="navbar aw-navbar" aria-label={text.navigation}>
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item aw-brand" href="/">
+        <a class="navbar-item aw-brand" href={localeUrl(locale, '/')}>
           <span class="aw-brand-mark" aria-hidden="true" style="width: 34px; height: 26px;">
             {/* Simple dumbbell mark — swap for your own logo if you have one. */}
 
@@ -48,7 +53,9 @@ function isActive(href: string): boolean {
         <button
           type="button"
           class="navbar-burger"
-          aria-label="Open menu"
+          aria-label={text.openMenu}
+          data-open-label={text.openMenu}
+          data-close-label={text.closeMenu}
           aria-expanded="false"
           aria-controls="main-navbar"
         >
@@ -61,11 +68,11 @@ function isActive(href: string): boolean {
       <div id="main-navbar" class="navbar-menu">
         <div class="navbar-end">
           {
-            navItems.map((item) => (
+            text.nav.map((item) => (
               <a
-                class:list={['navbar-item', { 'is-active': isActive(item.href) }]}
-                href={item.href}
-                aria-current={isActive(item.href) ? 'page' : undefined}
+                class:list={['navbar-item', { 'is-active': isActive(item.path) }]}
+                href={localeUrl(locale, item.path)}
+                aria-current={isActive(item.path) ? 'page' : undefined}
               >
                 {item.label}
               </a>
@@ -75,7 +82,22 @@ function isActive(href: string): boolean {
             <ThemeToggle />
           </div>
           <div class="navbar-item">
-            <a class="button is-primary" href="/contact">Discuss your idea</a>
+            <a class="button is-primary" href={localeUrl(locale, '/contact')}>{text.discussIdea}</a>
+          </div>
+          <div class="navbar-item" aria-label={text.languageLabel}>
+            <a
+              class:list={['navbar-item', { 'is-active': locale === 'en' }]}
+              href={localeSwitchUrl(currentPath, 'en')}
+              lang="en"
+              aria-current={locale === 'en' ? 'page' : undefined}
+            >EN</a>
+            <span aria-hidden="true">|</span>
+            <a
+              class:list={['navbar-item', { 'is-active': locale === 'cs' }]}
+              href={localeSwitchUrl(currentPath, 'cs')}
+              lang="cs"
+              aria-current={locale === 'cs' ? 'page' : undefined}
+            >CZ</a>
           </div>
         </div>
       </div>
@@ -93,7 +115,7 @@ function isActive(href: string): boolean {
     const menu = document.getElementById('main-navbar');
     const wasOpen = burger?.getAttribute('aria-expanded') === 'true';
     burger?.setAttribute('aria-expanded', 'false');
-    burger?.setAttribute('aria-label', 'Open menu');
+    burger?.setAttribute('aria-label', burger?.dataset.openLabel ?? '');
     burger?.classList.remove('is-active');
     menu?.classList.remove('is-active');
     // Return focus to the trigger when the menu was open (Escape / outside click).
@@ -106,12 +128,12 @@ function isActive(href: string): boolean {
     const target = event.target;
     if (!(target instanceof Element)) return;
 
-    const burger = target.closest('.navbar-burger');
+    const burger = target.closest<HTMLElement>('.navbar-burger');
     if (burger) {
       const isOpen = burger.getAttribute('aria-expanded') === 'true';
       const menu = document.getElementById('main-navbar');
       burger.setAttribute('aria-expanded', String(!isOpen));
-      burger.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+      burger.setAttribute('aria-label', isOpen ? burger.dataset.openLabel ?? '' : burger.dataset.closeLabel ?? '');
       burger.classList.toggle('is-active', !isOpen);
       menu?.classList.toggle('is-active', !isOpen);
       return;

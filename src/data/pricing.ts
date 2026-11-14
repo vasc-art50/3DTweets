@@ -43,3 +43,30 @@ export const plans: Plan[] = [
     highlighted: false,
   },
 ];
+
+export const plansCs: Plan[] = [
+  {
+    name: 'Zakázkový tisk',
+    price: 'Od 40 €',
+    period: 'za projekt',
+    description: 'Rychlý a přímočarý 3D tisk jednoho dílu, zkušebního vzorku nebo malé funkční série.',
+    features: ['Doporučení materiálu a nastavení tisku', 'Jednotlivé kusy i malé série', 'Praktická kontrola lícování a tisknutelnosti'],
+    highlighted: true,
+  },
+  {
+    name: 'Návrh a prototyp',
+    price: 'Od 120 €',
+    period: 'za koncept',
+    description: 'Promyšlená cesta od nápadu přes 3D model až k vytištěnému prototypu a jeho praktickému doladění.',
+    features: ['CAD modelování a zpřesnění konceptu', 'Iterace prototypu a zkoušky tisku', 'Úpravy pro vyšší pevnost a použitelnost', 'Jasná doporučení pro realizaci'],
+    highlighted: false,
+  },
+  {
+    name: 'Vývoj produktu',
+    price: 'Individuálně',
+    period: 'nabídka na míru',
+    description: 'Pro rozsáhlejší vývoj produktu, funkční sestavy nebo podrobnější řešení pro dílnu.',
+    features: ['Kompletní návrh a prototypování', 'Ladění tisku a výběr materiálu', 'Iterace podle testů v reálném provozu', 'Dokumentace pro další úpravy'],
+    highlighted: false,
+  },
+];

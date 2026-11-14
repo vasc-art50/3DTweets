@@ -1,8 +1,11 @@
 ---
-import { navItems, site } from '../data/site';
-import { telHref } from '../utils/phone';
+import { site } from '../data/site';
+import { getLocale, localeUrl } from '../i18n/utils';
+import { ui } from '../i18n/ui';
 
 const year = new Date().getFullYear();
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale];
 ---
 
 <footer class="footer aw-footer">
@@ -10,16 +13,16 @@ const year = new Date().getFullYear();
     <div class="columns is-multiline">
       <div class="column is-5">
         <p class="title is-5 mb-2">{site.name}</p>
-        <p>{site.tagline}</p>
+        <p>{text.footerTagline}</p>
       </div>
 
       <div class="column is-3">
-        <p class="has-text-weight-semibold mb-3">Explore</p>
+        <p class="has-text-weight-semibold mb-3">{text.footerExplore}</p>
         <ul>
           {
-            navItems.map((item) => (
+            text.nav.map((item) => (
               <li class="mb-1">
-                <a href={item.href}>{item.label}</a>
+                <a href={localeUrl(locale, item.path)}>{item.label}</a>
               </li>
             ))
           }
@@ -27,19 +30,16 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="column is-4">
-        <p class="has-text-weight-semibold mb-3">Visit</p>
-        <p class="mb-1">{site.address}</p>
+        <p class="has-text-weight-semibold mb-3">{text.footerVisit}</p>
+        <p class="mb-1">{text.footerAddress}</p>
         <p class="mb-1">
           <a href={`mailto:${site.email}`}>{site.email}</a>
-        </p>
-        <p>
-          <a href={telHref(site.phone)}>{site.phone}</a>
         </p>
       </div>
     </div>
 
     <hr />
 
-    <p class="is-size-7">© {year} {site.name}. Built with Astro and Bulma.</p>
+    <p class="is-size-7">© {year} {site.name}. {text.footerCredit}</p>
   </div>
 </footer>

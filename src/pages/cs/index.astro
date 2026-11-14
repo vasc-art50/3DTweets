@@ -1,0 +1,132 @@
+---
+import CtaBand from '../../components/CtaBand.astro';
+import LatestPosts from '../../components/LatestPosts.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { servicesCs } from '../../data/services';
+import { site } from '../../data/site';
+import { testimonialsCs } from '../../data/testimonials';
+import { localeUrl } from '../../i18n/utils';
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: site.name,
+  description: '3DTweets navrhuje a vyrábí 3D modely, prototypy a funkční tištěné díly.',
+  url: site.url,
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Praha',
+    addressCountry: 'CZ',
+  },
+  areaServed: 'Česká republika',
+};
+
+const stats = [
+  { value: '2020', label: 'První tiskárna' },
+  { value: 'MK4', label: 'Současná tiskárna' },
+  { value: '3D', label: 'Návrh · tisk · realizace' },
+  { value: '∞', label: 'Nápady, které stojí za ověření' },
+];
+---
+
+<BaseLayout
+  title={site.name}
+  description="Zakázkový 3D tisk a modelování, prototypy i vývoj vlastní tiskárny TweetONE. Od prvního náčrtu k funkčnímu dílu."
+  schema={businessSchema}
+>
+  <PageHero
+    eyebrow="NAVRHNOUT · VYTISKNOUT · VYTVOŘIT"
+    title="Vylaďte si svět po svém."
+    subtitle="Z prvotních nápadů vytváříme praktické 3D modely, prototypy a tištěné díly, které řeší skutečné problémy — s rozumným poměrem kvality a náročnosti."
+  >
+    <div class="buttons mt-5">
+      <a class="button is-primary is-medium" href={localeUrl('cs', '/contact')}>Probrat váš nápad</a>
+      <a class="button is-medium is-outlined" href={localeUrl('cs', '/services')}>Prohlédnout služby</a>
+    </div>
+    <Fragment slot="aside">
+      <div class="box aw-hero-box">
+        <p class="aw-eyebrow mb-3">Na čem pracujeme</p>
+        <ul class="content">
+          <li><strong>TweetONE</strong> — experimentální tiskárna CoreXY pro skutečnou práci</li>
+          <li><strong>Re-Creator</strong> — opětovné využití materiálu a nápady do dílny</li>
+          <li><strong>Chytrá domácnost</strong> — propojená zařízení s praktickým využitím</li>
+        </ul>
+        <p class="aw-form-note mt-4">Rádi si vyměníme nápady i zkušenosti.</p>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="section aw-section" aria-label="Statistiky projektů">
+    <div class="container">
+      <div class="columns has-text-centered">
+        {stats.map((stat) => (
+          <div class="column">
+            <span class="aw-stat-number">{stat.value}</span>
+            <span class="aw-stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Čemu se věnujeme</p>
+        <h2 class="title is-2">Pro vaše 3D projekty</h2>
+        <p class="subtitle is-6">Začněme zakázkovým tiskem nebo prototypem návrhu. Náročnost přizpůsobíme tomu, co váš nápad skutečně potřebuje.</p>
+      </div>
+      <div class="columns">
+        {servicesCs.slice(0, 3).map((service) => (
+          <div class="column is-4"><ServiceCard {...service} /></div>
+        ))}
+      </div>
+      <div class="has-text-centered mt-6">
+        <a class="button is-medium is-outlined" href={localeUrl('cs', '/services')}>Všechny služby</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-7">
+          <p class="aw-quote mb-4">„Netiskneme jen proto, abychom něco vytiskli. Navrhujeme a vyrábíme díly, které řeší praktické problémy a obstojí při každodenním používání.“</p>
+          <p class="has-text-weight-semibold">Tým 3DTweets</p>
+        </div>
+        <div class="column is-5 has-text-centered">
+          <a class="button is-primary is-medium" href={localeUrl('cs', '/contact')}>Probrat váš nápad</a>
+          <p class="aw-form-note mt-3">Úvodní konzultace zdarma a bez závazků.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aw-section aw-section-alt">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">Ukázky práce</p>
+        <h2 class="title is-2">Vybrané projekty a výtisky</h2>
+        <p class="subtitle is-6">Od vylepšení dílny přes koncepční prototypy až po funkční tištěné díly.</p>
+      </div>
+      <div class="columns">
+        {testimonialsCs.map((testimonial) => (
+          <div class="column is-4"><TestimonialCard {...testimonial} /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LatestPosts />
+  <CtaBand
+    eyebrow="Až budete připraveni"
+    title="Začněme krátkým rozhovorem."
+    text="Popište nám nápad, součást nebo problém a navrhneme nejrozumnější další krok."
+    ctaLabel="Probrat váš nápad"
+    ctaHref="/contact"
+  />
+</BaseLayout>
