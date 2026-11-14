@@ -1,10 +1,12 @@
 ---
 import CtaBand from '../components/CtaBand.astro';
+import MaterialsList from '../components/MaterialsList.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { plans } from '../data/pricing';
 import { services } from '../data/services';
+import { ui } from '../i18n/ui';
 ---
 
 <BaseLayout
@@ -34,6 +36,16 @@ import { services } from '../data/services';
           ))
         }
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">{ui.en.materials.eyebrow}</p>
+        <h2 class="title is-2">{ui.en.materials.title}</h2>
+      </div>
+      <MaterialsList lang="en" />
     </div>
   </section>
 

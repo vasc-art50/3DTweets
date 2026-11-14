@@ -1,0 +1,97 @@
+---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+interface Props {
+  lang: 'en' | 'cs';
+}
+
+interface Material {
+  name: string;
+  manufacturer: string;
+  type: string;
+  description: string;
+}
+
+const { lang } = Astro.props;
+const materialsPath = resolve(process.cwd(), 'src', 'data', lang, 'materials.csv');
+const csv = readFileSync(materialsPath, 'utf8').replace(/^\uFEFF/, '');
+
+// Source material list: https://3dtweets.webnode.cz/seznam-materialu/
+function parseMaterials(source: string): Material[] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < source.length; i += 1) {
+    const character = source[i];
+
+    if (inQuotes) {
+      if (character === '"' && source[i + 1] === '"') {
+        field += '"';
+        i += 1;
+      } else if (character === '"') {
+        inQuotes = false;
+      } else {
+        field += character;
+      }
+    } else if (character === '"' && field.length === 0) {
+      inQuotes = true;
+    } else if (character === ';') {
+      row.push(field);
+      field = '';
+    } else if (character === '\n' || character === '\r') {
+      row.push(field);
+      if (row.some((value) => value.trim() !== '')) rows.push(row);
+      row = [];
+      field = '';
+      if (character === '\r' && source[i + 1] === '\n') i += 1;
+    } else {
+      field += character;
+    }
+  }
+
+  if (inQuotes) throw new Error(`Unclosed quoted field in ${materialsPath}`);
+  row.push(field);
+  if (row.some((value) => value.trim() !== '')) rows.push(row);
+
+  const header = rows.shift();
+  if (header?.join(';') !== 'name;manufacturer;type;description') {
+    throw new Error(`Invalid materials CSV header in ${materialsPath}`);
+  }
+
+  return rows.map((fields, index) => {
+    if (fields.length !== 4) {
+      throw new Error(`Expected 4 columns on CSV row ${index + 2} in ${materialsPath}`);
+    }
+
+    const [name, manufacturer, type, description] = fields;
+    return { name, manufacturer, type, description };
+  });
+}
+
+const materials = parseMaterials(csv);
+---
+
+<div class="columns is-multiline is-variable is-6">
+  {
+    materials.map((item) => (
+      <div class="column is-6-tablet is-12-mobile">
+        <div
+          style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding-bottom: 1rem; border-bottom: 1px solid var(--bulma-border, rgba(128, 128, 128, 0.25));"
+        >
+          <div
+            style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.4rem;"
+          >
+            <span><strong>{item.name}</strong> - <em>{item.manufacturer}</em></span>
+            <strong style="text-transform: uppercase; white-space: nowrap; color: var(--aw-accent);">
+              {item.type}
+            </strong>
+          </div>
+          <p class="is-size-6">{item.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

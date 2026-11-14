@@ -1,10 +1,12 @@
 ---
 import CtaBand from '../../components/CtaBand.astro';
+import MaterialsList from '../../components/MaterialsList.astro';
 import PageHero from '../../components/PageHero.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { plansCs } from '../../data/pricing';
 import { servicesCs } from '../../data/services';
+import { ui } from '../../i18n/ui';
 import { localeUrl } from '../../i18n/utils';
 ---
 
@@ -30,6 +32,16 @@ import { localeUrl } from '../../i18n/utils';
           <div class="column is-4"><ServiceCard {...service} /></div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="aw-section-head">
+        <p class="aw-eyebrow mb-2">{ui.cs.materials.eyebrow}</p>
+        <h2 class="title is-2">{ui.cs.materials.title}</h2>
+      </div>
+      <MaterialsList lang="cs" />
     </div>
   </section>
 

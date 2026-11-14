@@ -19,6 +19,10 @@ export const ui = {
       description: 'Search across all articles, guides, and pages on 3DTweets.',
       placeholder: 'Search…',
     },
+    materials: {
+      eyebrow: 'What we print with',
+      title: 'Our materials',
+    },
     skipToContent: 'Skip to main content',
     footerExplore: 'Explore',
     footerVisit: 'Visit',
@@ -94,6 +98,10 @@ export const ui = {
       title: 'Hledat',
       description: 'Prohledávejte články, návody a stránky webu 3DTweets.',
       placeholder: 'Hledat…',
+    },
+    materials: {
+      eyebrow: 'S čím tiskneme',
+      title: 'Naše materiály',
     },
     skipToContent: 'Přejít k hlavnímu obsahu',
     footerExplore: 'Prozkoumejte',
