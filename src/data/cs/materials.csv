@@ -1,9 +1,28 @@
-name;manufacturer;type;description
-Galaxy Black;Průša Original;PLA;Černá jako noc s třpytkami zářícími jako hvězdy na noční obloze
-Prusament PETG Jet Black;Prusa Research;PETG;Odolný filament pro pevné funkční díly s vysokou houževnatostí
-Prusament ASA Natural;Prusa Research;ASA;Materiál odolný vůči UV záření a povětrnostním vlivům pro venkovní použití
-Fillamentum Extrafill PLA Traffic White;Fillamentum;PLA;Snadno tisknutelný PLA sytě bílé barvy pro přesné modely a prototypy
-Prusament PC Blend;Prusa Research;PC Blend;"Odolný materiál; zachovává si pevnost i při vyšších teplotách."
-Fillamentum Flexfill TPU 95A;Fillamentum;TPU 95A;Pružný filament pro tlumicí prvky kryty a další ohebné součásti
-Prusament PLA Mystic Green;Prusa Research;PLA;Sytá zelená barva pro detailní výtisky s hladkým povrchem
-Prusament PETG Urban Grey;Prusa Research;PETG;Univerzální šedý PETG vhodný pro odolné díly i praktické prototypy
+name,manufacturer,type,description
+Prusament PLA Blend Royal Blue,Prusa Research,PLA Blend,"Královsky modrá s jemným leskem, ve které i obyčejný držák na kabely vypadá jako korunovační klenot."
+Prusament PLA Prusa Galaxy Black,Prusa Research,PLA,Černá jako noc s třpytkami zářícími jako hvězdy na noční obloze.
+Prusament PLA Galaxy Silver,Prusa Research,PLA,"Stříbrná s jemným třpytem, která dodá výtiskům technický šmrnc a skvěle maskuje jednotlivé vrstvy."
+Prusament PLA Lipstick Red,Prusa Research,PLA,"Sytě červená s lehkým leskem – tak výrazná, že ji v dílně nepřehlédnete ani bez brýlí."
+Prusament PLA Vanilla White,Prusa Research,PLA,"Teplá krémově bílá připomínající vanilkovou zmrzlinu, ideální pro čisté interiérové a designové díly."
+Prusament PLA Prusa Orange,Prusa Research,PLA,Legendární průšovská oranžová – neoficiální národní barva všech 3D tiskařů a dílenských vylepšení.
+Prusament PLA Blend Lime Green,Prusa Research,PLA Blend,"Svěží limetkově zelená s hedvábným odleskem, která probudí i ten nejnudnější technický výtisk."
+Prusament PLA Blend Oh My Gold,Prusa Research,PLA Blend,"Zářivě zlatá s kovovým nádechem pro trofeje, sošky a součástky s pořádnou dávkou luxusu."
+Prusament PLA Blend Viva La Bronze,Prusa Research,PLA Blend,"Ušlechtilý bronzový odstín s kovovým leskem, se kterým každá busta vypadá jako z muzea."
+Prusament PLA Gravity Grey,Prusa Research,PLA,"Neutrální technická šedá, na které perfektně vynikne každý detail, hrana i konstrukční záměr."
+Prusament PLA Simply Green,Prusa Research,PLA,"Poctivá sytě zelená bez zbytečných příkras – ideální pro organizéry, krabičky a každodenní výtisky."
+Prusament PLA Blend Pearl White,Prusa Research,PLA Blend,"Perleťově bílá s jemným saténovým odleskem, která povýší každý dekorativní tisk na designový kousek."
+Prusament PLA Marble Grey,Prusa Research,PLA,Věrná imitace mramoru s drobnými tmavými zrníčky – sochu vytesáte za pár hodin bez kladiva a dláta.
+Prusament PLA Galaxy Green,Prusa Research,PLA,"Hluboká vesmírná zelená se třpytkami, ideální pro sci-fi modely, fantasy doplňky i originální krabičky."
+Prusament PLA Pristine White,Prusa Research,PLA,"Čistě sněhově bílá pro ostré kontrasty, litofany a minimalistické funkční díly."
+Prusament PETG Prusa Orange,Prusa Research,PETG,"Houževnatý a tepelně odolný PETG v ikonické oranžové – přesně ten materiál, ze kterého jsou postavené samotné tiskárny Prusa."
+Prusament PETG Jet Black,Prusa Research,PETG,"Pevný, pružný a odolný univerzál v sytě černé barvě pro mechanicky namáhané díly do dílny i ven."
+Prusament PETG Jungle Green,Prusa Research,PETG,"Odolný PETG v sytě zeleném odstínu džungle – nezalekne se deště, slunce ani hrubšího zacházení."
+Prusament PETG Ultraglow Green,Prusa Research,PETG,"Ve dne nenápadně zelený, v noci svítí jako radioaktivní poklad – ideální na vypínače a noční orientaci."
+Prusament PC Blend Carbon Fiber Black,Prusa Research,PC Blend,"Polykarbonát vyztužený uhlíkovými vlákny pro extrémní tuhost, tepelnou odolnost a matný industriální povrch bez kompromisů."
+CREALITY Hyper PLA Viva Magenta,CREALITY,Hyper PLA,"Vysokorychlostní purpurová raketa, která zvládne zběsilé akcelerace moderních tiskáren bez ztráty kvality."
+Alzament PLA Basic White,Alza,PLA Basic,"Spolehlivá základní bílá pro rychlé prototypy, zkušební tisky a všední dílenské pomocníky."
+Alzament Hyper PLA+ Blue,Alza,Hyper PLA+,"Zpevněný rychlotiskový modrý filament, který drží tvar i při vysokých rychlostech a nezruinuje rozpočet."
+Alzament PLA Basic Beige,Alza,PLA,"Příjemná neutrální béžová pro architektonické modely, organizéry a díly, které nemají křičet do světa."
+Alzament PLA Basic Brown,Alza,PLA,"Zemitá hnědá ideální pro terénní modely, držáky na nářadí nebo stylové stojánky s přírodním nádechem."
+Alzament PLA Silk Silver,Alza,PLA Silk,"Hedvábně lesklá stříbrná, díky které obyčejný plastový výtisk klame tělem jako leštěný kov."
+Alzament PLA Basic Black,Alza,PLA,Klasická matnější černá pro každodenní tisk – protože černého filamentu není v dílně nikdy dost.

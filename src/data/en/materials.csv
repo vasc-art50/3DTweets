@@ -1,9 +1,28 @@
-name;manufacturer;type;description
-Galaxy Black;Prusa Original;PLA;Pitch black with subtle glitter sparkling like stars in the night sky
-Prusament PETG Jet Black;Prusa Research;PETG;Tough filament for strong functional parts with excellent impact resistance
-Prusament ASA Natural;Prusa Research;ASA;UV- and weather-resistant material for durable outdoor parts
-Fillamentum Extrafill PLA Traffic White;Fillamentum;PLA;Easy-to-print bright white PLA for precise models and prototypes
-Prusament PC Blend;Prusa Research;PC Blend;"Durable engineering material; keeps its strength at elevated temperatures."
-Fillamentum Flexfill TPU 95A;Fillamentum;TPU 95A;Flexible filament for cushioning components housings and other resilient parts
-Prusament PLA Mystic Green;Prusa Research;PLA;Rich green PLA for detailed prints with a smooth finish
-Prusament PETG Urban Grey;Prusa Research;PETG;Versatile grey PETG for durable parts and practical prototypes
+name,manufacturer,type,description
+Prusament PLA Blend Royal Blue,Prusa Research,PLA Blend,Royal blue with a subtle sheen that makes even a simple cable clip look like a crown jewel.
+Prusament PLA Prusa Galaxy Black,Prusa Research,PLA,Pitch black with subtle glitter sparkling like stars in the night sky.
+Prusament PLA Galaxy Silver,Prusa Research,PLA,Silver with a fine sparkle that gives prints a sleek technical look and effortlessly hides layer lines.
+Prusament PLA Lipstick Red,Prusa Research,PLA,Vibrant glossy red – so bold you will spot your parts across the workshop without your glasses.
+Prusament PLA Vanilla White,Prusa Research,PLA,"Warm creamy white reminiscent of vanilla ice cream, ideal for clean interior and design pieces."
+Prusament PLA Prusa Orange,Prusa Research,PLA,The legendary Prusa orange – the unofficial national color of 3D printing enthusiasts and workshop upgrades.
+Prusament PLA Blend Lime Green,Prusa Research,PLA Blend,Zesty lime green with a silky sheen that wakes up even the dullest functional print.
+Prusament PLA Blend Oh My Gold,Prusa Research,PLA Blend,"Radiant metallic gold for trophies, figurines, and parts that deserve a healthy dose of luxury."
+Prusament PLA Blend Viva La Bronze,Prusa Research,PLA Blend,Noble bronze shade with a metallic luster that makes every bust look straight out of a museum.
+Prusament PLA Gravity Grey,Prusa Research,PLA,"Neutral technical grey that brings out every crisp detail, chamfer, and engineering feature."
+Prusament PLA Simply Green,Prusa Research,PLA,"Honest, solid green without unnecessary frills – great for organizers, enclosures, and everyday prints."
+Prusament PLA Blend Pearl White,Prusa Research,PLA Blend,Pearlescent white with a soft satin shimmer that elevates any decorative print into a design piece.
+Prusament PLA Marble Grey,Prusa Research,PLA,Realistic marble look with fine dark speckles – sculpt a classic statue in hours without a hammer or chisel.
+Prusament PLA Galaxy Green,Prusa Research,PLA,"Deep cosmic green infused with subtle glitter, ideal for sci-fi models, fantasy props, and unique cases."
+Prusament PLA Pristine White,Prusa Research,PLA,"Crisp snow white made for sharp contrasts, lithophanes, and minimalist functional parts."
+Prusament PETG Prusa Orange,Prusa Research,PETG,"Tough, heat-resistant PETG in iconic orange – the exact material Prusa printers themselves are built from."
+Prusament PETG Jet Black,Prusa Research,PETG,"Strong, slightly flexible all-rounder in deep black for mechanically stressed parts indoors and out."
+Prusament PETG Jungle Green,Prusa Research,PETG,"Durable PETG in lush jungle green – unbothered by rain, sunshine, or rough handling."
+Prusament PETG Ultraglow Green,Prusa Research,PETG,"Subtle green by day, glows like a radioactive treasure at night – ideal for light switches and night markers."
+Prusament PC Blend Carbon Fiber Black,Prusa Research,PC Blend,"Carbon-fiber-reinforced polycarbonate for extreme stiffness, heat resistance, and a matte industrial finish without compromise."
+CREALITY Hyper PLA Viva Magenta,CREALITY,Hyper PLA,High-speed magenta rocket engineered to handle the wild accelerations of modern printers without losing quality.
+Alzament PLA Basic White,Alza,PLA Basic,"Reliable basic white for rapid prototypes, test prints, and everyday workshop helpers."
+Alzament Hyper PLA+ Blue,Alza,Hyper PLA+,Toughened high-speed blue filament that holds its shape at high print speeds without breaking the budget.
+Alzament PLA Basic Beige,Alza,PLA,"Pleasant neutral beige for architectural models, organizers, and parts that don't need to shout for attention."
+Alzament PLA Basic Brown,Alza,PLA,"Earthy brown ideal for terrain models, tool holders, or stylish stands with a natural vibe."
+Alzament PLA Silk Silver,Alza,PLA Silk,Silky glossy silver that fools the eye into thinking an ordinary plastic print is polished metal.
+Alzament PLA Basic Black,Alza,PLA,Classic everyday black – because you can never have too much black filament in the workshop.
