@@ -1,7 +1,9 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import type { CollectionEntry } from 'astro:content';
 import Footer from '../components/Footer.astro';
 import NavBar from '../components/NavBar.astro';
+import StructuredData from '../components/seo/StructuredData.astro';
 import { site } from '../data/site';
 import { alternateLocaleUrls, getLocale } from '../i18n/utils';
 import { ui } from '../i18n/ui';
@@ -12,8 +14,9 @@ interface Props {
   description?: string;
   /** Open Graph type, e.g. "website" (default) or "article" for blog posts. */
   ogType?: string;
-  /** JSON-LD structured data (e.g. HealthClub, BlogPosting). Serialized as-is. */
+  /** Additional business data merged into the shared Organization schema. */
   schema?: Record<string, unknown>;
+  post?: CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
 }
 
 const {
@@ -21,6 +24,7 @@ const {
   description = site.description,
   ogType = 'website',
   schema,
+  post,
 } = Astro.props;
 
 const locale = getLocale(Astro.currentLocale);
@@ -103,11 +107,7 @@ const fontUrl =
 
     <ClientRouter />
 
-    {
-      schema && (
-        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-      )
-    }
+    <StructuredData schema={schema} post={post} />
   </head>
   <body>
     <a class="aw-skip-link" href="#main-content">{text.skipToContent}</a>

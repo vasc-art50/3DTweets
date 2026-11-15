@@ -1,15 +1,23 @@
 {
-  "name": "astro-wellness",
+  "name": "3dtweets",
   "type": "module",
   "version": "0.0.1",
-  "description": "Modern dark/light gym template built with Astro and Bulma. Multi-page site with blog, services, pricing, testimonials, SEO and accessibility baked in.",
+  "description": "3DTweets develops custom 3D designs, functional prototypes, and short-run printed parts.",
   "license": "MIT",
-  "author": "Domenico Tenace",
+  "author": "3DTweets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vasc-art50/3DTweets.git"
+  },
   "keywords": [
     "astro",
-    "astro-template",
+    "3d-printing",
+    "3d-design",
+    "prototyping",
     "bulma",
-    "gym",
+    "corexy",
+    "klipper",
+    "esp32",
     "template",
     "typescript",
     "ssg"

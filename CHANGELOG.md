@@ -17,12 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Client-side page navigation with fade transitions via Astro
   `<ClientRouter />` (scripts use document-level event delegation so burger and
   theme toggle survive SPA transitions).
-- Gym template pages: Home (hero, stats, services, testimonials), About,
-  Services with pricing plans, Blog, Contact, custom 404.
-- Blog section backed by Astro Content Collections with three starter
-  Markdown posts and an auto-generated RSS feed.
+- Core site pages: Home, About, Services, Blog, Contact, and custom 404, with
+  English and Czech routes.
+- Blog backed by Astro Content Collections with project articles in English and
+  Czech and an auto-generated RSS feed.
 - SEO: canonical URLs, Open Graph (`website`/`article`), JSON-LD
-  (`HealthClub` on the home page, `BlogPosting` on posts), sitemap, `robots.txt`.
+  (`Organization`/`ProfessionalService`, `BlogPosting`, and model metadata),
+  sitemap, `robots.txt`, and `llms.txt`.
 - `prefers-reduced-motion` support for all animations and transitions.
 - Accessibility: skip-to-content link, `aria-current` on the active nav item,
   visible `:focus-visible` styles, form labels with `required`/`autocomplete`,
@@ -35,11 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Contact details replaced with clearly fictitious placeholders
-  (`hello@example.com`, `123 Example Street · Example City, EX`).
-
-- Reworked the site from a wellness-adjacent starter into a bold dark theme
-  with an adaptive light theme and a gym-focused, orange-accented palette.
+- Reworked the starter into a 3D design and printing portfolio, with a bold
+  dark theme, adaptive light theme, and orange accent.
 - Inter loaded from Google Fonts with a non-blocking async pattern
   (preconnect + preload + `media="print" onload`).
 - Navbar burger rendered as a native `<button>` with correct `aria-expanded`

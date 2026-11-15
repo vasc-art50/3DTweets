@@ -1,0 +1,29 @@
+# 3DTweets
+
+> Independent 3D design, custom functional prototypes, and practical 3D printing from Prague, Czech Republic.
+
+3DTweets creates original CAD designs, functional prototypes, and short-run parts printed with technical filaments including PLA, PETG, ASA, and TPU. The workshop also builds custom CoreXY printers running Klipper and develops smart-home integrations using ESP32, Tuya, and RF.
+
+The project has been operating since 2020. The workshop uses Prusa MK4 printers alongside a custom CoreXY machine.
+
+## Main pages
+
+- [Home — English](https://3dtweets.com/)
+- [Domů — česky](https://3dtweets.com/cs/)
+- [Services — English](https://3dtweets.com/services/)
+- [Služby — česky](https://3dtweets.com/cs/services/)
+- [Blog, projects, and models — English](https://3dtweets.com/blog/)
+- [Blog, projekty a modely — česky](https://3dtweets.com/cs/blog/)
+- [Contact — English](https://3dtweets.com/contact/)
+- [Kontakt — česky](https://3dtweets.com/cs/contact/)
+
+## Featured projects and models
+
+- **TweetONE CoreXY** — a custom CoreXY 3D printer built around a BTT Manta M8P and Klipper.
+- **Warema EWFS ESP32-S3 Controller** — integrates Warema blinds with Tuya SmartLife using an ESP32-S3 and CC1101 RF module. [English project article](https://3dtweets.com/blog/esp32_s3_tuya_ble_warema_blinds_controller_documentation/)
+- **Henry's Shave: Medieval Pedestal for Philips OneBlade** — an original 3D-printable model. [Printables model](https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad)
+- [3DTweets models on Printables](https://www.printables.com/@Vaclav_757444/models)
+
+## Languages
+
+The website's default language is English. Czech translations are published under `/cs/`. Blog posts document real printer builds, electronics, smart-home integrations, and downloadable 3D models.

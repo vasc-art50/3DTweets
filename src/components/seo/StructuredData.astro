@@ -1,0 +1,124 @@
+---
+import { getImage } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { site } from '../../data/site';
+import { getLocale } from '../../i18n/utils';
+
+interface Props {
+  schema?: Record<string, unknown>;
+  post?: CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
+}
+
+const { schema, post } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const organizationId = `${site.url}/#organization`;
+const printablesProfile = 'https://www.printables.com/@Vaclav_757444/models';
+
+const organization = {
+  '@type': ['Organization', 'ProfessionalService'],
+  '@id': organizationId,
+  name: site.name,
+  url: site.url,
+  description: site.description,
+  foundingDate: '2020',
+  knowsLanguage: ['en', 'cs'],
+  sameAs: [printablesProfile],
+};
+
+let graph: Record<string, unknown>[];
+
+if (post) {
+  const image = post.data.heroImage ?? post.data.gallery?.[0];
+  const optimizedImage = image
+    ? await getImage({
+        src: image,
+        width: Math.min(image.width, 1200),
+        format: 'webp',
+      })
+    : undefined;
+  const canonicalUrl = new URL(Astro.url.pathname, site.url).href;
+  const authorName = post.data.author?.trim() || 'Václav';
+  const author = { '@type': 'Person', name: authorName };
+  const printablesUrl = post.data.printablesUrl?.trim();
+  const material = post.data.printSpecs?.material?.trim();
+  const modelPost =
+    post.data.category === 'our-models' || Boolean(printablesUrl);
+  const absoluteImage = optimizedImage
+    ? new URL(optimizedImage.src, site.url).href
+    : new URL('/og-image.png', site.url).href;
+
+  graph = [
+    organization,
+    {
+      '@type': ['BlogPosting', 'TechArticle'],
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.pubDate.toISOString(),
+      ...(post.data.updatedDate && {
+        dateModified: post.data.updatedDate.toISOString(),
+      }),
+      inLanguage: locale,
+      author,
+      publisher: { '@id': organizationId },
+      ...(absoluteImage && { image: absoluteImage }),
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+      url: canonicalUrl,
+    },
+    ...(modelPost
+      ? [
+          {
+            '@type': 'CreativeWork',
+            name: post.data.title,
+            description: post.data.description,
+            inLanguage: locale,
+            author,
+            ...(material && { material }),
+            ...(absoluteImage && { image: absoluteImage }),
+            ...(printablesUrl && {
+              sameAs: printablesUrl,
+              isBasedOn: printablesUrl,
+            }),
+            url: canonicalUrl,
+          },
+        ]
+      : []),
+  ];
+} else {
+  const additionalTypes = schema?.['@type'];
+  const schemaTypes =
+    typeof additionalTypes === 'string'
+      ? [additionalTypes]
+      : Array.isArray(additionalTypes)
+        ? additionalTypes.filter(
+            (type): type is string => typeof type === 'string',
+          )
+        : [];
+  const existingSameAs = schema?.sameAs;
+  const schemaLinks =
+    typeof existingSameAs === 'string'
+      ? [existingSameAs]
+      : Array.isArray(existingSameAs)
+        ? existingSameAs.filter(
+            (link): link is string => typeof link === 'string',
+          )
+        : [];
+
+  graph = [
+    {
+      ...organization,
+      ...schema,
+      '@context': undefined,
+      '@type': [...new Set([...organization['@type'], ...schemaTypes])],
+      '@id': organizationId,
+      sameAs: [...new Set([...organization.sameAs, ...schemaLinks])],
+    },
+  ];
+}
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': graph,
+}).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={jsonLd}></script>

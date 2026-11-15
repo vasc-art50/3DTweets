@@ -14,7 +14,15 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [sitemap(), pagefind()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', cs: 'cs' },
+      },
+    }),
+    pagefind(),
+  ],
   vite: {
     server: {
       watch: {

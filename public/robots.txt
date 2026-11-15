@@ -1,6 +1,19 @@
-# Allow all crawlers by default.
 User-agent: *
 Allow: /
 
-# TODO: replace example.com with your real domain when you deploy.
-Sitemap: https://www.3dtweets.com/sitemap-index.xml
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://3dtweets.com/sitemap-index.xml

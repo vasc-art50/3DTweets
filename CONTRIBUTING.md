@@ -1,7 +1,6 @@
 # Contributing to 3D Tweets
 
-Thanks for helping out! This document outlines how to contribute to the Astro
-Wellness gym template.
+Thanks for helping improve the bilingual 3DTweets project portfolio.
 
 ## Getting Started
 
@@ -53,7 +52,7 @@ Keep changes consistent with the existing codebase:
    title: "My Post Title"
    description: "Short summary shown on the blog listing page."
    pubDate: 2026-11-01
-   tags: [training, recovery]
+   tags: [3d-printing, projects]
    ---
 
    Your post body in Markdown here.
@@ -82,15 +81,15 @@ the full workflow, from branch to merge.
 Contributors without write access: fork the repo first, then clone your fork.
 
 ```sh
-git clone https://github.com/<you>/astro-wellness.git
-cd astro-wellness
+git clone https://github.com/<you>/3DTweets.git
+cd 3DTweets
 pnpm install
 ```
 
 Set up and sync your branch base:
 
 ```sh
-git remote add upstream https://github.com/<original-author>/astro-wellness.git  # fork only
+git remote add upstream https://github.com/vasc-art50/3DTweets.git  # fork only
 git fetch upstream
 git checkout -b feat/my-feature upstream/main
 ```
