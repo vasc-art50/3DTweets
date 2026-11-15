@@ -11,11 +11,8 @@ printSpecs:
   layerHeight: "0.20 mm"
   infill: "15 % Gyroid"
   supports: "Bez podpěr / No supports"
-gallery:
-  - ../../assets/models/henrys-shave/20260304_175705.webp
-  - ../../assets/models/henrys-shave/20260304_180012.webp
-  - ../../assets/models/henrys-shave/20260304_175626.webp
-  
+heroImage: ../../assets/models/henrys-shave/20260304_175705.webp
+galleryFolder: "models/henrys-shave"
 ---
 
 Koupelna je moderní prostor, ale nemusí působit neosobně. **Henry's Shave** dává holicímu strojku Philips OneBlade malý středověce laděný podstavec – každodenní věci přidá kousek atmosféry české minulosti i světa hry *Kingdom Come: Deliverance II*.

@@ -31,6 +31,8 @@ const blog = defineCollection({
   schema: ({ image }) =>
     z.object({
       ...blogFields,
+      heroImage: image().optional(),
+      galleryFolder: z.string().optional(),
       gallery: z.array(image()).optional(),
     }),
 });
@@ -40,6 +42,8 @@ const blogCs = defineCollection({
   schema: ({ image }) =>
     z.object({
       ...blogFields,
+      heroImage: image().optional(),
+      galleryFolder: z.string().optional(),
       gallery: z.array(image()).optional(),
     }),
 });

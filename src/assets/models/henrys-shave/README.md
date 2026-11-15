@@ -1,11 +1,7 @@
 # Henry's Shave photos
 
-Save the photos downloaded for this model in this folder as:
+Drop any `.webp`, `.jpg`, `.jpeg`, `.png`, or `.avif` photos in this folder. Both Henry's Shave articles use `galleryFolder: "models/henrys-shave"`, so supported images are sorted by filename and appear automatically in the thumbnail strip.
 
-- `cover.jpg`
-- `detail-1.jpg`
-- `detail-2.jpg`
+The `heroImage` entry in each article selects the initial large image and blog-card cover. Change that path to choose a different default; every other photo in this folder will follow it in the gallery.
 
-The first `gallery` entry in both `src/content/blog/henrys-shave-medieval-pedestal.md` and `src/content/blog-cs/henrys-shave-medieval-pedestal.md` is the article cover and card thumbnail. Replace its placeholder path with `../../assets/models/henrys-shave/cover.jpg`. Replace the next two entries with `../../assets/models/henrys-shave/detail-1.jpg` and `../../assets/models/henrys-shave/detail-2.jpg`. Add more paths below them to include further photos.
-
-`placeholder.webp` is a temporary site image, not a photo of the model.
+For another model, create a folder under `src/assets/models/` and set its relative path in that article's `galleryFolder`.

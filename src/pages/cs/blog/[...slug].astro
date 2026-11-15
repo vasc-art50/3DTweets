@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ModelDetailsBox from '../../../components/blog/ModelDetailsBox.astro';
+import ModelGallery from '../../../components/blog/ModelGallery.astro';
 import { formatDate } from '../../../utils/date';
 import { readingTime } from '../../../utils/reading-time';
 import { localeUrl } from '../../../i18n/utils';
@@ -47,6 +48,7 @@ const postSchema = {
         <div class="mb-6">
           {post.data.tags.map((tag) => <span class="aw-tag">#{tag}</span>)}
         </div>
+        <ModelGallery post={post} />
         <ModelDetailsBox post={post} />
         <Content />
       </article>

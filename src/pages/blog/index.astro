@@ -38,7 +38,7 @@ const posts = (await getCollection('blog')).sort(
                     tags={post.data.tags}
                     category={post.data.category}
                     printablesUrl={post.data.printablesUrl}
-                    coverImage={post.data.gallery?.[0]}
+                    coverImage={post.data.heroImage ?? post.data.gallery?.[0]}
                     href={`/blog/${post.id}/`}
                     readingTime={readingTime(post.body ?? '')}
                   />

@@ -11,10 +11,8 @@ printSpecs:
   layerHeight: "0.20 mm"
   infill: "15 % Gyroid"
   supports: "Bez podpěr / No supports"
-gallery:
-  - ../../assets/models/henrys-shave/20260304_175705.webp
-  - ../../assets/models/henrys-shave/20260304_180012.webp
-  - ../../assets/models/henrys-shave/20260304_175626.webp
+heroImage: ../../assets/models/henrys-shave/20260304_175705.webp
+galleryFolder: "models/henrys-shave"
 ---
 
 The bathroom is a modern room, but it does not have to feel anonymous. **Henry's Shave** gives the Philips OneBlade a small, medieval-inspired pedestal—an everyday object with a little of the atmosphere of Bohemia's past and the world of *Kingdom Come: Deliverance II*.

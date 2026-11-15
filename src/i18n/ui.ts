@@ -58,6 +58,8 @@ export const ui = {
       infill: 'Infill',
       supports: 'Supports',
       gallery: 'Model photos',
+      previousPhoto: 'Previous photo',
+      nextPhoto: 'Next photo',
       download: 'Download STL on Printables',
     },
     form: {
@@ -155,6 +157,8 @@ export const ui = {
       infill: 'Výplň',
       supports: 'Podpěry',
       gallery: 'Fotografie modelu',
+      previousPhoto: 'Předchozí fotografie',
+      nextPhoto: 'Další fotografie',
       download: 'Stáhnout STL na Printables',
     },
     form: {

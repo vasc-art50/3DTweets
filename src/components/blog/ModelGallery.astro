@@ -1,0 +1,381 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getLocale } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+
+type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale].modelDetails;
+const allAssetImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const folder = post.data.galleryFolder?.replace(/^\/+|\/+$/g, '');
+const folderPrefix = folder ? `/src/assets/${folder}/` : undefined;
+const folderImages = folderPrefix
+  ? Object.entries(allAssetImages)
+      .filter(([path]) => path.startsWith(folderPrefix))
+      .sort(([first], [second]) => first.localeCompare(second))
+      .map(([, image]) => image.default)
+  : [];
+const legacyImages = post.data.gallery ?? [];
+const sourceImages = folderImages.length > 0 ? folderImages : legacyImages;
+const mainImage = post.data.heroImage ?? legacyImages[0] ?? folderImages[0];
+const images: ImageMetadata[] = [];
+const seenSources = new Set<string>();
+
+if (mainImage) {
+  images.push(mainImage);
+  seenSources.add(mainImage.src);
+}
+
+for (const image of sourceImages) {
+  if (!seenSources.has(image.src)) {
+    images.push(image);
+    seenSources.add(image.src);
+  }
+}
+
+const outputDimensions = (image: ImageMetadata, maxDimension: number) => {
+  const scale = Math.min(1, maxDimension / Math.max(image.width, image.height));
+  return {
+    width: Math.max(1, Math.round(image.width * scale)),
+    height: Math.max(1, Math.round(image.height * scale)),
+  };
+};
+
+const slides = await Promise.all(
+  images.map(async (image, index) => {
+    const [full, thumbnail] = await Promise.all([
+      getImage({
+        src: image,
+        ...outputDimensions(image, 1600),
+        format: 'webp',
+        quality: 82,
+      }),
+      getImage({
+        src: image,
+        ...outputDimensions(image, 300),
+        format: 'webp',
+        quality: 75,
+      }),
+    ]);
+
+    return {
+      fullSrc: full.src,
+      fullWidth: full.width,
+      fullHeight: full.height,
+      thumbnailSrc: thumbnail.src,
+      thumbnailWidth: thumbnail.width,
+      thumbnailHeight: thumbnail.height,
+      alt: `${post.data.title} — ${text.gallery} ${index + 1}`,
+    };
+  }),
+);
+---
+
+{
+  slides.length > 0 && (
+    <div
+      class="model-gallery mb-6"
+      data-model-gallery
+      data-active-index="0"
+      role="region"
+      aria-label={text.gallery}
+      tabindex="0"
+    >
+      <div class="hero-stage">
+        <img
+          class="hero-stage__background"
+          src={slides[0].fullSrc}
+          width={slides[0].fullWidth}
+          height={slides[0].fullHeight}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+        />
+        <img
+          class="hero-stage__image"
+          src={slides[0].fullSrc}
+          width={slides[0].fullWidth}
+          height={slides[0].fullHeight}
+          alt={slides[0].alt}
+          data-gallery-image
+          loading="eager"
+          decoding="async"
+        />
+        {slides.length > 1 && (
+          <>
+            <button
+              class="gallery-arrow gallery-arrow--previous"
+              type="button"
+              data-gallery-previous
+              aria-label={text.previousPhoto}
+            >
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button
+              class="gallery-arrow gallery-arrow--next"
+              type="button"
+              data-gallery-next
+              aria-label={text.nextPhoto}
+            >
+              <span aria-hidden="true">›</span>
+            </button>
+          </>
+        )}
+      </div>
+
+      {slides.length > 1 && (
+        <div class="thumbnail-strip" role="group" aria-label={text.gallery}>
+          {slides.map((slide, index) => (
+            <button
+              class="thumbnail"
+              type="button"
+              data-gallery-thumb
+              data-gallery-index={index}
+              data-full-src={slide.fullSrc}
+              data-full-width={slide.fullWidth}
+              data-full-height={slide.fullHeight}
+              data-full-alt={slide.alt}
+              aria-label={`${text.gallery} ${index + 1}`}
+              aria-pressed={index === 0 ? 'true' : 'false'}
+            >
+              <span class="thumbnail__frame">
+                <img
+                  class="thumbnail__background"
+                  src={slide.thumbnailSrc}
+                  width={slide.thumbnailWidth}
+                  height={slide.thumbnailHeight}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  class="thumbnail__image"
+                  src={slide.thumbnailSrc}
+                  width={slide.thumbnailWidth}
+                  height={slide.thumbnailHeight}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+<script is:inline>
+  (() => {
+    if (document.documentElement.dataset.modelGalleryInitialized) return;
+    document.documentElement.dataset.modelGalleryInitialized = 'true';
+
+    const showSlide = (gallery, index) => {
+      const thumbnails = Array.from(gallery.querySelectorAll('[data-gallery-thumb]'));
+      if (thumbnails.length < 2) return;
+
+      const activeIndex = ((index % thumbnails.length) + thumbnails.length) % thumbnails.length;
+      const thumbnail = thumbnails[activeIndex];
+      const image = gallery.querySelector('[data-gallery-image]');
+      const background = gallery.querySelector('.hero-stage__background');
+      if (!image || !background || !thumbnail.dataset.fullSrc) return;
+
+      image.src = thumbnail.dataset.fullSrc;
+      image.width = Number(thumbnail.dataset.fullWidth);
+      image.height = Number(thumbnail.dataset.fullHeight);
+      image.alt = thumbnail.dataset.fullAlt ?? '';
+      background.src = thumbnail.dataset.fullSrc;
+      background.width = image.width;
+      background.height = image.height;
+      gallery.dataset.activeIndex = String(activeIndex);
+
+      thumbnails.forEach((item, itemIndex) => {
+        item.setAttribute('aria-pressed', String(itemIndex === activeIndex));
+      });
+
+      thumbnail.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    };
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      const control = event.target.closest(
+        '[data-gallery-thumb], [data-gallery-previous], [data-gallery-next]',
+      );
+      const gallery = control?.closest('[data-model-gallery]');
+      if (!control || !gallery) return;
+
+      if (control.matches('[data-gallery-thumb]')) {
+        showSlide(gallery, Number(control.dataset.galleryIndex));
+        return;
+      }
+
+      const currentIndex = Number(gallery.dataset.activeIndex ?? 0);
+      showSlide(
+        gallery,
+        currentIndex + (control.matches('[data-gallery-next]') ? 1 : -1),
+      );
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!(event.target instanceof Element)) return;
+      const gallery = event.target.closest('[data-model-gallery]');
+      if (!gallery || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+
+      event.preventDefault();
+      const currentIndex = Number(gallery.dataset.activeIndex ?? 0);
+      showSlide(gallery, currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+  })();
+</script>
+
+<style>
+  .model-gallery {
+    width: 100%;
+  }
+
+  .hero-stage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--bulma-radius-large, 0.75rem);
+    background: var(--aw-ink-soft);
+  }
+
+  .hero-stage__background,
+  .hero-stage__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-stage__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    object-fit: cover;
+    filter: blur(18px) brightness(0.75);
+    transform: scale(1.15);
+    pointer-events: none;
+  }
+
+  .hero-stage__image {
+    position: relative;
+    z-index: 1;
+    object-fit: contain;
+  }
+
+  .gallery-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    place-items: center;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.48);
+    color: #fff;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .gallery-arrow:hover,
+  .gallery-arrow:focus-visible {
+    background: rgba(0, 0, 0, 0.72);
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .gallery-arrow:focus-visible,
+  .thumbnail:focus-visible {
+    outline: 2px solid var(--aw-accent, #ff6b2b);
+    outline-offset: 2px;
+  }
+
+  .gallery-arrow--previous {
+    left: 0.75rem;
+  }
+
+  .gallery-arrow--next {
+    right: 0.75rem;
+  }
+
+  .thumbnail-strip {
+    display: flex;
+    gap: 0.65rem;
+    overflow-x: auto;
+    margin-top: 0.75rem;
+    padding: 0.15rem 0.15rem 0.5rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .thumbnail {
+    position: relative;
+    display: block;
+    flex: 0 0 96px;
+    width: 96px;
+    height: 68px;
+    overflow: hidden;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: var(--aw-ink-soft);
+    cursor: pointer;
+    scroll-snap-align: start;
+  }
+
+  .thumbnail[aria-pressed='true'] {
+    border-color: var(--aw-accent, #ff6b2b);
+  }
+
+  .thumbnail__frame {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+  }
+
+  .thumbnail__background,
+  .thumbnail__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .thumbnail__background {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    filter: blur(10px) brightness(0.75);
+    transform: scale(1.15);
+    pointer-events: none;
+  }
+
+  .thumbnail__image {
+    position: relative;
+    z-index: 1;
+    object-fit: contain;
+  }
+</style>
