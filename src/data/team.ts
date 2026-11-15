@@ -10,25 +10,25 @@ export const team: TeamMember[] = [
     name: 'Design & CAD',
     role: 'Concept development',
     bio: 'We turn sketches and rough ideas into practical 3D models designed for printability, function, and tidy assembly.',
-    initials: 'DC',
+    initials: '01',
   },
   {
     name: 'Prototype Lab',
     role: 'Testing & iteration',
     bio: 'Every concept is checked against real use: fit, durability, strength, and the amount of time worth spending on a print.',
-    initials: 'PL',
+    initials: '02',
   },
   {
     name: 'Printer Setup',
     role: 'Tuning & hardware',
     bio: 'We dial in the printer, calibrate the details, and keep the workflow steady enough to bring new ideas to life faster.',
-    initials: 'PS',
+    initials: '03',
   },
   {
     name: 'Workshop Notes',
     role: 'Build logs & process',
     bio: 'We learn from every test, log the decisions that matter, and keep improving the next iteration without wasting effort.',
-    initials: 'WN',
+    initials: '04',
   },
 ];
 
@@ -60,25 +60,25 @@ export const teamCs: TeamMember[] = [
     name: 'Konstrukce a CAD',
     role: 'Vývoj konceptu',
     bio: 'Z náčrtů a prvotních představ vytváříme praktické 3D modely s ohledem na tisknutelnost, funkci i snadnou montáž.',
-    initials: 'DC',
+    initials: '01',
   },
   {
     name: 'Prototypová dílna',
     role: 'Testování a iterace',
     bio: 'Každý návrh ověřujeme v praxi: kontrolujeme lícování, odolnost, pevnost i to, kolik času dává smysl do tisku investovat.',
-    initials: 'PL',
+    initials: '02',
   },
   {
     name: 'Nastavení tiskáren',
     role: 'Ladění a hardware',
     bio: 'Kalibrujeme tiskárny a jejich detaily tak, aby byl pracovní postup spolehlivý a nové nápady šlo realizovat rychleji.',
-    initials: 'PS',
+    initials: '03',
   },
   {
     name: 'Dílenské zápisy',
     role: 'Dokumentace a postupy',
     bio: 'Z každého testu si odnášíme poznatky, zaznamenáváme důležitá rozhodnutí a zlepšujeme další iteraci bez zbytečné práce.',
-    initials: 'WN',
+    initials: '04',
   },
 ];
 
