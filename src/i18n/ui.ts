@@ -159,7 +159,7 @@ export const ui = {
     },
     form: {
       contact: 'Kontakt',
-      title: 'Ozvěte se nám.',
+      title: 'Ozvěte se nám',
       subtitle: 'Napište, co potřebujete, a navrhneme praktickou cestu od nápadu k výtisku. Bez naučených prodejních frází, na rovinu.',
       getInTouch: 'Spojte se s námi',
       location: 'Sídlo',
