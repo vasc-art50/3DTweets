@@ -637,7 +637,7 @@ main {
     font-style: italic;
   }
 
-  a {
+  a:not(.button) {
     color: var(--aw-accent);
 
     &:hover {

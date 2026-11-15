@@ -1,0 +1,98 @@
+---
+import { ui } from '../../i18n/ui';
+
+interface Props {
+  lang: 'en' | 'cs';
+}
+
+const { lang } = Astro.props;
+const text = ui[lang].blogCategories;
+const categories = [
+  { id: 'all', label: text.all },
+  { id: 'projects', label: text.projects },
+  { id: 'our-models', label: text.ourModels },
+  { id: 'showcase', label: text.showcase },
+] as const;
+---
+
+<div class="buttons mb-5" role="group" aria-label={text.filterLabel}>
+  {
+    categories.map(({ id, label }, index) => (
+      <button
+        type="button"
+        class:list={['button', index === 0 ? 'is-primary' : 'is-outlined']}
+        data-filter-btn={id}
+        aria-pressed={index === 0 ? 'true' : 'false'}
+      >
+        {label}
+      </button>
+    ))
+  }
+</div>
+
+<script is:inline>
+  (() => {
+    if (document.documentElement.dataset.categoryFilterInitialized) return;
+    document.documentElement.dataset.categoryFilterInitialized = 'true';
+
+    const filters = () => Array.from(document.querySelectorAll('[data-filter-btn]'));
+
+    const applyCategory = (category, updateUrl = false) => {
+      const buttons = filters();
+      if (!buttons.length) return;
+
+      const selected = buttons.some((button) => button.dataset.filterBtn === category)
+        ? category
+        : 'all';
+
+      buttons.forEach((button) => {
+        const active = button.dataset.filterBtn === selected;
+        button.classList.toggle('is-primary', active);
+        button.classList.toggle('is-outlined', !active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+
+      document.querySelectorAll('[data-blog-item]').forEach((item) => {
+        const matches = selected === 'all' || item.dataset.category === selected;
+        item.hidden = !matches;
+
+        if (matches) {
+          item.style.removeProperty('display');
+        } else {
+          item.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('category', selected);
+        window.history.replaceState(window.history.state, '', url);
+      }
+    };
+
+    const applyUrlCategory = () => {
+      applyCategory(new URL(window.location.href).searchParams.get('category') ?? 'all');
+    };
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      const button = event.target.closest('[data-filter-btn]');
+      if (button) applyCategory(button.dataset.filterBtn ?? 'all', true);
+    });
+
+    document.addEventListener('astro:page-load', applyUrlCategory);
+    window.addEventListener('popstate', applyUrlCategory);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyUrlCategory, { once: true });
+    } else {
+      applyUrlCategory();
+    }
+  })();
+</script>
+
+<style>
+  .buttons .button {
+    font-size: 0.9em;
+  }
+</style>

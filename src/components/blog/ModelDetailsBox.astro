@@ -1,0 +1,92 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getLocale } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+import SmartMediaFrame from './SmartMediaFrame.astro';
+
+type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const text = ui[locale].modelDetails;
+const { author, printablesUrl, printSpecs } = post.data;
+const authorName = author?.trim();
+const printablesHref = printablesUrl?.trim();
+const gallery = post.data.gallery ?? [];
+const specs = [
+  { label: text.material, value: printSpecs?.material?.trim() },
+  { label: text.layerHeight, value: printSpecs?.layerHeight?.trim() },
+  { label: text.infill, value: printSpecs?.infill?.trim() },
+  { label: text.supports, value: printSpecs?.supports?.trim() },
+].filter((spec): spec is { label: string; value: string } => Boolean(spec.value));
+const hasDetails = Boolean(authorName || printablesHref || specs.length || gallery.length);
+const [coverImage, ...galleryImages] = gallery;
+---
+
+{
+  hasDetails && (
+    <section class="box mb-6" aria-label={post.data.title}>
+      {coverImage && (
+        <div class="mb-4">
+          <SmartMediaFrame
+            src={coverImage}
+            alt={post.data.title}
+            aspectRatio="4 / 3"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      {authorName && <p class="mb-3"><strong>{text.author}:</strong> {authorName}</p>}
+
+      {specs.length > 0 && (
+        <div class="mb-4">
+          <h2 class="title is-5 mb-3">{text.printSpecs}</h2>
+          <dl class="columns is-multiline">
+            {specs.map(({ label, value }) => (
+              <div class="column is-half">
+                <dt class="is-size-7 has-text-grey">{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+
+      {printablesHref && (
+        <p class="mb-4">
+          <a class="button is-outlined" href={printablesHref} target="_blank" rel="noopener noreferrer">
+            {text.download}
+          </a>
+        </p>
+      )}
+
+      {galleryImages.length > 0 && (
+        <div>
+          <h2 class="title is-5 mb-3">{text.gallery}</h2>
+          <div class="columns is-multiline">
+            {galleryImages.map((image, index) => (
+              <div class="column is-half-tablet is-12-mobile">
+                <SmartMediaFrame
+                  src={image}
+                  alt={`${post.data.title} — ${text.gallery} ${index + 2}`}
+                  aspectRatio="16 / 10"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .button {
+    font-size: 0.9em;
+  }
+</style>

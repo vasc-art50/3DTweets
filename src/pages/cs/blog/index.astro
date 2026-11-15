@@ -1,6 +1,7 @@
 ---
 import BlogCard from '../../../components/BlogCard.astro';
 import PageHero from '../../../components/PageHero.astro';
+import CategoryFilter from '../../../components/blog/CategoryFilter.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { readingTime } from '../../../utils/reading-time';
@@ -23,15 +24,19 @@ const posts = (await getCollection('blogCs')).sort(
   />
   <section class="section aw-section">
     <div class="container">
+      <CategoryFilter lang="cs" />
       {posts.length > 0 ? (
         <div class="columns is-multiline">
           {posts.map((post) => (
-            <div class="column is-4">
+            <div class="column is-4" data-blog-item data-category={post.data.category}>
               <BlogCard
                 title={post.data.title}
                 description={post.data.description}
                 pubDate={post.data.pubDate}
                 tags={post.data.tags}
+                category={post.data.category}
+                printablesUrl={post.data.printablesUrl}
+                coverImage={post.data.gallery?.[0]}
                 href={localeUrl('cs', `/blog/${post.id}`)}
                 readingTime={readingTime(post.body ?? '', 'cs')}
               />

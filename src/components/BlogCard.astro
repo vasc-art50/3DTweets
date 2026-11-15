@@ -1,7 +1,11 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { formatDate } from '../utils/date';
 import { getLocale } from '../i18n/utils';
 import { ui } from '../i18n/ui';
+import SmartMediaFrame from './blog/SmartMediaFrame.astro';
+
+type BlogCategory = 'projects' | 'our-models' | 'showcase';
 
 interface Props {
   title: string;
@@ -10,14 +14,32 @@ interface Props {
   tags: string[];
   href: string;
   readingTime: string;
+  category?: BlogCategory;
+  printablesUrl?: string;
+  coverImage?: ImageMetadata;
 }
 
-const { title, description, pubDate, tags, href, readingTime } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  tags,
+  href,
+  readingTime,
+  category,
+  printablesUrl,
+  coverImage,
+} = Astro.props;
 const locale = getLocale(Astro.currentLocale);
 const text = ui[locale];
 ---
 
 <article class="card aw-card aw-card--link">
+  {coverImage && (
+    <div class="p-3 pb-0">
+      <SmartMediaFrame src={coverImage} alt={title} />
+    </div>
+  )}
   <div class="card-content aw-card-content is-flex is-flex-direction-column">
     <p class="aw-blog-meta mb-2">
       <time datetime={pubDate.toISOString()}>{formatDate(pubDate, locale)}</time>
@@ -27,6 +49,14 @@ const text = ui[locale];
     <h2 class="title is-4">
       <a class="aw-card-link" href={href}>{title}</a>
     </h2>
+    {
+      category && (
+        <div class="mb-3">
+          <span class="aw-tag">{text.blogCategories[category === 'our-models' ? 'ourModels' : category]}</span>
+          {printablesUrl && <span class="aw-tag">Printables</span>}
+        </div>
+      )
+    }
     <p class="mb-4">{description}</p>
     <div class="mb-4">
       {tags.map((tag) => <span class="aw-tag">#{tag}</span>)}

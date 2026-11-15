@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ModelDetailsBox from '../../components/blog/ModelDetailsBox.astro';
 import { formatDate } from '../../utils/date';
 import { readingTime } from '../../utils/reading-time';
 
@@ -57,6 +58,8 @@ const postSchema = {
         <div class="mb-6">
           {post.data.tags.map((tag) => <span class="aw-tag">#{tag}</span>)}
         </div>
+
+        <ModelDetailsBox post={post} />
 
         <Content />
       </article>
