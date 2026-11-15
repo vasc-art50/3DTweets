@@ -15,14 +15,18 @@ interface Material {
 
 const { lang } = Astro.props;
 const materialsPath = resolve(process.cwd(), 'src', 'data', lang, 'materials.csv');
-const csv = readFileSync(materialsPath, 'utf8').replace(/^\uFEFF/, '');
+const csv = readFileSync(materialsPath, 'utf8');
 
 // Source material list: https://3dtweets.webnode.cz/seznam-materialu/
 function parseMaterials(source: string): Material[] {
+  source = source.replace(/^\uFEFF/, '');
+  const firstLine = source.split(/\r?\n/, 1)[0] ?? '';
+  const delimiter = firstLine.includes(';') ? ';' : ',';
   const rows: string[][] = [];
   let row: string[] = [];
   let field = '';
   let inQuotes = false;
+  let afterQuote = false;
 
   for (let i = 0; i < source.length; i += 1) {
     const character = source[i];
@@ -33,17 +37,34 @@ function parseMaterials(source: string): Material[] {
         i += 1;
       } else if (character === '"') {
         inQuotes = false;
+        afterQuote = true;
       } else {
         field += character;
       }
-    } else if (character === '"' && field.length === 0) {
+    } else if (afterQuote && character === delimiter) {
+      row.push(field.trim());
+      field = '';
+      afterQuote = false;
+    } else if (afterQuote && (character === '\n' || character === '\r')) {
+      row.push(field.trim());
+      if (row.some((value) => value !== '')) rows.push(row);
+      row = [];
+      field = '';
+      afterQuote = false;
+      if (character === '\r' && source[i + 1] === '\n') i += 1;
+    } else if (afterQuote && /\s/.test(character)) {
+      continue;
+    } else if (afterQuote) {
+      throw new Error(`Unexpected character after quoted field in ${materialsPath}`);
+    } else if (character === '"' && field.trim() === '') {
+      field = '';
       inQuotes = true;
-    } else if (character === ';') {
-      row.push(field);
+    } else if (character === delimiter) {
+      row.push(field.trim());
       field = '';
     } else if (character === '\n' || character === '\r') {
-      row.push(field);
-      if (row.some((value) => value.trim() !== '')) rows.push(row);
+      row.push(field.trim());
+      if (row.some((value) => value !== '')) rows.push(row);
       row = [];
       field = '';
       if (character === '\r' && source[i + 1] === '\n') i += 1;
@@ -53,21 +74,40 @@ function parseMaterials(source: string): Material[] {
   }
 
   if (inQuotes) throw new Error(`Unclosed quoted field in ${materialsPath}`);
-  row.push(field);
-  if (row.some((value) => value.trim() !== '')) rows.push(row);
+  row.push(field.trim());
+  if (row.some((value) => value !== '')) rows.push(row);
 
-  const header = rows.shift();
-  if (header?.join(';') !== 'name;manufacturer;type;description') {
+  const header = rows.shift()?.map((value) => value.trim());
+  const requiredColumns = ['name', 'manufacturer', 'type', 'description'];
+  if (!header || requiredColumns.some((column) => !header.includes(column))) {
     throw new Error(`Invalid materials CSV header in ${materialsPath}`);
   }
 
+  const descriptionIndex = header.indexOf('description');
   return rows.map((fields, index) => {
-    if (fields.length !== 4) {
-      throw new Error(`Expected 4 columns on CSV row ${index + 2} in ${materialsPath}`);
+    if (fields.length > header.length && descriptionIndex === header.length - 1) {
+      fields = [...fields.slice(0, header.length - 1), fields.slice(header.length - 1).join(`${delimiter} `)];
     }
 
-    const [name, manufacturer, type, description] = fields;
-    return { name, manufacturer, type, description };
+    if (fields.length !== header.length) {
+      throw new Error(`Expected ${header.length} columns on CSV row ${index + 2} in ${materialsPath}`);
+    }
+
+    const getValue = (column: string): string => {
+      const columnIndex = header.indexOf(column);
+      const value = fields[columnIndex];
+      if (value === undefined) {
+        throw new Error(`Missing ${column} value on CSV row ${index + 2} in ${materialsPath}`);
+      }
+      return value;
+    };
+
+    return {
+      name: getValue('name'),
+      manufacturer: getValue('manufacturer'),
+      type: getValue('type'),
+      description: getValue('description'),
+    };
   });
 }
 
