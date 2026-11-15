@@ -3,6 +3,9 @@ title: "TweetONE CoreXY: from two Ender 3s to a high-speed CoreXY build"
 description: "A practical build diary on transforming two Ender 3 printers into a rigid CoreXY machine with Triple-Z, linear rails, and CANbus control."
 pubDate: 2026-10-20
 tags: ["tweetone", "corexy", "klipper", "3d-printing"]
+category: projects
+heroImage: ../../assets/models/tweet-one/Z30_1244.webp
+galleryFolder: "models/tweet-one"
 ---
 
 The TweetONE project started with a very practical question: what if we took two older Ender 3 machines, reused the best parts, and turned them into a genuinely capable CoreXY printer?
