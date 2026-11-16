@@ -309,7 +309,7 @@ content:
             required: false
           - name: code
             label: Konfigurační nebo terminálový kód
-            type: code
+            type: text
             required: false
           - name: column
             label: Šířka karty v řádku
@@ -444,7 +444,7 @@ content:
             required: false
           - name: code
             label: Configuration or terminal code
-            type: code
+            type: text
             required: false
           - name: column
             label: Card width in row
