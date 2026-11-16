@@ -52,7 +52,8 @@ jobs:
             exit 0
           fi
           git commit -m "chore(images): optimize uploaded model images"
-          git pull --rebase --autostash origin main
+          rm -rf node_modules
+          git pull --rebase origin main
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
       - name: Trigger production build
