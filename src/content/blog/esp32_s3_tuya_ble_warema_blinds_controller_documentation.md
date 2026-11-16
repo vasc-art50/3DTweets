@@ -1,10 +1,17 @@
 ---
-title: "Integrating ESP32-S3 with Tuya Smart Life via BLE Gateway: Warema Blinds Controller"
-description: "Complete project documentation for building an 8-channel Warema EWFS roller blind RF gateway on ESP32-S3 and CC1101, configuring Tuya IoT Platform Data Points, and implementing Tuya BLE firmware in PlatformIO."
+title: "Integrating ESP32-S3 with Tuya Smart Life via BLE Gateway: Warema Blinds
+  Controller"
+description: Complete project documentation for building an 8-channel Warema
+  EWFS roller blind RF gateway on ESP32-S3 and CC1101, configuring Tuya IoT
+  Platform Data Points, and implementing Tuya BLE firmware in PlatformIO.
 pubDate: 2026-10-30
-tags: ["ESP32-S3", "Tuya BLE", "Smart Home", "PlatformIO"]
+tags:
+  - ESP32-S3
+  - Tuya BLE
+  - Smart Home
+  - PlatformIO
+category: projects
 ---
-
 # ESP32-S3 Tuya BLE Warema Blinds Controller
 
 This documentation covers the complete end-to-end architecture, cloud configuration, hardware wiring, and firmware implementation for integrating an **ESP32-S3** and **CC1101** transceiver into the **Smart Life (Tuya)** ecosystem via a **Tuya Zigbee/Bluetooth Multi-Mode Gateway**.
@@ -17,21 +24,22 @@ Because the ESP32-S3 does not natively support Zigbee, it communicates with the 
 
 ```text
 +------------------+     Wi-Fi / Cloud     +-----------------------+
-|  Smart Life App  | <-------------------> | Tuya Multi-Mode Hub   |
+| Smart Life App | <-------------------> | Tuya Multi-Mode Hub |
 +------------------+                       +-----------------------+
                                                        ^
                                                        | Tuya BLE
                                                        v
 +------------------+    SPI (433/868MHz)   +-----------------------+
-|  Warema Blinds   | <-------------------- |   ESP32-S3 + CC1101   |
+| Warema Blinds | <-------------------- | ESP32-S3 + CC1101 |
 +------------------+                       +-----------------------+
 ```
 
 ### Core Components
-* **Microcontroller:** ESP32-S3 (e.g., ESP32-S3-DevKitC-1 N16R8)
-* **RF Transceiver:** Texas Instruments CC1101 module
-* **Smart Home Bridge:** Tuya Dual-Band Multi-Mode Gateway (Zigbee + BLE)
-* **IDE & Build System:** Visual Studio Code with PlatformIO
+
+- **Microcontroller:** ESP32-S3 (e.g., ESP32-S3-DevKitC-1 N16R8)
+- **RF Transceiver:** Texas Instruments CC1101 module
+- **Smart Home Bridge:** Tuya Dual-Band Multi-Mode Gateway (Zigbee + BLE)
+- **IDE & Build System:** Visual Studio Code with PlatformIO
 
 ---
 
@@ -39,8 +47,9 @@ Because the ESP32-S3 does not natively support Zigbee, it communicates with the 
 
 Connect the CC1101 module to the ESP32-S3 default FSPI / SPI2 pins as follows:
 
+
 | CC1101 Pin | ESP32-S3 GPIO | Function |
-| :--- | :--- | :--- |
+| ------------ | ------------- | ----------------------------------- |
 | **VCC** | `3V3` | 3.3V Power Supply *(Do NOT use 5V)* |
 | **GND** | `GND` | Common Ground |
 | **CSN (CS)** | `GPIO 10` | SPI Chip Select |
@@ -50,6 +59,7 @@ Connect the CC1101 module to the ESP32-S3 default FSPI / SPI2 pins as follows:
 | **GDO0** | `GPIO 4` | RF Data / Interrupt Pin |
 | **GDO2** | `GPIO 5` | Optional Status / Carrier Sense |
 
+
 ---
 
 ## 3. Tuya IoT Platform Configuration
@@ -57,26 +67,33 @@ Connect the CC1101 module to the ESP32-S3 default FSPI / SPI2 pins as follows:
 To authorize custom hardware on a Tuya Gateway, you must register a product on the [Tuya Developer Platform](https://platform.tuya.com/) and obtain three identifiers: **PID**, **UUID**, and **AuthKey**.
 
 ### Step 3.1: Product Creation
+
 1. Open the Tuya Developer Platform and navigate to **AI Product** $\rightarrow$ **Create** in the left sidebar.
 2. Select **Standard Category** $\rightarrow$ **Electrical** $\rightarrow$ **Curtain Switch**.
-   * *Note:* Do not choose *Gateway Control*, as that category is reserved for physical Zigbee/Wi-Fi hub coordinators rather than end-node actuators.
+  - *Note:* Do not choose *Gateway Control*, as that category is reserved for physical Zigbee/Wi-Fi hub coordinators rather than end-node actuators.
 3. Under **Select a smart mode**, choose **TuyaOS**.
 4. Switch from *No-Code Development* to the **Custom Solution** tab.
 5. Select **Bluetooth LE** as the communication protocol, name your product (e.g., *Warema ESP32 Controller*), and click **Create**.
 6. Record the generated 8-character **Product ID (PID)**.
 
 ### Step 3.2: Data Points (DP) Definition
+
 Standard Tuya Curtain Switches only provide native Data Points for 1 to 2 channels. To control **8 independent Warema channels**, support group commands, and distinguish between full travel (`up`, `down`, `stop`) and slat stepping (`step_up`, `step_down`), configure both Standard and Custom Functions:
 
 #### Standard Functions
+
+
 | DP ID | DP Name | Identifier | Data Transfer Type | Data Type | Enum Values |
-| :---: | :--- | :--- | :--- | :--- | :--- |
+| ----- | ------- | ----------- | ------------------ | --------- | -------------------------------------------- |
 | **1** | CH1-4 | `control` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **4** | CH5-8 | `control_2` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 
+
 #### Custom Functions (Channels 1–8)
+
+
 | DP ID | DP Name | Identifier | Data Transfer Type | Data Type | Enum Values |
-| :---: | :--- | :--- | :--- | :--- | :--- |
+| ------- | ------- | ---------- | ------------------ | --------- | -------------------------------------------- |
 | **101** | CH1 | `channel1` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **102** | CH2 | `channel2` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **103** | CH3 | `channel3` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
@@ -86,22 +103,25 @@ Standard Tuya Curtain Switches only provide native Data Points for 1 to 2 channe
 | **107** | CH7 | `channel7` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **108** | CH8 | `channel8` | Send and Report | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 
-* **Data Transfer Type (`Send and Report`):** Enables bidirectional communication—the Smart Life app sends commands (`Send`), and the ESP32-S3 reports the executed state back to the UI (`Report`).
+
+- **Data Transfer Type (`Send and Report`):** Enables bidirectional communication—the Smart Life app sends commands (`Send`), and the ESP32-S3 reports the executed state back to the UI (`Report`).
 
 ### Step 3.3: Device Interaction (UI Panel)
+
 1. Proceed to **Device Interaction** and select **DIY Style Panel on Studio**.
 2. Because UI rendering is decoupled from firmware and relies strictly on DP IDs, button names, icons, and layouts can be modified in Studio Panel at any time without reflashing the ESP32-S3.
 
 ### Step 3.4: Hardware Development & Free Licenses (UUID & AuthKey)
+
 1. Navigate to **Hardware Development** and select **MCU SDK** as the Cloud Access Mode.
 2. Under *Custom Firmware*, click **+ Add Custom Firmware**:
-   * Set Protocol Type to **Bluetooth**.
-   * Create firmware version `1.0.0`, upload a placeholder `.bin` file, and click **Save and Enable**.
+  - Set Protocol Type to **Bluetooth**.
+  - Create firmware version `1.0.0`, upload a placeholder `.bin` file, and click **Save and Enable**.
 3. Select a reference module from the hardware list (such as **BT3L Bluetooth Module**) to unlock hardware deliverables and debugging licenses.
 4. Click **Get 2 Free Licenses**:
-   * Set **Purchase Purpose** to **Debugging**.
-   * Change **Delivery Mode** from *Credential* to **License List** (this provides plain-text strings rather than factory-flashing binaries).
-   * Confirm the `$0.00` order and download the **License List** file containing your **UUID** and **AuthKey**.
+  - Set **Purchase Purpose** to **Debugging**.
+  - Change **Delivery Mode** from *Credential* to **License List** (this provides plain-text strings rather than factory-flashing binaries).
+  - Confirm the `$0.00` order and download the **License List** file containing your **UUID** and **AuthKey**.
 
 ---
 
@@ -269,3 +289,4 @@ void loop() {
 3. Tap on the **Multi-Mode Gateway** $\rightarrow$ **Add Device** (or **Search for Bluetooth devices**).
 4. The gateway will detect the ESP32-S3 broadcasting PID `**********`, authenticate it via your UUID/AuthKey, and bind it to your home.
 5. Once paired, open the device panel to access group controls (`CH1-4`, `CH5-8`) and all 8 individual channel controllers (`CH1`–`CH8`).
+

@@ -1,10 +1,15 @@
 ---
 title: "ESP32-S3 a Tuya Smart Life přes BLE: řídicí jednotka žaluzií Warema"
-description: "Dokumentace osmikanálové RF brány Warema EWFS s ESP32-S3 a CC1101, včetně konfigurace Tuya IoT Data Points a firmwaru Tuya BLE v PlatformIO."
+description: Dokumentace osmikanálové RF brány Warema EWFS s ESP32-S3 a CC1101,
+  včetně konfigurace Tuya IoT Data Points a firmwaru Tuya BLE v PlatformIO.
 pubDate: 2026-10-30
-tags: ["ESP32-S3", "Tuya BLE", "chytrá domácnost", "PlatformIO"]
+tags:
+  - ESP32-S3
+  - Tuya BLE
+  - chytrá domácnost
+  - PlatformIO
+category: projects
 ---
-
 # Řídicí jednotka žaluzií Warema: ESP32-S3, Tuya BLE
 
 Dokumentace popisuje architekturu, cloudovou konfiguraci, zapojení hardwaru
@@ -20,13 +25,13 @@ Point (DP) na RF rámce 433,92 nebo 868 MHz pomocí CC1101.
 
 ```text
 +------------------+     Wi-Fi / cloud      +-----------------------+
-| Aplikace Smart Life| <-------------------> | Víceprotokolová brána |
+| Aplikace Smart Life | <-------------------> | Víceprotokolová brána |
 +------------------+                         +-----------------------+
                                                         ^
                                                         | Tuya BLE
                                                         v
 +------------------+      SPI (433/868 MHz)  +-----------------------+
-| Žaluzie Warema   | <------------------------ | ESP32-S3 + CC1101    |
+| Žaluzie Warema | <------------------------ | ESP32-S3 + CC1101 |
 +------------------+                           +-----------------------+
 ```
 
@@ -41,8 +46,9 @@ Point (DP) na RF rámce 433,92 nebo 868 MHz pomocí CC1101.
 
 Modul CC1101 připojte k výchozím pinům FSPI / SPI2 na ESP32-S3:
 
+
 | Pin CC1101 | GPIO ESP32-S3 | Funkce |
-| :--- | :--- | :--- |
+| ------------ | ------------- | ----------------------------------- |
 | **VCC** | `3V3` | Napájení 3,3 V *(nepřipojujte 5 V)* |
 | **GND** | `GND` | Společná zem |
 | **CSN (CS)** | `GPIO 10` | Výběr zařízení SPI |
@@ -51,6 +57,7 @@ Modul CC1101 připojte k výchozím pinům FSPI / SPI2 na ESP32-S3:
 | **MISO** | `GPIO 13` | Data ze zařízení do řadiče |
 | **GDO0** | `GPIO 4` | RF data / přerušovací pin |
 | **GDO2** | `GPIO 5` | Volitelný stav / detekce nosné |
+
 
 ## 3. Konfigurace platformy Tuya IoT
 
@@ -62,12 +69,13 @@ identifikátory: **PID**, **UUID** a **AuthKey**.
 
 1. Na platformě Tuya otevřete v levém panelu **AI Product** → **Create**.
 2. Zvolte **Standard Category** → **Electrical** → **Curtain Switch**.
-   - Nevybírejte **Gateway Control**; tato kategorie je určena fyzickým
-     koordinátorům Zigbee/Wi-Fi, nikoli koncovým akčním členům.
+  - Nevybírejte **Gateway Control**; tato kategorie je určena fyzickým
+   koordinátorům Zigbee/Wi-Fi, nikoli koncovým akčním členům.
 3. V nabídce **Select a smart mode** zvolte **TuyaOS**.
 4. Přepněte z **No-Code Development** na kartu **Custom Solution**.
 5. Jako komunikační protokol zvolte **Bluetooth LE**, pojmenujte produkt
-   (např. *Warema ESP32 Controller*) a klikněte na **Create**.
+
+  (např. *Warema ESP32 Controller*) a klikněte na **Create**.
 6. Poznamenejte si vygenerované osmiznakové **Product ID (PID)**.
 
 ### 3.2 Definice datových bodů (DP)
@@ -79,15 +87,18 @@ plného pohybu (`up`, `down`, `stop`) od krokového naklápění (`step_up`,
 
 #### Standardní funkce
 
+
 | ID DP | Název DP | Identifikátor | Přenos dat | Typ | Hodnoty enum |
-| :---: | :--- | :--- | :--- | :--- | :--- |
+| ----- | -------- | ------------- | ------------------ | ---- | -------------------------------------------- |
 | **1** | CH1-4 | `control` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **4** | CH5-8 | `control_2` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 
+
 #### Vlastní funkce (kanály 1–8)
 
+
 | ID DP | Název DP | Identifikátor | Přenos dat | Typ | Hodnoty enum |
-| :---: | :--- | :--- | :--- | :--- | :--- |
+| ------- | -------- | ------------- | ------------------ | ---- | -------------------------------------------- |
 | **101** | CH1 | `channel1` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **102** | CH2 | `channel2` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **103** | CH3 | `channel3` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
@@ -97,6 +108,7 @@ plného pohybu (`up`, `down`, `stop`) od krokového naklápění (`step_up`,
 | **107** | CH7 | `channel7` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 | **108** | CH8 | `channel8` | Odeslat a nahlásit | Enum | `up`, `down`, `stop`, `step_up`, `step_down` |
 
+
 **Odeslat a nahlásit** umožňuje obousměrnou komunikaci: aplikace Smart Life
 odešle příkaz a ESP32-S3 následně vrátí provedený stav do uživatelského rozhraní.
 
@@ -104,25 +116,28 @@ odešle příkaz a ESP32-S3 následně vrátí provedený stav do uživatelskéh
 
 1. Otevřete **Device Interaction** a zvolte **DIY Style Panel on Studio**.
 2. Vykreslení panelu je oddělené od firmwaru a řídí se ID datových bodů.
-   Názvy tlačítek, ikony i rozvržení proto můžete ve Studio Panelu měnit bez
+
+  Názvy tlačítek, ikony i rozvržení proto můžete ve Studio Panelu měnit bez
    opětovného nahrání firmwaru do ESP32-S3.
 
 ### 3.4 Vývoj hardwaru a bezplatné licence (UUID a AuthKey)
 
 1. Otevřete **Hardware Development** a jako režim přístupu ke cloudu zvolte
-   **MCU SDK**.
+
+  **MCU SDK**.
 2. V části **Custom Firmware** vyberte **+ Add Custom Firmware**:
-   - nastavte typ protokolu na **Bluetooth**,
-   - vytvořte firmware verze `1.0.0`, nahrajte zástupný soubor `.bin` a zvolte
-     **Save and Enable**.
+  - nastavte typ protokolu na **Bluetooth**,
+  - vytvořte firmware verze `1.0.0`, nahrajte zástupný soubor `.bin` a zvolte
+  **Save and Enable**.
 3. Vyberte referenční modul ze seznamu hardwaru (např. **BT3L Bluetooth
-   Module**); tím zpřístupníte podklady k hardwaru a ladicí licence.
+
+  Module**); tím zpřístupníte podklady k hardwaru a ladicí licence.
 4. Klikněte na **Get 2 Free Licenses**:
-   - účel nákupu nastavte na **Debugging**,
-   - způsob doručení změňte z **Credential** na **License List**; získáte
-     prosté textové údaje místo binárních souborů pro výrobu,
-   - potvrďte objednávku za `$0.00` a stáhněte seznam licencí s **UUID** a
-     **AuthKey**.
+  - účel nákupu nastavte na **Debugging**,
+  - způsob doručení změňte z **Credential** na **License List**; získáte
+  prosté textové údaje místo binárních souborů pro výrobu,
+  - potvrďte objednávku za `$0.00` a stáhněte seznam licencí s **UUID** a
+  **AuthKey**.
 
 ## 4. Nastavení PlatformIO (`platformio.ini`)
 
@@ -231,13 +246,19 @@ void loop() {
 ## 6. Spárování se Smart Life
 
 1. Nahrajte firmware do **ESP32-S3** přes PlatformIO a otevřete sériový monitor
-   (`115200 baud`); ověřte hlášení `[CC1101] SPI Connection OK` a
+
+  (`115200 baud`); ověřte hlášení `[CC1101] SPI Connection OK` a
    `[TUYA BLE] Advertising started`.
 2. V telefonu otevřete aplikaci **Smart Life** a zkontrolujte, že je
-   víceprotokolová brána Tuya Zigbee/BLE online.
+
+  víceprotokolová brána Tuya Zigbee/BLE online.
 3. Zvolte **Multi-Mode Gateway** → **Add Device** (nebo **Search for Bluetooth
-   devices**).
+
+  devices**).
 4. Brána vyhledá ESP32-S3 vysílající PID `**********`, ověří jej pomocí UUID
-   a AuthKey a přidá do domácnosti.
+
+  a AuthKey a přidá do domácnosti.
 5. V panelu zařízení budou dostupné skupiny `CH1-4`, `CH5-8` i všech osm
-   samostatných kanálů `CH1`–`CH8`.
+
+  samostatných kanálů `CH1`–`CH8`.
+

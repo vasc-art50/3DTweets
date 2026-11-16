@@ -1,20 +1,23 @@
 ---
 title: "Henry's Shave: Středověký podstavec pro Philips OneBlade"
-description: "Středověkem inspirovaný a praktický domov pro Philips OneBlade s atmosférou české historie a hry Kingdom Come: Deliverance II."
+description: "Středověkem inspirovaný a praktický domov pro Philips OneBlade s
+  atmosférou české historie a hry Kingdom Come: Deliverance II."
 pubDate: 2026-11-15
-tags: ["3d-tisk", "Philips-OneBlade", "Henry's-Shave"]
+tags:
+  - 3d-tisk
+  - Philips-OneBlade
+  - Henry's-Shave
 category: our-models
-printablesUrl: "https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad"
-author: "Václav"
+printablesUrl: https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad
+author: Frank
 printSpecs:
-  material: "Prusament PLA Galaxy Black / Marble Grey"
-  layerHeight: "0.20 mm"
-  infill: "15 % Gyroid"
-  supports: "Bez podpěr / No supports"
+  material: Prusament PLA Galaxy Black / Marble Grey
+  layerHeight: 0.20 mm
+  infill: 15 % Gyroid
+  supports: Bez podpěr / No supports
 heroImage: ../../assets/models/henrys-shave/20260304_175705.webp
-galleryFolder: "models/henrys-shave"
+galleryFolder: models/henrys-shave
 ---
-
 Koupelna je moderní prostor, ale nemusí působit neosobně. **Henry's Shave** dává holicímu strojku Philips OneBlade malý středověce laděný podstavec – každodenní věci přidá kousek atmosféry české minulosti i světa hry *Kingdom Come: Deliverance II*.
 
 ## Praktické místo pro moderní strojek
