@@ -1,14 +1,18 @@
 ---
 title: "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY"
-description: "Zápis ze stavby tuhé tiskárny CoreXY ze dvou tiskáren Ender 3: trojitá osa Z, lineární vedení a řízení přes CANbus."
+description: "Zápis ze stavby tuhé tiskárny CoreXY ze dvou tiskáren Ender 3:
+  trojitá osa Z, lineární vedení a řízení přes CANbus."
 pubDate: 2026-10-20
-tags: ["tweetone", "corexy", "klipper", "3d tisk"]
-category: projects
+updatedDate: 2026-11-16
+tags:
+  - tweetone
+  - corexy
+  - klipper
+  - 3d tisk
+category: TweetONE
 heroImage: ../../assets/models/tweet-one/Z30_1244.webp
-galleryFolder: "models/tweet-one"
-
+galleryFolder: models/tweet-one
 ---
-
 Projekt TweetONE začal praktickou otázkou: co kdybychom využili nejlepší díly
 ze dvou starších tiskáren Ender 3 a postavili z nich skutečně schopnou tiskárnu
 CoreXY?
@@ -68,7 +72,7 @@ principy na praktický a měřitelný systém:
 - správné napnutí řemenů je nezbytné,
 - konstrukce musí počítat s tolerancemi a rezervou,
 - promyšlené spojení hardwaru, firmwaru a ladění vede k přesnosti, nejen
-  k rychlosti.
+k rychlosti.
 
 Projekt také ukazuje, jak se hobby stavba může stát technickou platformou pro
 ladění rezonancí, pohybu, nástrojové desky i budoucích rozšíření.
