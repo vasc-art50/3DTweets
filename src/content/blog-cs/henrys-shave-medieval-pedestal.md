@@ -9,7 +9,7 @@ tags:
   - Henry's-Shave
 category: our-models
 printablesUrl: https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad
-author: Václav
+author: Frank
 printSpecs:
   material: Prusament PLA Galaxy Black / Marble Grey
   layerHeight: 0.20 mm
