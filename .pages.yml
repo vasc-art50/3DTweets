@@ -1,0 +1,181 @@
+media:
+  input: src/assets/models
+  output: ../../assets/models
+  rename: false
+  categories: [image]
+  extensions: [avif, jpg, jpeg, png, webp]
+
+content:
+  - name: blog
+    label: Blog (EN)
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename: "{title}.md"
+    operations:
+      rename: false
+    view:
+      primary: title
+      fields: [title, pubDate, category]
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: description
+        type: text
+        required: true
+      - name: pubDate
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: updatedDate
+        type: date
+        required: false
+        default: ""
+        options:
+          format: yyyy-MM-dd
+      - name: tags
+        type: string
+        list: true
+        default: []
+      - name: category
+        type: select
+        default: projects
+        options:
+          values: [projects, our-models, showcase]
+      - name: printablesUrl
+        type: string
+        required: false
+      - name: author
+        type: string
+        required: false
+      - name: printSpecs
+        type: object
+        required: false
+        fields:
+          - name: material
+            type: string
+            required: false
+          - name: layerHeight
+            type: string
+            required: false
+          - name: infill
+            type: string
+            required: false
+          - name: supports
+            type: string
+            required: false
+      - name: heroImage
+        type: image
+        required: false
+        options:
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: galleryFolder
+        type: string
+        required: false
+        description: Folder under src/assets, for example models/henrys-shave.
+      - name: gallery
+        type: image
+        required: false
+        options:
+          multiple: true
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: body
+        type: rich-text
+        options:
+          format: markdown
+          rename: false
+
+  - name: blog-cs
+    label: Blog (CS)
+    type: collection
+    path: src/content/blog-cs
+    format: yaml-frontmatter
+    filename: "{title}.md"
+    operations:
+      rename: false
+    view:
+      primary: title
+      fields: [title, pubDate, category]
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: description
+        type: text
+        required: true
+      - name: pubDate
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: updatedDate
+        type: date
+        required: false
+        default: ""
+        options:
+          format: yyyy-MM-dd
+      - name: tags
+        type: string
+        list: true
+        default: []
+      - name: category
+        type: select
+        default: projects
+        options:
+          values: [projects, our-models, showcase]
+      - name: printablesUrl
+        type: string
+        required: false
+      - name: author
+        type: string
+        required: false
+      - name: printSpecs
+        type: object
+        required: false
+        fields:
+          - name: material
+            type: string
+            required: false
+          - name: layerHeight
+            type: string
+            required: false
+          - name: infill
+            type: string
+            required: false
+          - name: supports
+            type: string
+            required: false
+      - name: heroImage
+        type: image
+        required: false
+        options:
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: galleryFolder
+        type: string
+        required: false
+        description: Folder under src/assets, for example models/henrys-shave.
+      - name: gallery
+        type: image
+        required: false
+        options:
+          multiple: true
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: body
+        type: rich-text
+        options:
+          format: markdown
+          rename: false
