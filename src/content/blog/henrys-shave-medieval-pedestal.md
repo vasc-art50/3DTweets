@@ -1,20 +1,23 @@
 ---
 title: "Henry's Shave: Medieval Pedestal for Philips OneBlade"
-description: "A medieval-inspired, practical home for the Philips OneBlade, with a nod to Bohemian history and Kingdom Come: Deliverance II."
+description: "A medieval-inspired, practical home for the Philips OneBlade, with
+  a nod to Bohemian history and Kingdom Come: Deliverance II."
 pubDate: 2026-11-15
-tags: ["3d-printing", "Philips-OneBlade", "Henry's-Shave"]
+tags:
+  - 3d-printing
+  - Philips-OneBlade
+  - Henry's-Shave
 category: our-models
-printablesUrl: "https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad"
-author: "Václav"
+printablesUrl: https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad
+author: Frank
 printSpecs:
-  material: "Prusament PLA Galaxy Black / Marble Grey"
-  layerHeight: "0.20 mm"
-  infill: "15 % Gyroid"
-  supports: "Bez podpěr / No supports"
+  material: Prusament PLA Galaxy Black / Marble Grey
+  layerHeight: 0.20 mm
+  infill: 15 % Gyroid
+  supports: Bez podpěr / No supports
 heroImage: ../../assets/models/henrys-shave/20260304_175705.webp
-galleryFolder: "models/henrys-shave"
+galleryFolder: models/henrys-shave
 ---
-
 The bathroom is a modern room, but it does not have to feel anonymous. **Henry's Shave** gives the Philips OneBlade a small, medieval-inspired pedestal—an everyday object with a little of the atmosphere of Bohemia's past and the world of *Kingdom Come: Deliverance II*.
 
 ## A practical place for a modern razor
