@@ -13,7 +13,7 @@ const blogFields = {
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
   tags: z.array(z.string()).default([]),
-  category: z.enum(['projects', 'our-models', 'showcase']).default('projects'),
+  category: z.enum(['projects', 'our-models', 'showcase', 'TweetONE']).default('projects'),
   printablesUrl: z.string().url().optional(),
   author: z.string().optional(),
   printSpecs: z
@@ -48,4 +48,47 @@ const blogCs = defineCollection({
     }),
 });
 
-export const collections = { blog, blogCs };
+const tweetoneCard = z.object({
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  date: z.string().optional(),
+  text: z.string().optional(),
+  cause: z.string().optional(),
+  fix: z.string().optional(),
+  fixPrefix: z.string().optional(),
+  inlineCode: z.string().optional(),
+  fixSuffix: z.string().optional(),
+  items: z.array(z.string()).optional(),
+  code: z.string().optional(),
+  column: z.enum(['is-6', 'is-12']).default('is-6'),
+});
+
+const tweetone = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/tweetone' }),
+  schema: z.object({
+    eyebrow: z.string(),
+    title: z.string(),
+    order: z.number().int().positive(),
+    layout: z.enum(['overview', 'setup', 'hardware', 'cards', 'reference']).default('cards'),
+    altBackground: z.boolean().default(false),
+    highlightBox: z
+      .object({
+        eyebrow: z.string(),
+        goal: z.string(),
+        experiment: z.string(),
+        result: z.string(),
+      })
+      .optional(),
+    cards: z.array(tweetoneCard).optional(),
+    links: z
+      .array(
+        z.object({
+          label: z.string(),
+          url: z.url(),
+        }),
+      )
+      .optional(),
+  }),
+});
+
+export const collections = { blog, blogCs, tweetone };

@@ -49,6 +49,7 @@ export const ui = {
       projects: 'Projects & Guides',
       ourModels: 'Our Models',
       showcase: 'Showcase',
+      tweetone: 'TweetONE',
     },
     modelDetails: {
       author: 'Model by',
@@ -148,6 +149,7 @@ export const ui = {
       projects: 'Projekty & Návody',
       ourModels: 'Naše modely',
       showcase: 'Oblíbené tisky',
+      tweetone: 'TweetONE',
     },
     modelDetails: {
       author: 'Autor modelu',

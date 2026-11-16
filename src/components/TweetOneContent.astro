@@ -1,0 +1,248 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from './CtaBand.astro';
+import PageHero from './PageHero.astro';
+
+interface Props {
+  locale: 'en' | 'cs';
+  sections: CollectionEntry<'tweetone'>[];
+}
+
+const { locale, sections } = Astro.props;
+const renderedSections = await Promise.all(
+  sections.map(async (section) => ({
+    section,
+    Content: (await render(section)).Content,
+  })),
+);
+
+const pageText = {
+  en: {
+    description:
+      'A high-speed CoreXY conversion built from two Ender 3 printers, tuned for Triple-Z motion, CANbus, and practical workshop engineering.',
+    heroEyebrow: 'Project case study',
+    heroSubtitle:
+      'A dual-Ender 3 / Ender 3 V2 conversion into a high-speed CoreXY printer with Triple-Z motion, linear rails, and a CANbus-based control stack.',
+    son: 'Lead Engineer & Mechatronics Architect',
+    father: 'Project Lead & Technical Mentor',
+    cause: 'Cause',
+    fix: 'Fix',
+    links: 'Reference links',
+    ctaEyebrow: 'Keep learning',
+    ctaTitle: 'The project is still evolving.',
+    ctaText:
+      'Browse the build notes in the blog or get in touch to discuss your own 3D prototype, printer upgrade, or product challenge.',
+    ctaLabel: 'Read the blog',
+  },
+  cs: {
+    description:
+      'Rychlá tiskárna CoreXY přestavěná ze dvou tiskáren Ender 3. Využívá trojitou osu Z, lineární vedení, CANbus a praktické konstrukční řešení.',
+    heroEyebrow: 'Případová studie projektu',
+    heroSubtitle:
+      'Přestavba tiskáren Ender 3 a Ender 3 V2 na rychlou tiskárnu CoreXY s trojitou osou Z, lineárním vedením a řízením přes CANbus.',
+    son: 'hlavní konstruktér a architekt mechatroniky',
+    father: 'vedoucí projektu a technický mentor',
+    cause: 'Příčina',
+    fix: 'Řešení',
+    links: 'Odkazy na zdroje',
+    ctaEyebrow: 'Učíme se dál',
+    ctaTitle: 'Projekt se stále vyvíjí.',
+    ctaText:
+      'Projděte si zápisy z vývoje na blogu nebo nám napište o svém 3D prototypu, úpravě tiskárny či výzvě při vývoji produktu.',
+    ctaLabel: 'Přejít na blog',
+  },
+} as const;
+
+const text = pageText[locale];
+---
+
+<BaseLayout title="TweetONE CoreXY" description={text.description}>
+  <PageHero
+    eyebrow={text.heroEyebrow}
+    title="TweetONE CoreXY"
+    subtitle={text.heroSubtitle}
+    compact
+  >
+    <div class="content has-text-left mt-5">
+      <p><strong>{locale === 'en' ? 'Son' : 'Syn'}</strong> — {text.son}</p>
+      <p><strong>{locale === 'en' ? 'Father' : 'Otec'}</strong> — {text.father}</p>
+    </div>
+  </PageHero>
+
+  {
+    renderedSections.map(({ section, Content }) => {
+      const data = section.data;
+
+      return (
+        <section
+          class:list={[
+            'section',
+            'aw-section',
+            { 'aw-section-alt': data.altBackground },
+          ]}
+        >
+          <div class="container">
+            {data.layout === 'overview' ? (
+              <div class="columns is-vcentered">
+                <div class="column is-7">
+                  <p class="aw-eyebrow mb-3">{data.eyebrow}</p>
+                  <h2 class="title is-2">{data.title}</h2>
+                  <div class="content">
+                    <Content />
+                  </div>
+                </div>
+                <div class="column is-5">
+                  {data.highlightBox && (
+                    <div class="box aw-hero-box">
+                      <p class="aw-eyebrow mb-3">{data.highlightBox.eyebrow}</p>
+                      <p class="mb-2">
+                        <strong>{locale === 'en' ? 'Goal' : 'Cíl'}:</strong>{' '}
+                        {data.highlightBox.goal}
+                      </p>
+                      <p class="mb-2">
+                        <strong>{locale === 'en' ? 'Experiment' : 'Test'}:</strong>{' '}
+                        {data.highlightBox.experiment}
+                      </p>
+                      <p>
+                        <strong>{locale === 'en' ? 'Result' : 'Výsledek'}:</strong>{' '}
+                        {data.highlightBox.result}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <>
+                <div class="aw-section-head">
+                  <p class="aw-eyebrow mb-2">{data.eyebrow}</p>
+                  <h2 class="title is-2">{data.title}</h2>
+                </div>
+
+                {data.layout === 'setup' && (
+                  <div class="columns is-multiline">
+                    <div class="column is-12">
+                      <div class="box aw-card">
+                        <Content />
+                      </div>
+                    </div>
+                    {data.cards?.map((card) => (
+                      <div class:list={['column', card.column]}>
+                        <div class="box aw-card">
+                          {card.eyebrow && (
+                            <p class="aw-eyebrow mb-3">{card.eyebrow}</p>
+                          )}
+                          {card.code && <pre><code>{card.code}</code></pre>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {data.layout === 'hardware' && (
+                  <>
+                    <div class="box aw-card mb-5">
+                      <Content />
+                    </div>
+                    <div class="columns is-multiline">
+                      {data.cards?.map((card) => (
+                        <div class:list={['column', card.column]}>
+                          <div class="box aw-card">
+                            {card.eyebrow && (
+                              <p class="aw-eyebrow mb-3">{card.eyebrow}</p>
+                            )}
+                            {card.items && (
+                              <ul class="aw-check-list">
+                                {card.items.map((item) => <li>{item}</li>)}
+                              </ul>
+                            )}
+                            {card.text && <p>{card.text}</p>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {data.layout === 'cards' && (
+                  <div class="columns is-multiline">
+                    {data.cards?.map((card) => (
+                      <div class:list={['column', card.column]}>
+                        <div class="box aw-card">
+                          {card.eyebrow && (
+                            <p class="aw-eyebrow mb-2">{card.eyebrow}</p>
+                          )}
+                          {card.title && <h3 class="title is-5">{card.title}</h3>}
+                          {card.date && (
+                            <p><strong>{card.date}</strong> {card.text}</p>
+                          )}
+                          {!card.date && card.text && <p>{card.text}</p>}
+                          {card.cause && (
+                            <p><strong>{text.cause}:</strong> {card.cause}</p>
+                          )}
+                          {(card.fix || card.fixPrefix) && (
+                            <p>
+                              <strong>{text.fix}:</strong>{' '}
+                              {card.fix ? (
+                                card.fix
+                              ) : (
+                                <>
+                                  {card.fixPrefix}{' '}
+                                  {card.inlineCode && <code>{card.inlineCode}</code>}
+                                  {card.fixSuffix}
+                                </>
+                              )}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {data.layout === 'reference' && (
+                  <>
+                    <div class="columns is-multiline">
+                      {data.cards?.map((card) => (
+                        <div class:list={['column', card.column]}>
+                          <div class="box aw-card">
+                            {card.eyebrow && (
+                              <p class="aw-eyebrow mb-3">{card.eyebrow}</p>
+                            )}
+                            {card.code && <pre><code>{card.code}</code></pre>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    {data.links && (
+                      <div class="box aw-card mt-5">
+                        <p class="aw-eyebrow mb-3">{text.links}</p>
+                        <ul class="aw-check-list">
+                          {data.links.map((link) => (
+                            <li>
+                              <a href={link.url} target="_blank" rel="noreferrer">
+                                {link.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <CtaBand
+    eyebrow={text.ctaEyebrow}
+    title={text.ctaTitle}
+    text={text.ctaText}
+    ctaLabel={text.ctaLabel}
+    ctaHref="/blog"
+  />
+</BaseLayout>

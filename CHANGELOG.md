@@ -33,6 +33,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Home page "Latest articles" section showing the three most recent blog posts.
 - Full article typography for blog posts (paragraphs, lists, headings,
   blockquote, code) and whole-card clickable blog cards (stretched link).
+- TweetONE documentation split into seven editable Markdown sections per
+  language, with structured cards and references configured in Pages CMS.
+- TweetONE blog category, including localized labels and category filtering.
 
 ### Changed
 

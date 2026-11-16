@@ -5,7 +5,7 @@ import { getLocale } from '../i18n/utils';
 import { ui } from '../i18n/ui';
 import SmartMediaFrame from './blog/SmartMediaFrame.astro';
 
-type BlogCategory = 'projects' | 'our-models' | 'showcase';
+type BlogCategory = 'projects' | 'our-models' | 'showcase' | 'TweetONE';
 
 interface Props {
   title: string;
@@ -32,6 +32,12 @@ const {
 } = Astro.props;
 const locale = getLocale(Astro.currentLocale);
 const text = ui[locale];
+const categoryLabel =
+  category === 'our-models'
+    ? text.blogCategories.ourModels
+    : category === 'TweetONE'
+      ? text.blogCategories.tweetone
+      : category && text.blogCategories[category];
 ---
 
 <article class="card aw-card aw-card--link">
@@ -52,7 +58,7 @@ const text = ui[locale];
     {
       category && (
         <div class="mb-3">
-          <span class="aw-tag">{text.blogCategories[category === 'our-models' ? 'ourModels' : category]}</span>
+          <span class="aw-tag">{categoryLabel}</span>
           {printablesUrl && <span class="aw-tag">Printables</span>}
         </div>
       )
