@@ -89,7 +89,9 @@ const text = pageText[locale];
                   <p class="aw-eyebrow mb-3">{data.eyebrow}</p>
                   <h2 class="title is-2">{data.title}</h2>
                   <div class="content">
-                    <Content />
+                    <div class="aw-markdown-body">
+                      <Content />
+                    </div>
                   </div>
                 </div>
                 <div class="column is-5">
@@ -123,7 +125,9 @@ const text = pageText[locale];
                   <div class="columns is-multiline">
                     <div class="column is-12">
                       <div class="box aw-card">
-                        <Content />
+                        <div class="aw-markdown-body">
+                          <Content />
+                        </div>
                       </div>
                     </div>
                     {data.cards?.map((card) => (
@@ -142,7 +146,9 @@ const text = pageText[locale];
                 {data.layout === 'hardware' && (
                   <>
                     <div class="box aw-card mb-5">
-                      <Content />
+                      <div class="aw-markdown-body">
+                        <Content />
+                      </div>
                     </div>
                     <div class="columns is-multiline">
                       {data.cards?.map((card) => (

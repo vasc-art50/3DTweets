@@ -667,6 +667,46 @@ main {
   }
 }
 
+.aw-markdown-body {
+  .aw-markdown-figure {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: var(--bulma-card-content-padding, 1.5rem);
+    overflow: hidden;
+    border: 1px solid var(--aw-border);
+    border-radius: 0.75rem;
+    background-color: var(--aw-ink-raised);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--aw-accent), transparent 70%);
+      content: '';
+    }
+
+    img:not(.hero-stage__image):not(.hero-stage__background):not(.thumbnail__image):not(
+        .thumbnail__background
+      ):not(.media-frame__foreground):not(.media-frame__background) {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--bulma-radius-large, 0.75rem);
+    }
+
+    figcaption {
+      margin-top: 0.75rem;
+      color: var(--aw-muted);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+  }
+}
+
 /* ------------------------------- Contact ------------------------------- */
 
 .aw-contact-list {

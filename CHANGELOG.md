@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TweetONE documentation split into seven editable Markdown sections per
   language, with structured cards and references configured in Pages CMS.
 - TweetONE blog category, including localized labels and category filtering.
+- Markdown images in blog and TweetONE content displayed in themed cards, with
+  image titles rendered as captions.
 
 ### Changed
 

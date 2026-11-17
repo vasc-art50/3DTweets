@@ -50,7 +50,9 @@ const { Content } = await render(post);
         <ModelGallery post={post} />
         <ModelDetailsBox post={post} />
 
-        <Content />
+        <div class="aw-markdown-body">
+          <Content />
+        </div>
       </article>
 
       <p class="mt-6">
