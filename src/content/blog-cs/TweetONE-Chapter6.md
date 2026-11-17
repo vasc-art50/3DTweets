@@ -10,9 +10,6 @@ Stavba 3D tiskárny **TweetONE** od začátku nemá být jen víkendovým kutils
 
 Nad rámec samotné stavby a zprovoznění celého projektu (vycházejícího z komunitní přestavby [Duender CoreXY](https://www.printables.com/model/1282344-duender-mgn12h-edition)) jsme v našem vývojovém deníku vytipovali dvě klíčové oblasti, které u CoreXY tiskáren postavených ze starších komponent rozhodují o kvalitě tisku a na které se v rámci maturitní práce zaměříme.
 
-![Tenzometrický měřič napětí řemenů GT2](../../assets/images/tweetone/image62.webp "Návrh a komponenty pro budoucí tenzometrický měřič napětí řemenů GT2 z digitální lžicové váhy")
-
-
 ## 1. Vliv anti-backlash POM matic na přesnost osy Z
 
 U cenově dostupných tiskáren (jako Ender 3) bývají trapézové tyče často mírně prohnuté a standardní mosazné matice mají mezi závity drobnou vůli (*backlash*). Při změně směru pohybu nebo mikroskopických korekcích během `Z_TILT_ADJUST` a `BED_MESH` pak vzniká nepřesnost a viditelné vlnkování stěn (*Z-wobble*).
@@ -28,6 +25,9 @@ U kinematiky [CoreXY](https://3ddistributed.com/corexy-3d-printer/corexy-belt-ro
 
 Místo odhadu „podle zvuku drnknutí“ nebo drahých komerčních tenzometrů se v rámci rozšiřující části projektu pustíme do stavby vlastního měřiče napětí řemenů **GT2 (6 mm)** s tenzometrickým snímačem podle návodu [GT2 Belt Tension Meter with strain gauge sensor](https://www.youtube.com/watch?v=vsF08ZM7MTI):
 
+![Tenzometrický měřič napětí řemenů GT2](../../assets/images/tweetone/image62.webp "Návrh a komponenty pro budoucí tenzometrický měřič napětí řemenů GT2 z digitální lžicové váhy")
+
+
 ### Plánovaný kusovník tenzometrického měřiče
 * **Snímač a elektronika:** Tenzometr a displej vykuchaný z [digitální kuchyňské lžicové váhy](https://www.aliexpress.com/item/1005011682429430.html) (rozsah 500 g, rozlišení 0,1 g).
 * **Tělo měřiče:** 3D tištěné díly (tělo, páka, držák).
@@ -38,7 +38,6 @@ Místo odhadu „podle zvuku drnknutí“ nebo drahých komerčních tenzometrů
   * 2× kovová vložka `5,1 × 6,8 × 10,5 mm`
   * Šrouby: 2× `M3 × 5,5 mm` a 2× `M3 × 10 mm` se zapuštěnou hlavou
 
-[FOTO: Vizualizace zapojení 3D tištěného měřiče napětí řemenů GT2 při měření na tiskárně]
 
 Díky vlastnímu měřiči pak dokážeme napětí obou větví CoreXY řemenů nastavit na stejnou číselnou hodnotu. Syn následně v maturitní práci objektivně zmapuje a zdokumentuje, jak se přesná změna předpětí řemenů projeví na rezonančních křivkách **Input Shaperu** i na rozměrové přesnosti finálních výtisků.
 
