@@ -1,7 +1,7 @@
 ---
 title: "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY"
-description: "Zápis ze stavby tuhé tiskárny CoreXY ze dvou tiskáren Ender 3:
-  trojitá osa Z, lineární vedení a řízení přes CANbus."
+description: "Shrnující zápis ze stavby tiskárny CoreXY ze dvou tiskáren Ender
+  3: trojitá osa Z, lineární vedení a řízení přes CANbus."
 pubDate: 2026-10-20
 updatedDate: 2026-11-16
 tags:
