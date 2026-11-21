@@ -44,6 +44,24 @@ English posts live in `src/content/blog/`; Czech translations live in
 Project images and other imported media live in `src/assets/`; static public
 files live in `public/`.
 
+Standalone YouTube video links in blog and TweetONE Markdown become click-to-play
+video cards. Use a custom link label for a caption, or a bare URL for no caption:
+
+```md
+[First test print](https://youtu.be/TXev-ikeR5w?t=30)
+
+https://youtu.be/TXev-ikeR5w
+
+See [our video](https://youtu.be/TXev-ikeR5w) for details.
+```
+
+Links in sentences and lists remain normal links. The thumbnail is loaded from
+YouTube before playback; without JavaScript the card links directly to YouTube.
+
+Markdown tables automatically get a horizontally scrollable wrapper. For raw
+HTML tables, add `<div class="article-table-wrapper" tabindex="0">` around the
+table so it also scrolls on narrow screens.
+
 The site publishes an RSS feed, `robots.txt`, `llms.txt`, and an XML sitemap.
 Update the site URL in `astro.config.mjs` and `src/data/site.ts` together if the
 canonical domain changes.

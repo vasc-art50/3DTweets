@@ -119,3 +119,27 @@ const fontUrl =
     <Footer />
   </body>
 </html>
+
+<script>
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest<HTMLAnchorElement>('.aw-video__play[data-youtube-embed]');
+    const embed = link?.dataset.youtubeEmbed;
+    if (!link || !embed || !URL.canParse(embed)) return;
+    const url = new URL(embed);
+    if (url.origin !== 'https://www.youtube-nocookie.com' || !/^\/embed\/[A-Za-z0-9_-]{11}$/.test(url.pathname)) return;
+
+    url.searchParams.set('autoplay', '1');
+    const iframe = document.createElement('iframe');
+    iframe.src = url.href;
+    iframe.title = link.querySelector<HTMLElement>(`.aw-video__label[lang="${document.documentElement.lang === 'cs' ? 'cs' : 'en'}"]`)?.textContent ?? 'YouTube';
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    event.preventDefault();
+    link.replaceWith(iframe);
+    iframe.focus();
+  });
+</script>

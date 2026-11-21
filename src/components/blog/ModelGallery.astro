@@ -269,7 +269,8 @@ const slides = await Promise.all(
     inset: 0;
     z-index: 0;
     object-fit: cover;
-    filter: blur(18px) brightness(0.75);
+    filter: blur(18px) var(--aw-media-backdrop-tone);
+    opacity: var(--aw-media-backdrop-opacity);
     transform: scale(1.15);
     pointer-events: none;
   }
@@ -368,7 +369,8 @@ const slides = await Promise.all(
     position: absolute;
     inset: 0;
     object-fit: cover;
-    filter: blur(10px) brightness(0.75);
+    filter: blur(10px) var(--aw-media-backdrop-tone);
+    opacity: var(--aw-media-backdrop-opacity);
     transform: scale(1.15);
     pointer-events: none;
   }

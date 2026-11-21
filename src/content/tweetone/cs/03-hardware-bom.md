@@ -18,6 +18,7 @@ cards:
     text: Nejdůležitějším rozhodnutím byl přechod od kladek V-wheel k lineárnímu vedení, přesnějšímu ustavení a tužší geometrii portálu. Díky tomu si tiskárna zachovává dobrý poměr rychlosti a opakovatelnosti.
 ---
 
+<div class="article-table-wrapper" tabindex="0">
 <table class="table is-fullwidth is-striped is-narrow">
   <thead>
     <tr>
@@ -36,3 +37,4 @@ cards:
     <tr><td>Profil 2020 (350 mm)</td><td>3</td><td>Nové / znovu použité</td><td>Podpora trojité osy Z</td><td>Součást rozložení osy Z</td></tr>
   </tbody>
 </table>
+</div>

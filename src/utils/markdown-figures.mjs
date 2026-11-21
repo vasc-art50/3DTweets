@@ -116,6 +116,7 @@ export const markdownFigurePlugin = {
       visit(image, context) {
         let parent = context.parent(image);
         while (parent) {
+          if (parent.type === 'element' && parent.properties?.className?.includes('aw-video')) return;
           if (parent.type === 'element' && parent.tagName === 'p') return;
           parent = context.parent(parent);
         }

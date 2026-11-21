@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Click-to-play YouTube video cards for standalone links in Markdown articles.
 - Complete Czech-language site under `/cs/`, including localized navigation,
   page metadata, translated service content and blog articles, language
   switching, and `hreflang` alternates.
@@ -41,6 +42,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Improved inline code and responsive Markdown table readability in both themes.
+- Lightened image backdrops in light mode while preserving the dark theme.
+- Connected the Czech TweetONE build articles with a series index and chapter navigation.
+- Markdown code blocks now use neutral, theme-aware boxes without syntax highlighting.
 - Reworked the starter into a 3D design and printing portfolio, with a bold
   dark theme, adaptive light theme, and orange accent.
 - Inter loaded from Google Fonts with a non-blocking async pattern
@@ -51,6 +56,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (composes a `mailto:` to `site.email`).
 
 ### Fixed
+
+- Restored accent-colored inline code and reduced desktop table overflow.
 
 - Improved readability and hover feedback for outlined pricing-plan buttons.
 - Theme resetting to light after client-side navigation — re-applied on

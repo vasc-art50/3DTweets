@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import pagefind from 'astro-pagefind';
 import { markdownFigurePlugin } from './src/utils/markdown-figures.mjs';
+import { markdownVideoPlugin } from './src/utils/markdown-videos.mjs';
+import { markdownTablePlugin } from './src/utils/markdown-tables.mjs';
 
 /** @type {import('astro').AstroIntegration} */
 const markdownFigures = {
@@ -17,7 +19,7 @@ const markdownFigures = {
       ) {
         throw new Error('Markdown figure captions require Astro’s Sätteri processor.');
       }
-      processor.options.hastPlugins.push(markdownFigurePlugin);
+      processor.options.hastPlugins.push(markdownVideoPlugin, markdownFigurePlugin, markdownTablePlugin);
     },
   },
 };
@@ -25,6 +27,10 @@ const markdownFigures = {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://3dtweets.com',
+
+  markdown: {
+    syntaxHighlight: false,
+  },
 
   i18n: {
     defaultLocale: 'en',

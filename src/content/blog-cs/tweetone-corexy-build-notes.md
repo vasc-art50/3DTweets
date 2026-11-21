@@ -77,6 +77,18 @@ k rychlosti.
 Projekt také ukazuje, jak se hobby stavba může stát technickou platformou pro
 ladění rezonancí, pohybu, nástrojové desky i budoucích rozšíření.
 
+## Kompletní seriál stavby TweetONE
+
+Jednotlivé kapitoly zachycují cestu od prvního návrhu až po plány dalšího
+měření:
+
+1. [Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu](/cs/blog/tweetone-chapter1/) — Výběr profilů a dílů z dárcovských tiskáren, lineárního vedení a koncepce Triple-Z.
+2. [Stavba mechaniky, design a oživení dvou desek Creality v Klipperu](/cs/blog/tweetone-chapter2/) — Sestavení rámu, hledání vzhledu a propojení dvou řídicích desek s Raspberry Pi.
+3. [První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner](/cs/blog/tweetone-chapter3/) — Vyrovnání podložky, první zkušební výtisk a volba nové tiskové hlavy.
+4. [Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36](/cs/blog/tweetone-chapter4/) — Výměna řídicí elektroniky, zprovoznění CANbusu a nastavení pohonů.
+5. [Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo](/cs/blog/tweetone-chapter5/) — Měření rezonancí rámu a teplotní kalibrace sondy pro přesnou první vrstvu.
+6. [Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů](/cs/blog/tweetone-chapter6/) — Plány porovnání matic osy Z a stavby měřiče napětí řemenů.
+
 ## Celá dokumentace projektu
 
 Tento článek shrnuje stavbu. Úplný popis víceřadičového zapojení, hardwaru,

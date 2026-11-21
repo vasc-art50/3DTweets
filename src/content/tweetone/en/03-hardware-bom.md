@@ -18,6 +18,7 @@ cards:
     text: The most important design decision was moving away from V-wheels and toward linear motion, better-defined alignment, and stiffer gantry geometry. That allowed the printer to keep a good balance between speed and repeatability.
 ---
 
+<div class="article-table-wrapper" tabindex="0">
 <table class="table is-fullwidth is-striped is-narrow">
   <thead>
     <tr>
@@ -36,3 +37,4 @@ cards:
     <tr><td>2020 profile (350 mm)</td><td>3</td><td>Added / reused</td><td>Triple-Z rail support</td><td>Used for the Z-axis layout</td></tr>
   </tbody>
 </table>
+</div>

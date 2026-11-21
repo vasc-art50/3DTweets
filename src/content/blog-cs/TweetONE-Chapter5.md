@@ -8,7 +8,7 @@ tags: ["TweetONE", "Input Shaper", "BTT Eddy Duo", "Kalibrace", "Klipper", "Z-of
 
 Po zprovoznění desky Manta M8P v2.0 a tiskové hlavy DragonBurner přišla na řadu klíčová fáze: odladit vysokorychlostní kinematiku CoreXY pomocí **Input Shaperu** a vyřešit teplotní kalibraci vířivé sondy **BTT Eddy Duo**, aby první vrstva držela stejně přesně při tisku PLA i při vyhřátí podložky na 100 °C pro ABS/ASA.
 
-[FOTO: Průběh kalibrace a výsledky Z-Tilt / Bed Mesh v rozhraní Mainsail]
+[https://youtu.be/TXev-ikeR5w](https://youtu.be/TXev-ikeR5w)
 
 ## Měření rezonancí: Input Shaper (`SHAPER_CALIBRATE`)
 
@@ -16,8 +16,8 @@ Díky akcelerometru integrovanému přímo na CANbus desce BTT EBB36 jsme změř
 
 | Osa | Doporučený filtr | Rezonanční frekvence | Zbytkové vibrace | Doporučené max. zrychlení |
 | :--- | :---: | :---: | :---: | :---: |
-| **Osa X** | `mzv` | **69,8 Hz** | 0,8 % | **≤ 14 400 mm/s²** |
-| **Osa Y** | `mzv` | **53,8 Hz** | 0,7 % | **≤ 8 500 mm/s²** |
+| **Osa&nbsp;X** | **mzv** | **69,8&nbsp;Hz** | **0,8&nbsp;%** | **≤&nbsp;14&nbsp;400&nbsp;mm/s²** |
+| **Osa&nbsp;Y** | **mzv** | **53,8&nbsp;Hz** | **0,7&nbsp;%** | **≤&nbsp;8&nbsp;500&nbsp;mm/s²** |
 
 Hodnota **14 400 mm/s²** na ose X (s pouhými 0,8 % zbytkových vibrací) potvrdila, že kombinace hliníkového rámu s kovovými úhelníky a japonské lineární kolejnice THK SRS 12GN dává tiskárně mimořádnou tuhost.
 
@@ -40,3 +40,8 @@ Opakované měření: Klipper při každém nárůstu teploty sondy o 4 °C auto
 Uložení křivky: Po dosažení cílové teploty jsme kalibraci ukončili příkazem TEMPERATURE_PROBE_COMPLETE a uložili do printer.cfg přes SAVE_CONFIG.
 
 Od té chvíle sonde nevadí ani rozdílné tiskové teploty – BED_MESH_CALIBRATE ADAPTIVE=1 před každým tiskem zmapuje pouze oblast budoucího výtisku s naprostou přesností.
+
+![Z-Tilt / Bed Mesh](../../assets/images/tweetone/image17.webp "Průběh kalibrace a výsledky Z-Tilt / Bed Mesh v rozhraní Mainsail")
+---
+[← Předchozí](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36") · [Přehled](/cs/blog/tweetone-corexy-build-notes/ "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY") · [1](/cs/blog/tweetone-chapter1/ "1. Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu") · [2](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu") · [3](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner") · [4](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36") · **[5]** · [6](/cs/blog/tweetone-chapter6/ "6. Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů") · [Další →](/cs/blog/tweetone-chapter6/ "6. Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů")
+---

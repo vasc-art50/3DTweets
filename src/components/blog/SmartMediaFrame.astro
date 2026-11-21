@@ -53,7 +53,8 @@ const dimensions = typeof src === 'string' ? { width: 1600, height: 900 } : {};
     position: absolute;
     inset: 0;
     object-fit: cover;
-    filter: blur(18px) brightness(0.75);
+    filter: blur(18px) var(--aw-media-backdrop-tone);
+    opacity: var(--aw-media-backdrop-opacity);
     transform: scale(1.15);
     pointer-events: none;
   }

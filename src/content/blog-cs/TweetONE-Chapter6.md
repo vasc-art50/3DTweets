@@ -46,3 +46,7 @@ Díky vlastnímu měřiči pak dokážeme napětí obou větví CoreXY řemenů 
 * [Stop the Drop! Install an Anti-Backlash Nut on Ender-3 Series (YouTube)](https://www.youtube.com/watch?v=Lpc1bTsSpRA)
 * [GT2 Belt Tension Meter with strain gauge sensor (YouTube)](https://www.youtube.com/watch?v=vsF08ZM7MTI)
 * [CoreXY Belt Routing – principy a napínání řemenů (3D Distributed)](https://3ddistributed.com/corexy-3d-printer/corexy-belt-routing/)
+
+---
+[← Předchozí](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo") · [Přehled](/cs/blog/tweetone-corexy-build-notes/ "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY") · [1](/cs/blog/tweetone-chapter1/ "1. Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu") · [2](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu") · [3](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner") · [4](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36") · [5](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo") · **[6]**
+---

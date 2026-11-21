@@ -8,7 +8,7 @@ tags: ["TweetONE", "Klipper", "Raspberry Pi", "Creality 4.2.2", "Dual-MCU", "Mec
 
 Po silvestrovské objednávce profilů a lineárních kolejnic jsme se v lednu 2026 pustili do samotné stavby mechaniky, optimalizace tiskového prostoru a prvního oživování řídicí elektroniky.
 
-[FOTO: Sestavený hliníkový rám TweetONE s lineárním vedením]
+![Prvni prototyp](../../assets/images/tweetone/Z30_1248.webp "Sestavený hliníkový rám TweetONE s lineárním vedením")
 
 ## Optimalizace tiskového prostoru a mechanické detaily
 
@@ -18,7 +18,9 @@ Při skládání rámu se ukázalo několik důležitých detailů, které nám 
 * **Rozdělení napínáků řemenů:** Studovali jsme řešení z projektů *Mercury One.1 (ZeroG)*, *RatRig V-Core 3* a *EVA 3*. Nakonec jsme zvolili rozdělený systém – jedna strana řemenu je uchycena pevně a druhá se napíná samostatným napínákem pro větev X a Y.
 * **Údržba lineárního vedení:** Montáž kolejnic dala zabrat – všechny vozíky jsme museli důkladně vyčistit a promazat. U jedné kolejnice od Průši jsme dokonce řešili problém s chodem vozíku se supportem, ale nakonec jsme si poradili sami.
 
-[FOTO: Vizualizace designových konceptů TweetONE – Origami Signal White vs. Technical Urban Grey]
+![Vizualizace konceptu Origami](../../assets/images/tweetone/image82.webp "Vizualizace designových konceptů TweetONE – Origami Signal White")
+![Vizualizace konceptu Technical Urban](../../assets/images/tweetone/image58.webp "Vizualizace designových konceptů TweetONE – Technical Urban Grey")
+
 
 ### Hledání vizuální identity: Origami vs. Technický minimalismus
 
@@ -34,7 +36,9 @@ Hned při pohledu na čipy nás ale čekala klasická „Creality loterie“:
 * **Deska 1 (z Ender 3):** Originální čip **STM32F103**.
 * **Deska 2 (z Ender 3 V2):** Čínský klon **GD32F303**.
 
-[FOTO: Detail procesorů STM32F103 a GD32F303 na deskách Creality v4.2.2]
+![Detail GD32F303 na desce Creality v4.2.2](../../assets/images/tweetone/20260705_114526.webp "Detail procesoru GD32F303")
+
+![Detail STM32F103 na desce Creality v4.2.2](../../assets/images/tweetone/20260705_094733.webp "Detail procesoru STM32F103")
 
 ### Praktické poznatky z flashování a propojení s Raspberry Pi
 
@@ -59,3 +63,6 @@ dir_pin: GD:PB9
 enable_pin: !GD:PC3
 microsteps: 16
 rotation_distance: 8
+```
+[← Předchozí](/cs/blog/tweetone-chapter1/ "1. Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu") · [Přehled](/cs/blog/tweetone-corexy-build-notes/ "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY") · [1](/cs/blog/tweetone-chapter1/ "1. Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu") · **[2]** · [3](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner") · [4](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36") · [5](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo") · [6](/cs/blog/tweetone-chapter6/ "6. Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů") · [Další →](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner")
+---

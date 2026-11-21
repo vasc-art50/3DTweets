@@ -8,7 +8,7 @@ tags: ["TweetONE", "Manta M8P", "BTT CB1", "EBB36", "CANbus", "Sensorless Homing
 
 Provoz dvou desek Creality v4.2.2 pod Raspberry Pi 4B splnil svůj účel, ale pro čistou kabeláž, tiché drivery TMC2209 s podporou *Sensorless Homing* a budoucí rozšiřitelnost (toolchanger) jsme na konci srpna přešli na profesionální řešení: desku **BIGTREETECH Manta M8P v2.0** osazenou výpočetním modulem **BTT CB1** a CANbus deskou **BTT EBB36** přímo na tiskové hlavě DragonBurner.
 
-[FOTO: Osazená deska BTT Manta M8P v2.0 a zapojení motorů]
+![BTT Manta M8P v2.0](../../assets/images/tweetone/20260920_110539.webp "Osazená deska BTT Manta M8P v2.0 a zapojení motorů")
 
 ## 1. Instalace systému na modul BTT CB1 (Důležitá past v Imageru!)
 
@@ -34,7 +34,8 @@ Naklonovat repozitář Arksine/CanBoot, nakonfigurovat přes make menuconfig a n
 
 Následně zkompilovat a nahrát samotný Klipper firmware pro EBB36.
 
-[FOTO: Tisková hlava DragonBurner s deskou BTT EBB36 a připojením kabelem]
+![DragonBurner](../../assets/images/tweetone/20260927_201351.webp "Tisková hlava DragonBurner s deskou BTT EBB36 a připojením kabelem")
+
 
 3. Mapování motorů a Sensorless Homing na Manta M8P v2.0
 Deska Manta M8P v2.0 nabízí 8 pozic pro drivery, což nám umožnilo přehledně zapojit všech 6 aktivních motorů a nechat si 2 sloty v rezervě:
@@ -77,4 +78,6 @@ Drobné zádrhely a jak jsme je vyřešili
 Mechanická kolize vozíku: Při testování plného rozsahu pohybu se vozík zasekával o plastový držák rámu. Stačilo díl v CADu o pár milimetrů zkrátit a znovu vytisknout.
 
 Spínání ventilátoru přes MOSFET: Pro spolehlivé řízení chlazení (FAN0) jsme do okruhu zařadili externí spínací modul s tranzistorem IRF520.
-
+---
+[← Předchozí](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner") · [Přehled](/cs/blog/tweetone-corexy-build-notes/ "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY") · [1](/cs/blog/tweetone-chapter1/ "1. Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu") · [2](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu") · [3](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner") · **[4]** · [5](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo") · [6](/cs/blog/tweetone-chapter6/ "6. Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů") · [Další →](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo")
+---

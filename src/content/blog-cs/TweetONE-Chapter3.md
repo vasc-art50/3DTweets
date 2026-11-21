@@ -4,11 +4,12 @@ description: "Ladění sondy CR-Touch, zprovoznění automatického vyrovnání 
 pubDate: 2026-08-20
 category: TweetONE
 tags: ["TweetONE", "Z-Tilt", "CR-Touch", "První tisk", "DragonBurner", "Klipper"]
+heroImage: ../../assets/images/tweetone/20260706_121353.webp
 ---
 
 V srpnu 2026 se projekt přehoupl z fáze „drátů na stole“ do fáze skutečného tiskového stroje. Abychom tiskárnu co nejrychleji zprovoznili, nasadili jsme pro první testy původní tiskovou hlavu z Enderu 3.
 
-[FOTO: První úspěšný zkušební výtisk na tiskárně TweetONE]
+![První úspěšný zkušební výtisk](../../assets/images/tweetone/20260814_100423.webp "První úspěšný zkušební výtisk na tiskárně TweetONE")
 
 ## Od problémů se Z-endstopem k přesnému Z-Tiltu
 
@@ -29,3 +30,6 @@ Výsledek stál za to: po spuštění `Z_TILT_ADJUST` se podložka srovnala s od
 Hned při prvních tiscích se projevila slabina starého hotendu z Enderu 3 – při vyšších rychlostech CoreXY se opakovaně ucpávala tryska. Bylo jasné, že původní hlava splnila svou roli jako testovací mula, ale pro ostrý provoz potřebujeme lehký, moderní direct-drive toolhead.
 
 Volba padla na komunitní hlavu **Voron DragonBurner** v kombinaci s extruderem **LGX Lite** a návratem sondy **BTT Eddy Duo**. Současně jsme začali zkoumat i možnosti budoucího rozšíření o **toolchanger** (porovnávali jsme konstrukce *Prusa XL*, *Daksh*, *MadMax*, *Lineux* i kinematické uložení pomocí kuliček a magnetů), protože pevný rám CoreXY nám k tomu do budoucna otevírá dveře.
+---
+[← Předchozí](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu") · [Přehled](/cs/blog/tweetone-corexy-build-notes/ "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY") · [1](/cs/blog/tweetone-chapter1/ "1. Jak ze dvou bazarových Enderů postavit CoreXY tiskárnu") · [2](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu") · **[3]** · [4](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36") · [5](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo") · [6](/cs/blog/tweetone-chapter6/ "6. Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů") · [Další →](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36")
+---

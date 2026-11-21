@@ -10,7 +10,8 @@ V prosinci 2025 jsme odstartovali náš největší společný hardwarový proje
 
 Jako výchozí konstrukční inspiraci jsme zvolili otevřený komunitní projekt **Duender CoreXY** (a příbuzný **Ender 3 NG**), který je navržený tak, aby znovu využil maximum hliníkových profilů, motorů a spojovacího materiálu z obou dárcovských tiskáren.
 
-[FOTO: Původní bazarové tiskárny Ender 3 a Ender 3 V2 / první návrh konstrukce v CADu]
+![Ender 3 Pro](../../assets/images/tweetone/20260207_182707.webp "První rozebraná tiskárna")
+
 
 ## Klíčový rozdíl mezi Ender 3 a Ender 3 V2: Profily osy Y
 
@@ -45,8 +46,12 @@ Základní verze Duender používá původní V-kolečka, ale pro vyšší rychl
 2. **Osy Y a Z – kolejnice MGN a 3 nezávislé Z-osy:** Na osu Y jsme zvolili kolejnice uložené na profilech `2040 × 350 mm`. Pro osu Z nás zaujala koncepce nezávislého tříbodového zavěšení podložky (**Triple-Z**) s levnějšími kolejnicemi od *Magic Dragon* doplněnými o [zarovnávací klipy na profily 2020](https://www.printables.com/model/703504-2020-linear-rail-alignment-clips).
 3. **Anti-backlash POM matice:** Na trapézové tyče jsme nasadili odpružené POM matice (Delrin), které vymezují mrtvý chod závitu a tlumí přenos nerovností tyče (*Z-wobble*). Srovnávací měření jejich přesnosti vůči klasickým mosazným maticím navíc poslouží jako podklad pro synovu maturitní práci.
 
-[FOTO: 3D sestava v Onshape – rozložení profilů, držáků motorů a Triple-Z]
+![3D mdel](../../assets/images/tweetone/image31.webp "Hrubý návrh konstrukce")
 
 ## Doporučení pro tisk dílů před demontáží
 
 Všechny plastové díly rámu a držáky bylo nutné vytisknout ještě před rozebráním poslední funkční tiskárny. Pro pohybové části a díly v blízkosti motorů jsme zvolili **ABS / ASA** (kvůli tepelné odolnosti a tuhosti), pro vnější stacionární díly **PETG** – při nastavení 4–5 perimetrů, 5–7 horních/spodních vrstev a výplni minimálně **50 %** (u namáhaných držáků až 100 %).
+
+---
+[Přehled](/cs/blog/tweetone-corexy-build-notes/ "TweetONE CoreXY: od dvou Enderů 3 k rychlé tiskárně CoreXY") · **[1]** · [2](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu") · [3](/cs/blog/tweetone-chapter3/ "3. První tisk, přesnost Z-Tilt 0,005 mm a přechod na DragonBurner") · [4](/cs/blog/tweetone-chapter4/ "4. Přechod na BTT Manta M8P v2.0, CB1 a CANbus toolboard EBB36") · [5](/cs/blog/tweetone-chapter5/ "5. Kalibrace Input Shaperu (14 400 mm/s²) a teplotní drift BTT Eddy Duo") · [6](/cs/blog/tweetone-chapter6/ "6. Tiskárna jako budoucí maturitní práce – plán měření anti-backlash matic a napětí řemenů") · [Další →](/cs/blog/tweetone-chapter2/ "2. Stavba mechaniky, design a oživení dvou desek Creality v Klipperu")
+---

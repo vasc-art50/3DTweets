@@ -121,6 +121,14 @@ const text = pageText[locale];
                   <h2 class="title is-2">{data.title}</h2>
                 </div>
 
+                {(data.layout === 'cards' || data.layout === 'reference') && section.body?.trim() && (
+                  <div class="box aw-card mb-5">
+                    <div class="aw-markdown-body">
+                      <Content />
+                    </div>
+                  </div>
+                )}
+
                 {data.layout === 'setup' && (
                   <div class="columns is-multiline">
                     <div class="column is-12">
@@ -194,7 +202,7 @@ const text = pageText[locale];
                               ) : (
                                 <>
                                   {card.fixPrefix}{' '}
-                                  {card.inlineCode && <code>{card.inlineCode}</code>}
+                                  {card.inlineCode && <code class="aw-tweetone-inline-code">{card.inlineCode}</code>}
                                   {card.fixSuffix}
                                 </>
                               )}
