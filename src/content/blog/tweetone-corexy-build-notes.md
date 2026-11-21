@@ -58,6 +58,17 @@ The value of TweetONE is not only that it works. It is that it turns engineering
 
 The project is also a great example of what happens when a hobby build becomes a real technical platform: a custom machine can become a test bench for resonance tuning, motion calibration, toolboard integration, and future upgrades.
 
+## The complete TweetONE build series
+
+Follow the build from the first design decisions through the plans for further measurements:
+
+1. [Building a CoreXY printer from two second-hand Ender 3s](/blog/tweetone-chapter1/) — Selecting donor parts, frame profiles, linear rails, and a Triple-Z layout.
+2. [Building the frame, choosing a design, and bringing two Creality boards up in Klipper](/blog/tweetone-chapter2/) — Assembling the frame, exploring its appearance, and connecting two controller boards to a Raspberry Pi.
+3. [First print, 0.005 mm Z-Tilt accuracy, and the move to DragonBurner](/blog/tweetone-chapter3/) — Leveling the bed, making the first test print, and choosing a new toolhead.
+4. [Switching to the BTT Manta M8P v2.0, CB1, and EBB36 CANbus toolboard](/blog/tweetone-chapter4/) — Replacing the control electronics, bringing up CANbus, and configuring the motors.
+5. [Input Shaper tuning (14,400 mm/s²) and BTT Eddy Duo thermal drift](/blog/tweetone-chapter5/) — Measuring frame resonances and calibrating the probe for a consistent first layer.
+6. [A future graduation project: measuring anti-backlash nuts and belt tension](/blog/tweetone-chapter6/) — Plans to compare Z-axis nuts and build a belt tension meter.
+
 ## Read the full project page
 
 This post is a short overview of the build. For the complete story — including the multi-MCU setup, hardware checklist, tuning notes, troubleshooting, and reference links — read the full TweetONE CoreXY project page.

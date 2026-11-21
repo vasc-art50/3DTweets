@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- English translations of the six-part TweetONE build series.
 - Click-to-play YouTube video cards for standalone links in Markdown articles.
 - Complete Czech-language site under `/cs/`, including localized navigation,
   page metadata, translated service content and blog articles, language
