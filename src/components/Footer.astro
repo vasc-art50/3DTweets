@@ -2,6 +2,7 @@
 import { site } from '../data/site';
 import { getLocale, localeUrl } from '../i18n/utils';
 import { ui } from '../i18n/ui';
+import ContactLink from './ContactLink.astro';
 
 const year = new Date().getFullYear();
 const locale = getLocale(Astro.currentLocale);
@@ -33,7 +34,10 @@ const text = ui[locale];
         <p class="has-text-weight-semibold mb-3">{text.footerVisit}</p>
         <p class="mb-1">{text.footerAddress}</p>
         <p class="mb-1">
-          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <ContactLink kind="email" />
+        </p>
+        <p class="mb-1">
+          <ContactLink kind="youtube" />
         </p>
       </div>
     </div>

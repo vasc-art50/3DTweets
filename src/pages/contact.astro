@@ -1,5 +1,6 @@
 ---
 import PageHero from '../components/PageHero.astro';
+import ContactLink from '../components/ContactLink.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 import { getLocale } from '../i18n/utils';
@@ -34,7 +35,10 @@ const text = ui[locale].form;
             </div>
             <div>
               <p class="aw-contact-label mb-1">Email</p>
-              <a href={`mailto:${site.email}`}>{site.email}</a>
+              <ContactLink kind="email" />
+            </div>
+            <div>
+              <ContactLink kind="youtube" />
             </div>
             <div>
               <p class="aw-contact-label mb-1">{text.workingHours}</p>

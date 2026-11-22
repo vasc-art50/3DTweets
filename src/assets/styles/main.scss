@@ -1324,6 +1324,30 @@ html:lang(cs) .aw-markdown-body .aw-video {
   gap: 1.25rem;
 }
 
+.aw-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+  color: var(--aw-text);
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--aw-accent);
+  }
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  span {
+    overflow-wrap: anywhere;
+  }
+}
+
 .aw-contact-label {
   font-size: 0.75rem;
   text-transform: uppercase;

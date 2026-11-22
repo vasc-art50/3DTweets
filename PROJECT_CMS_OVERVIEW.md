@@ -31,6 +31,8 @@ EN routy zahrnují `/`, `/about/`, `/services/`, `/tweetone/`, `/contact/`, `/bl
 
 `astro-pagefind` vytváří index při buildu; společný obsah stránky je označen `data-pagefind-body` a obě search stránky používají lokalizovaný Pagefind komponent. Kontakt je statický formulář odesílaný přes `fetch` na Web3Forms (`https://api.web3forms.com/submit`); serverová část v tomto projektu není. Přístupový klíč formuláře nepatří do této dokumentace.
 
+Oficiální YouTube kanál je https://www.youtube.com/channel/UCsNenKWa07G8v30aRlqicUw; jeho URL spolu s e-mailem spravuje `src/data/site.ts`. `ContactLink.astro` vykresluje odkazy s ikonami ve sdílené patičce a na stránce Kontakt pro oba jazyky. URL kanálu je také v JSON-LD `sameAs` společně s Printables profilem.
+
 `StructuredData.astro` vytváří JSON-LD `Organization`/`ProfessionalService`; články přidávají `BlogPosting`/`TechArticle` a modelové články mohou přidat `CreativeWork`. `BaseLayout.astro` dále skládá canonical, hreflang, Open Graph, Twitter a RSS metadata. `public/_headers` obsahuje pravidla pro hosty, kteří podporují formát Netlify `_headers`; ověřte podporu cílového hostingu před spoléháním se na tyto hlavičky.
 
 ## 2. Content Collections a Pages CMS — datový kontrakt

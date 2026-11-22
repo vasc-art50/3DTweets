@@ -7,6 +7,7 @@ export const site = {
   description:
     '3DTweets creates custom 3D designs, prototypes, and printed parts for makers, product ideas, and practical workshop improvements.',
   email: '3DTweets247@gmail.com',
+  youtubeUrl: 'https://www.youtube.com/channel/UCsNenKWa07G8v30aRlqicUw',
   address: 'Prague · Czech Republic',
   url: 'https://3dtweets.com',
 } as const;
