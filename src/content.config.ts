@@ -66,30 +66,35 @@ const tweetoneCard = z.object({
 
 const tweetone = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/tweetone' }),
-  schema: z.object({
-    eyebrow: z.string(),
-    title: z.string(),
-    order: z.number().int().positive(),
-    layout: z.enum(['overview', 'setup', 'hardware', 'cards', 'reference']).default('cards'),
-    altBackground: z.boolean().default(false),
-    highlightBox: z
-      .object({
-        eyebrow: z.string(),
-        goal: z.string(),
-        experiment: z.string(),
-        result: z.string(),
-      })
-      .optional(),
-    cards: z.array(tweetoneCard).optional(),
-    links: z
-      .array(
-        z.object({
-          label: z.string(),
-          url: z.url(),
-        }),
-      )
-      .optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      order: z.number().int().positive(),
+      altBackground: z.boolean().default(false),
+      heroImage: image().optional(),
+      galleryFolder: z.string().optional(),
+      gallery: z.array(image()).optional(),
+      specs: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
+      layout: z.enum(['overview', 'setup', 'hardware', 'cards', 'reference']).optional(),
+      highlightBox: z
+        .object({
+          eyebrow: z.string(),
+          goal: z.string(),
+          experiment: z.string(),
+          result: z.string(),
+        })
+        .optional(),
+      cards: z.array(tweetoneCard).optional(),
+      links: z
+        .array(
+          z.object({
+            label: z.string(),
+            url: z.url(),
+          }),
+        )
+        .optional(),
+    }),
 });
 
 export const collections = { blog, blogCs, tweetone };

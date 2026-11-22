@@ -5,10 +5,13 @@ import type { CollectionEntry } from 'astro:content';
 import { getLocale } from '../../i18n/utils';
 import { ui } from '../../i18n/ui';
 
-type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
+type GalleryEntry =
+  | CollectionEntry<'blog'>
+  | CollectionEntry<'blogCs'>
+  | CollectionEntry<'tweetone'>;
 
 interface Props {
-  post: BlogPost;
+  post: GalleryEntry;
 }
 
 const { post } = Astro.props;

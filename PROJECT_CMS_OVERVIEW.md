@@ -39,7 +39,7 @@ Oficiální YouTube kanál je https://www.youtube.com/channel/UCsNenKWa07G8v30aR
 
 Astro definuje tři kolekce: `blog`, `blogCs` a `tweetone` v `src/content.config.ts`. Pages CMS definuje čtyři editovatelné kolekce: EN/CS blog a EN/CS TweetONE. Obsah TweetONE proto má v Astro jednu společnou kolekci s jazykovými složkami, i když CMS nabízí samostatné kolekce. Podrobný seznam polí, typů, CMS popisků a ukázkové frontmatter hlavičky je v části **Detailní reference Pages CMS** níže.
 
-Blog vyžaduje `title`, `description` a `pubDate`; `updatedDate`, `printablesUrl`, `author`, `printSpecs`, `heroImage`, `galleryFolder` a `gallery` jsou volitelné. `tags` mají výchozí `[]`, `category` výchozí `projects` a autor `3DTweet team`. Pole `images` schéma ani Pages CMS nedefinují; seznam snímků se zapisuje do `gallery`, případně se načítá z `galleryFolder`. `printablesUrl` a odkazy TweetONE ověřuje Astro jako URL; Pages CMS je zadává jako textová pole. Tělo Markdownu spravuje rich-text pole CMS, není to další položka frontmatteru.
+Blog vyžaduje `title`, `description` a `pubDate`; `updatedDate`, `printablesUrl`, `author`, `printSpecs`, `heroImage`, `galleryFolder` a `gallery` jsou volitelné. `tags` mají výchozí `[]`, `category` výchozí `projects` a autor `3DTweet team`. Pole `images` schéma ani Pages CMS nedefinují; seznam snímků se zapisuje do `gallery`, případně se načítá z `galleryFolder`. `printablesUrl` validuje Astro jako URL. TweetONE odkazy jsou nyní běžné Markdown odkazy v těle a jejich URL kontroluje obsahová revize, nikoli schéma polí. Tělo Markdownu spravuje rich-text pole CMS, není to další položka frontmatteru.
 
 Platné kategorie blogu jsou výhradně `projects` / `Projects & Guides` / `Projekty & Návody`, `our-models` / `Our Models` / `Naše modely` a `TweetONE`. Kategorie `Showcase` je zrušená; v kontrolovaném obsahu nejsou články, které by ji používaly. Změny schématu musí být sladěny v `src/content.config.ts`, obou blogových polích `.pages.yml`, překladech v `src/i18n/ui.ts` a komponentách filtrování/karet. Nepřidávejte hodnotu do CMS bez odpovídající validace a vykreslení.
 
@@ -48,7 +48,8 @@ Platné kategorie blogu jsou výhradně `projects` / `Projects & Guides` / `Proj
 - **Blogový filtr a navigace detailu:** sdílený `BlogPostNavigation.astro` vykresluje hned pod hlavní navigací kompaktní celoplošný pás `.aw-hero` s diagonální texturou, spodním okrajem a lokalizovaným dvoubarevným nadpisem (PROJECT JOURNAL — Notes from the workshop. / Zápisník z dílny — Poznámky z našich projektů) převzatým z blogového indexu. Nadpis a flex-wrap pilulky zarovnává `.container`; jeho vnější odsazení sdílí stejné Sass proměnné s `.aw-section` článku na všech šířkách. Kategorie vybírají aktivní rubriku z `post.data.category` a vedou na `/blog/?category=<slug>` nebo `/cs/blog/?category=<slug>`. Sdílený `CategoryFilter.astro` používá hodnoty `projects`, `our-models` a `TweetONE`, aplikuje query parametr při načtení, navigaci Astro i `popstate`; kliknutí na All/Vše parametr z URL odstraní. Identifikátory filtru a kategorie musí zůstat shodné s frontmatterem.
 - **Galerie a náhledy článků:** obě detailní routy vykreslují sdílený `ModelGallery.astro`. Snímky sestaví z `heroImage`, seznamu `gallery` a/nebo `galleryFolder` (první dostupný hero snímek je hlavní; duplicity se odstraňují). Galerie potřebuje zachovat poměr 4:3, hlavní obrázek `object-fit: contain`, šipky, klikací miniatury s `aria-pressed` a delegované `click`/`keydown` obsluhy na `data-gallery-*`; události na úrovni dokumentu fungují i po navigaci přes Astro `ClientRouter`. Styly galerie i `SmartMediaFrame.astro` jsou v `src/assets/styles/main.scss`, protože `BaseLayout.astro` načítá tento jediný globální stylesheet přes URL; přesunutí těchto pravidel do nedodaného komponentového CSS by rozbilo layout. `SmartMediaFrame.astro` používají lead obrázek v `BlogNewsFeed.astro` i karty v `BlogCard.astro`: rozostřený `object-fit: cover` podklad sjednocuje výšku snímků, zatímco ostrý popřední obrázek zůstává celý (`contain`). Obě vrstvy galerie i karet čtou `--aw-media-backdrop-tone` a `--aw-media-backdrop-opacity` z motivu; tmavý motiv používá tmavý podklad, světlý zvýšený jas a nižší krytí. Zachovejte tyto kontrakty při změnách layoutu, aby portréty nebyly oříznuté a nezmizel shade efekt.
 - **EN ↔ CS články:** obě detailní routy používají `post.id` jako slug a neexistuje párovací metadata ani automatický překlad. Jazykový přepínač zachová stejnou cestu; má-li detail existovat v obou jazycích, musí být odpovídající slug přítomen v obou kolekcích.
-- **TweetONE stránky:** `src/pages/tweetone.astro` a `src/pages/cs/tweetone.astro` načítají stejnou kolekci filtrovanou podle `en/` nebo `cs/`, seřadí sekce podle `order` a předají je do `TweetOneContent.astro`. Layouty, karty, alternativní pozadí a Markdown body jsou závislé na hodnotách schématu.
+- **TweetONE projektový hub:** `src/pages/tweetone.astro` a `src/pages/cs/tweetone.astro` načítají stejnou kolekci filtrovanou podle `en/` nebo `cs/`, seřadí sekce podle `order` a předají je do `TweetOneContent.astro`. Komponenta ponechává stabilní ID sekcí odvozená ze jmen souborů, ale nevykresluje skákací navigaci. Úvodní galerie a specifikace jsou v horně zarovnaném dvousloupcovém gridu; specifikace používají jediný lehký vnější rámeček a kompaktní řádky oddělené linkou, bez vnořených boxů. Každé Markdown body zůstává v `.aw-prose.aw-markdown-body` o šířce 860 px.
+- **Citace TweetONE:** sekce `07-reference-configs.md` v EN i CS obsahuje číslovaný seznam externích zdrojů podle ČSN ISO 690:2022 s kotvami `ref-1` až `ref-10`. Relevantní textové odkazy z kapitol `01`–`07` používají tvar `[[číslo]](#ref-číslo)`; `.aw-tweetone-references li:target` jemně zvýrazní cíl odkazu. Při změně bibliografie zachovejte stejné identifikátory a pořadí v obou jazycích.
 - **Materiály:** `MaterialsList.astro` čte `src/data/en/materials.csv` nebo `src/data/cs/materials.csv` během buildu. Parser rozpoznává čárku/středník, uvozované hodnoty a vyžaduje sloupce `name`, `manufacturer`, `type`, `description`; zachovejte hlavičku a počet polí.
 - **Vyhledávání a metadata:** Pagefind index vzniká při produkčním buildu a hledá pouze obsah v `data-pagefind-body`. Sitemap se generuje z rout a jazyků v `astro.config.mjs`; `robots.txt`, `llms.txt` a další soubory v `public/` se kopírují beze změny. JSON-LD, canonical a hreflang se skládají v `BaseLayout.astro` a `StructuredData.astro`.
 - **Klientské skripty a SPA navigace:** `ClientRouter` v `BaseLayout.astro` znovu vytváří DOM při přechodu mezi stránkami. Skripty Navbaru, motivu, formuláře, videa a blogového filtru proto používají delegované události nebo znovu vyhledávají aktuální elementy; neponechávejte reference na staré DOM uzly.
@@ -60,6 +61,7 @@ Platné kategorie blogu jsou výhradně `projects` / `Projects & Guides` / `Proj
 - `markdown-figures.mjs` převede samostatné obrázky a odkazy obsahující pouze obrázek na `<figure class="aw-markdown-figure">`; textový `title` obrázku se stane popiskem. Smíšený text zůstává v odstavci. Styl obrázku používá theme-aware `--aw-ink-raised` a `--aw-border`.
 - `markdown-videos.mjs` rozpozná pouze samostatný validní HTTPS odkaz na YouTube mimo seznam. Vytvoří responsivní náhled a přehrávací odkaz; až po aktivaci se odkaz v `BaseLayout.astro` změní na iframe z `youtube-nocookie.com`. U podporovaných URL přijímá časové značky a při neplatném vstupu transformaci vynechá.
 - `markdown-tables.mjs` obalí Markdown i HTML tabulku ve focusovatelný `.article-table-wrapper` s horizontálním scrollováním; již obalenou tabulku neobaluje podruhé. CSS ponechává první a druhý úzký sloupec bez zalamování.
+- Všechny tři transformace se použijí i na celé Markdown body sekcí TweetONE — obrázky a samostatné YouTube odkazy mohou být mezi odstavci i na konci souboru. Vnořené obrázky v `src/content/tweetone/en/` a `src/content/tweetone/cs/` odkazují do `src/assets/` relativně přes `../../../assets/...`; cesta z blogového Markdownu je kratší (`../../assets/...`).
 - Inline kód styluje `.aw-markdown-body :not(pre) > code` oranžovým theme-aware akcentem. Blok `<pre><code>` zůstává neutrální, monospace, s ohraničením a vodorovným přetečením; pravidla `.aw-markdown-body pre > code` brání zdědění inline vzhledu a kaskádě Bulma.
 - Navigace seriálu TweetONE `[1] · [2] ...` je součástí Markdown těla jednotlivých článků, nikoli automaticky generovaná komponenta. Udržujte odkazy, pořadí a Markdown `title` texty (tooltipy) konzistentní ve všech kapitolách.
 
@@ -145,51 +147,23 @@ Obě kolekce mají shodnou strukturu a liší se lokalizovanými popisky. V nás
 | `eyebrow` | Nadpis štítku | Section eyebrow | `string` | ano |
 | `title` | Nadpis sekce | Section heading | `string` | ano |
 | `order` | Pořadí sekce | Section order | `number` | ano |
-| `layout` | Typ rozložení | Section layout type | `select` | ne, výchozí `cards` |
 | `altBackground` | Střídavé pozadí sekce | Use alternating section background | `boolean` | ne, výchozí `false` |
-| `highlightBox` | Úvodní karta Fáze 0 | Phase 0 highlight card | `object` | ne |
-| `cards` | Karty sekce | Section cards | `object`, `list: true` | ne |
-| `links` | Odkazy na zdroje | Reference links | `object`, `list: true` | ne |
+| `heroImage` | Úvodní obrázek | Hero image | `image` | ne |
+| `galleryFolder` | Složka galerie v src/assets | Gallery folder under src/assets | `string` | ne |
+| `gallery` | Galerie | Gallery images | `image`, `list: true` | ne |
+| `specs` | Technické parametry | Technical specifications | `object`, `list: true` | ne |
 | `body` | Text sekce (Markdown) | Section body (Markdown) | `rich-text` | `required` neuvedeno; Markdown |
 
-Přesné volby pro `layout` jsou `overview`, `setup`, `hardware`, `cards`, `reference`. Další výběrové pole je `cards[].column`, s volbami `is-6` a `is-12` a výchozí hodnotou `is-6`.
-
-Vnořený objekt `highlightBox` má následující pole:
+Každý prvek `specs` je objekt se dvěma povinnými textovými poli:
 
 | `name` | `label` (CS) | `label` (EN) | Typ | Povinné |
 |---|---|---|---|---|
-| `eyebrow` | Štítek karty | Card eyebrow | `string` | ano |
-| `goal` | Cíl | Goal | `text` | ano |
-| `experiment` | Test | Experiment | `text` | ano |
-| `result` | Výsledek | Result | `text` | ano |
+| `label` | Parametr | Specification | `string` | ano |
+| `value` | Hodnota | Value | `string` | ano |
 
-Každý prvek `cards` je objekt. Všechna tato vnitřní pole mají `required: false`:
+`altBackground` má ve schématu Astro výchozí hodnotu `false`. `heroImage`, `galleryFolder`, `gallery` a `specs` jsou volitelné. Úvodní kolekce používá `galleryFolder: models/tweet-one`; `ModelGallery.astro` sdílí stejné 4:3 ovládání, miniatury a theme-aware ambientní pozadí jako blog. CMS pro výběr obrázků a inline upload používá pojmenovaný zdroj `tweetone-images`, jehož relativní výstupní cesta odpovídá hlubšímu umístění souborů EN/CS.
 
-| `name` | `label` (CS) | `label` (EN) | Typ / další nastavení |
-|---|---|---|---|
-| `eyebrow` | Štítek karty | Card eyebrow | `string` |
-| `title` | Nadpis karty | Card heading | `string` |
-| `date` | Datum nebo období | Date or period | `string` |
-| `text` | Text karty | Card text | `text` |
-| `cause` | Příčina problému | Problem cause | `text` |
-| `fix` | Řešení problému | Problem fix | `text` |
-| `fixPrefix` | Začátek řešení před kódem | Fix text before inline code | `text` |
-| `inlineCode` | Krátký kód v řešení | Inline code in fix | `string` |
-| `fixSuffix` | Konec řešení za kódem | Fix text after inline code | `text` |
-| `items` | Položky seznamu | List items | `string`, `list: true` |
-| `code` | Konfigurační nebo terminálový kód | Configuration or terminal code | `text` — víceřádkový text |
-| `column` | Šířka karty v řádku | Card width in row | `select`; výchozí `is-6`; hodnoty `is-6`, `is-12` |
-
-Každý prvek `links` je objekt se dvěma povinnými poli:
-
-| `name` | `label` (CS) | `label` (EN) | Typ | Povinné |
-|---|---|---|---|---|
-| `label` | Text odkazu | Link text | `string` | ano |
-| `url` | URL odkazu | Link URL | `string` | ano |
-
-V `.pages.yml` je `links[].url` formulářové pole typu `string`; `src/content.config.ts` jej navíc validuje jako URL. Pole `body` je tělo Markdown souboru spravované rich-text editorem, nikoli další položka frontmatteru.
-
-V TweetONE schématu nejsou další výběrová pole ani jiné typy, než které Pages CMS podporuje. Pole `cards[].code` je v konfiguraci `text`; frontmatter jej ukládá jako řetězec, obvykle pomocí YAML bloku `|`.
+Všechny tělo sekce tvoří plnohodnotný Markdown rich-text editor. Karty, kódové konfigurace, odkazy, tabulky i citace patří do body, ne do polí CMS. Schéma Astro dočasně přijímá také volitelná starší pole `layout`, `highlightBox`, `cards` a `links`, ale aktuální soubory je nepoužívají a Pages CMS je nenabízí.
 
 ### Příklady skutečných souborů
 
@@ -239,91 +213,45 @@ Download the [Henry's Shave pedestal on Printables](https://www.printables.com/m
 
 #### TweetONE: `src/content/tweetone/en/03-hardware-bom.md`
 
-Tento kompletní soubor ukazuje YAML frontmatter pro karty a HTML tabulku v těle dokumentu:
+Sekce nyní ukládá pouze metadata do frontmatteru; vlastní seznamy a tabulka jsou standardní Markdown:
 
 ````md
 ---
 eyebrow: Hardware & BOM
 title: Profile sizes, rails, and motion hardware
 order: 3
-layout: hardware
 altBackground: false
-cards:
-  - eyebrow: Additional hardware
-    column: is-6
-    items:
-      - THK SRS 12GN linear rail (310 mm) for the X axis
-      - MGN9H / MGN12H rails for the Y axis
-      - F623RS bearings and 2GT belts
-      - Brass heat-set inserts for structural joints
-      - POM anti-backlash nuts for the Z screws
-  - eyebrow: Practical note
-    column: is-6
-    text: The most important design decision was moving away from V-wheels and toward linear motion, better-defined alignment, and stiffer gantry geometry. That allowed the printer to keep a good balance between speed and repeatability.
 ---
 
-<table class="table is-fullwidth is-striped is-narrow">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Qty</th>
-      <th>Origin</th>
-      <th>Use in TweetONE</th>
-      <th>Note</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>4040 profile (290 mm)</td><td>4</td><td>Ender 3 + Ender 3 V2</td><td>Lower rectangular frame</td><td>Very stiff base geometry</td></tr>
-    <tr><td>2040 profile (400 mm)</td><td>4</td><td>Ender 3 + Ender 3 V2</td><td>Main vertical frame members</td><td>Maintains full print height</td></tr>
-    <tr><td>2040 profile (350 mm)</td><td>2</td><td>Added / modified Y-axis</td><td>Linear rail guides</td><td>Validated against Y-axis geometry</td></tr>
-    <tr><td>2020 profile (300 mm)</td><td>1</td><td>Top bridge</td><td>X gantry cross member</td><td>Trimmed for exact 300 mm length</td></tr>
-    <tr><td>2020 profile (350 mm)</td><td>3</td><td>Added / reused</td><td>Triple-Z rail support</td><td>Used for the Z-axis layout</td></tr>
-  </tbody>
-</table>
+### Additional hardware
+
+- THK SRS 12GN linear rail (310 mm) for the X axis
+- MGN9H / MGN12H rails for the Y axis
+- F623RS bearings and 2GT belts
+- Brass heat-set inserts for structural joints
+- POM anti-backlash nuts for the Z screws
+
+| Component | Qty | Origin | Use in TweetONE | Note |
+|---|---:|---|---|---|
+| 4040 profile (290 mm) | 4 | Ender 3 + Ender 3 V2 | Lower rectangular frame | Very stiff base geometry |
+| 2040 profile (400 mm) | 4 | Ender 3 + Ender 3 V2 | Main vertical frame members | Maintains full print height |
+| 2040 profile (350 mm) | 2 | Added / modified Y-axis | Linear rail guides | Validated against Y-axis geometry |
+| 2020 profile (300 mm) | 1 | Top bridge | X gantry cross member | Trimmed for exact 300 mm length |
+| 2020 profile (350 mm) | 3 | Added / reused | Triple-Z rail support | Used for the Z-axis layout |
 ````
-
-Další skutečné zápisy ukazují, jak zachovat víceřádkový konfigurační text, odkazy a úvodní kartu. V editoru CMS je `code` pole typu `text`; struktura YAML používá `|`:
-
-````yaml
-cards:
-  - eyebrow: system.cfg
-    column: is-6
-    code: |
-      WIFI_SSID="YourHomeWiFi"
-      WIFI_PASSWD="VerySecretPassword"
-      hostname="TweetONE-M"
-````
-
-Odkazy jsou samostatné položky v seznamu `links`:
-
-```yaml
-links:
-  - label: Irbis3D Duender CoreXY
-    url: https://www.youtube.com/@Irbis3D
-```
-
-Speciální karta Phase 0 je v `01-overview.md` objektem `highlightBox`:
-
-```yaml
-highlightBox:
-  eyebrow: Phase 0
-  goal: Prove that one Raspberry Pi 4B can run dual-MCU Klipper reliably.
-  experiment: Connect both Creality v4.2.2 boards at once over USB.
-  result: Stable XY and independent Triple-Z control before the mechanical rebuild began.
-```
 
 ### Obrázky, Save a nasazení
 
 #### Kam CMS ukládá obrázky
 
-Globální media konfigurace v `.pages.yml` je:
+`.pages.yml` definuje dva pojmenované zdroje médií. Oba ukládají do `src/assets/models`, zachovávají názvy souborů a povolují `avif`, `jpg`, `jpeg`, `png`, `webp`; liší se výstupní relativní cestou podle umístění obsahu:
 
-- vstupní složka: `src/assets/models`
-- cesta zapisovaná do obsahu: `../../assets/models`
-- `rename: false`
-- povolená rozšíření: `avif`, `jpg`, `jpeg`, `png`, `webp`
+| Zdroj | Kolekce | `output` zapsaný do Markdownu |
+|---|---|---|
+| `blog-images` | `blog`, `blog-cs` | `../../assets/models` |
+| `tweetone-images` | `tweetone-en`, `tweetone-cs` | `../../../assets/models` |
 
-Blogová pole `heroImage` a `gallery` i obrázky vložené do `body` používají tento zdroj médií. Cesta `../../assets/models/...` je relativní k Markdown souboru v `src/content/blog` nebo `src/content/blog-cs`. Galerie může místo seznamu cest použít `galleryFolder` pod `src/assets`, například `models/henrys-shave`; komponenta pak načítá obrázky z dané složky. `ModelGallery.astro` vytváří 4:3 scénu a náhledy; pozadí zobrazuje obrázek rozostřeně přes `cover`, popředí bez ořezu přes `contain`. Lead story a `BlogCard.astro` dosahují stejného chování přes `SmartMediaFrame.astro`. Světlý/tmavý vzhled pozadí řídí tokeny `--aw-media-backdrop-tone` a `--aw-media-backdrop-opacity` v `src/assets/styles/main.scss`; nepřepisujte je pevnými barvami ani nevracejte náhledy k `object-fit: cover`.
+Pole `heroImage`, `gallery` a rich-text body explicitně vybírají odpovídající zdroj. Galerie může místo seznamu cest použít `galleryFolder` pod `src/assets`, například `models/henrys-shave` nebo `models/tweet-one`; komponenta pak načítá obrázky z dané složky. `ModelGallery.astro` vytváří 4:3 scénu a náhledy; pozadí zobrazuje obrázek rozostřeně přes `cover`, popředí bez ořezu přes `contain`. Lead story a `BlogCard.astro` dosahují stejného chování přes `SmartMediaFrame.astro`. Světlý/tmavý vzhled pozadí řídí tokeny `--aw-media-backdrop-tone` a `--aw-media-backdrop-opacity` v `src/assets/styles/main.scss`; nepřepisujte je pevnými barvami ani nevracejte náhledy k `object-fit: cover`.
 
 #### Co dělá optimalizace
 
@@ -349,7 +277,7 @@ Angličtina a čeština se neupravují automatickým překladem. Blog má kolekc
 #### Přímo přes Pages CMS
 
 - **Blogové články:** vytvářet a upravovat EN a CS články v odpovídající kolekci. CMS nabízí metadata, kategorie, parametry tisku, obrázky, galerii a Markdown rich-text tělo.
-- **TweetONE dokumentaci:** upravovat samostatné sekce EN a CS, jejich pořadí, styl pozadí, layout, karty, seznamy, víceřádkový konfigurační text, odkazy a Markdown tělo.
+- **TweetONE dokumentaci:** upravovat samostatné sekce EN a CS, jejich pořadí, střídání pozadí, volitelnou galerii/specifikace a celé Markdown tělo. Karty, seznamy, konfigurace, odkazy, tabulky, obrázky a samostatné YouTube odkazy zapisovat přímo do Markdownu.
 - Změna titulku existující položky nemá přejmenovat její soubor, protože je `rename` vypnuté. Překlad je třeba uložit do kolekce druhého jazyka.
 
 V `.pages.yml` nejsou položky pro úvodní stránku, O nás, služby, ceny, tým, reference, navigaci, CSV ani styl stránky.

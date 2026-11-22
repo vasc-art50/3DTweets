@@ -1,7 +1,8 @@
 ---
-import { render, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from './CtaBand.astro';
+import ModelGallery from './blog/ModelGallery.astro';
 import PageHero from './PageHero.astro';
 
 interface Props {
@@ -13,9 +14,15 @@ const { locale, sections } = Astro.props;
 const renderedSections = await Promise.all(
   sections.map(async (section) => ({
     section,
+    slug: section.id.split('/').pop()?.replace(/^\d+-/, '') ?? section.id,
     Content: (await render(section)).Content,
   })),
 );
+const buildPosts =
+  locale === 'en' ? await getCollection('blog') : await getCollection('blogCs');
+const buildSeries = buildPosts
+  .filter((post) => post.id.toLowerCase().startsWith('tweetone-chapter'))
+  .sort((a, b) => a.id.localeCompare(b.id));
 
 const pageText = {
   en: {
@@ -24,11 +31,11 @@ const pageText = {
     heroEyebrow: 'Project case study',
     heroSubtitle:
       'A dual-Ender 3 / Ender 3 V2 conversion into a high-speed CoreXY printer with Triple-Z motion, linear rails, and a CANbus-based control stack.',
+    specs: 'Project specifications',
+    buildSeries: 'Six-part build series',
+    buildSeriesDescription: 'Follow the full TweetONE build in the project journal.',
     son: 'Lead Engineer & Mechatronics Architect',
     father: 'Project Lead & Technical Mentor',
-    cause: 'Cause',
-    fix: 'Fix',
-    links: 'Reference links',
     ctaEyebrow: 'Keep learning',
     ctaTitle: 'The project is still evolving.',
     ctaText:
@@ -41,11 +48,11 @@ const pageText = {
     heroEyebrow: 'Případová studie projektu',
     heroSubtitle:
       'Přestavba tiskáren Ender 3 a Ender 3 V2 na rychlou tiskárnu CoreXY s trojitou osou Z, lineárním vedením a řízením přes CANbus.',
+    specs: 'Technické parametry projektu',
+    buildSeries: 'Šestidílný seriál o stavbě',
+    buildSeriesDescription: 'Celou stavbu TweetONE sledujte v projektovém deníku.',
     son: 'hlavní konstruktér a architekt mechatroniky',
     father: 'vedoucí projektu a technický mentor',
-    cause: 'Příčina',
-    fix: 'Řešení',
-    links: 'Odkazy na zdroje',
     ctaEyebrow: 'Učíme se dál',
     ctaTitle: 'Projekt se stále vyvíjí.',
     ctaText:
@@ -62,190 +69,91 @@ const text = pageText[locale];
     eyebrow={text.heroEyebrow}
     title="TweetONE CoreXY"
     subtitle={text.heroSubtitle}
+    className="aw-tweetone-hero"
     compact
   >
-    <div class="content has-text-left mt-5">
+    <div class="aw-tweetone-credits">
       <p><strong>{locale === 'en' ? 'Son' : 'Syn'}</strong> — {text.son}</p>
       <p><strong>{locale === 'en' ? 'Father' : 'Otec'}</strong> — {text.father}</p>
     </div>
   </PageHero>
 
   {
-    renderedSections.map(({ section, Content }) => {
+    renderedSections.map(({ section, slug, Content }, index) => {
       const data = section.data;
+      const hasGallery =
+        Boolean(data.heroImage) || Boolean(data.galleryFolder) || Boolean(data.gallery?.length);
 
       return (
         <section
+          id={slug}
           class:list={[
             'section',
             'aw-section',
+            'aw-tweetone-section',
             { 'aw-section-alt': data.altBackground },
           ]}
         >
           <div class="container">
-            {data.layout === 'overview' ? (
-              <div class="columns is-vcentered">
-                <div class="column is-7">
-                  <p class="aw-eyebrow mb-3">{data.eyebrow}</p>
-                  <h2 class="title aw-section-title">{data.title}</h2>
-                  <div class="content">
-                    <div class="aw-markdown-body">
-                      <Content />
-                    </div>
+            <div class="aw-section-head">
+              <p class="aw-eyebrow mb-2">{data.eyebrow}</p>
+              <h2 class="title aw-section-title">{data.title}</h2>
+            </div>
+
+            {index === 0 && (hasGallery || data.specs?.length) && (
+              <div
+                class:list={[
+                  'aw-tweetone-overview',
+                  { 'aw-tweetone-overview--with-gallery': hasGallery },
+                ]}
+              >
+                {hasGallery && (
+                  <div class="aw-tweetone-overview__gallery">
+                    <ModelGallery post={section} />
                   </div>
-                </div>
-                <div class="column is-5">
-                  {data.highlightBox && (
-                    <div class="box aw-hero-box">
-                      <p class="aw-eyebrow mb-3">{data.highlightBox.eyebrow}</p>
-                      <p class="mb-2">
-                        <strong>{locale === 'en' ? 'Goal' : 'Cíl'}:</strong>{' '}
-                        {data.highlightBox.goal}
-                      </p>
-                      <p class="mb-2">
-                        <strong>{locale === 'en' ? 'Experiment' : 'Test'}:</strong>{' '}
-                        {data.highlightBox.experiment}
-                      </p>
-                      <p>
-                        <strong>{locale === 'en' ? 'Result' : 'Výsledek'}:</strong>{' '}
-                        {data.highlightBox.result}
-                      </p>
+                )}
+                <div class="aw-tweetone-overview__details">
+                  {data.specs?.length && (
+                    <div class="aw-tweetone-specs">
+                      <h3 class="title is-5">{text.specs}</h3>
+                      <dl>
+                        {data.specs.map((spec) => (
+                          <div class="aw-tweetone-spec">
+                            <dt>{spec.label}</dt>
+                            <dd>{spec.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  )}
+                  {buildSeries.length > 0 && (
+                    <div class="aw-tweetone-series">
+                      <h3 class="title is-5">{text.buildSeries}</h3>
+                      <p>{text.buildSeriesDescription}</p>
+                      <ol>
+                        {buildSeries.map((post) => (
+                          <li>
+                            <a
+                              href={
+                                locale === 'en'
+                                  ? `/blog/${post.id}/`
+                                  : `/cs/blog/${post.id}/`
+                              }
+                            >
+                              {post.data.title}
+                            </a>
+                          </li>
+                        ))}
+                      </ol>
                     </div>
                   )}
                 </div>
               </div>
-            ) : (
-              <>
-                <div class="aw-section-head">
-                  <p class="aw-eyebrow mb-2">{data.eyebrow}</p>
-                  <h2 class="title aw-section-title">{data.title}</h2>
-                </div>
-
-                {(data.layout === 'cards' || data.layout === 'reference') && section.body?.trim() && (
-                  <div class="box aw-card mb-5">
-                    <div class="aw-markdown-body">
-                      <Content />
-                    </div>
-                  </div>
-                )}
-
-                {data.layout === 'setup' && (
-                  <div class="columns is-multiline">
-                    <div class="column is-12">
-                      <div class="box aw-card">
-                        <div class="aw-markdown-body">
-                          <Content />
-                        </div>
-                      </div>
-                    </div>
-                    {data.cards?.map((card) => (
-                      <div class:list={['column', card.column]}>
-                        <div class="box aw-card">
-                          {card.eyebrow && (
-                            <p class="aw-eyebrow mb-3">{card.eyebrow}</p>
-                          )}
-                          {card.code && <pre><code>{card.code}</code></pre>}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {data.layout === 'hardware' && (
-                  <>
-                    <div class="box aw-card mb-5">
-                      <div class="aw-markdown-body">
-                        <Content />
-                      </div>
-                    </div>
-                    <div class="columns is-multiline">
-                      {data.cards?.map((card) => (
-                        <div class:list={['column', card.column]}>
-                          <div class="box aw-card">
-                            {card.eyebrow && (
-                              <p class="aw-eyebrow mb-3">{card.eyebrow}</p>
-                            )}
-                            {card.items && (
-                              <ul class="aw-check-list">
-                                {card.items.map((item) => <li>{item}</li>)}
-                              </ul>
-                            )}
-                            {card.text && <p>{card.text}</p>}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                {data.layout === 'cards' && (
-                  <div class="columns is-multiline">
-                    {data.cards?.map((card) => (
-                      <div class:list={['column', card.column]}>
-                        <div class="box aw-card">
-                          {card.eyebrow && (
-                            <p class="aw-eyebrow mb-2">{card.eyebrow}</p>
-                          )}
-                          {card.title && <h3 class="title is-5">{card.title}</h3>}
-                          {card.date && (
-                            <p><strong>{card.date}</strong> {card.text}</p>
-                          )}
-                          {!card.date && card.text && <p>{card.text}</p>}
-                          {card.cause && (
-                            <p><strong>{text.cause}:</strong> {card.cause}</p>
-                          )}
-                          {(card.fix || card.fixPrefix) && (
-                            <p>
-                              <strong>{text.fix}:</strong>{' '}
-                              {card.fix ? (
-                                card.fix
-                              ) : (
-                                <>
-                                  {card.fixPrefix}{' '}
-                                  {card.inlineCode && <code class="aw-tweetone-inline-code">{card.inlineCode}</code>}
-                                  {card.fixSuffix}
-                                </>
-                              )}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {data.layout === 'reference' && (
-                  <>
-                    <div class="columns is-multiline">
-                      {data.cards?.map((card) => (
-                        <div class:list={['column', card.column]}>
-                          <div class="box aw-card">
-                            {card.eyebrow && (
-                              <p class="aw-eyebrow mb-3">{card.eyebrow}</p>
-                            )}
-                            {card.code && <pre><code>{card.code}</code></pre>}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    {data.links && (
-                      <div class="box aw-card mt-5">
-                        <p class="aw-eyebrow mb-3">{text.links}</p>
-                        <ul class="aw-check-list">
-                          {data.links.map((link) => (
-                            <li>
-                              <a href={link.url} target="_blank" rel="noreferrer">
-                                {link.label}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </>
-                )}
-              </>
             )}
+
+            <div class="aw-prose aw-markdown-body aw-tweetone-prose">
+              <Content />
+            </div>
           </div>
         </section>
       );
@@ -257,6 +165,6 @@ const text = pageText[locale];
     title={text.ctaTitle}
     text={text.ctaText}
     ctaLabel={text.ctaLabel}
-    ctaHref="/blog"
+    ctaHref={locale === 'en' ? '/blog' : '/cs/blog'}
   />
 </BaseLayout>

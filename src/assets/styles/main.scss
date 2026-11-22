@@ -317,6 +317,160 @@ $aw-section-inline-padding-mobile: 1.25rem;
   margin-bottom: 3rem;
 }
 
+.aw-tweetone-hero .hero-body {
+  padding-block: clamp(1.75rem, 4vw, 3rem);
+}
+
+.aw-tweetone-credits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.5rem;
+  margin-top: 1.25rem;
+  color: var(--aw-muted);
+  font-size: 0.875rem;
+
+  p {
+    margin: 0;
+  }
+
+  strong {
+    color: var(--aw-text);
+  }
+}
+
+.aw-tweetone-section {
+  .aw-section-head {
+    margin-bottom: 2rem;
+  }
+}
+
+.aw-tweetone-prose {
+  margin-inline: auto;
+}
+
+.aw-tweetone-references li {
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.3rem;
+  scroll-margin-block: 1rem;
+}
+
+.aw-tweetone-references a {
+  overflow-wrap: anywhere;
+}
+
+.aw-tweetone-references li:target {
+  background-color: var(--aw-accent-soft);
+  box-shadow: inset 2px 0 var(--aw-accent);
+}
+
+.aw-tweetone-overview {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.aw-tweetone-overview--with-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.aw-tweetone-overview__gallery,
+.aw-tweetone-overview__details {
+  min-width: 0;
+  margin-top: 0;
+}
+
+.aw-tweetone-specs {
+  margin-top: 0;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--aw-border);
+  border-radius: 0.75rem;
+
+  .title {
+    margin-bottom: 0.75rem;
+    color: var(--aw-text);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+}
+
+.aw-tweetone-spec {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: baseline;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--aw-border);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  dt {
+    color: var(--aw-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--aw-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+}
+
+.aw-tweetone-series {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--aw-border);
+
+  .title {
+    margin-bottom: 0.5rem;
+    color: var(--aw-text);
+  }
+
+  p {
+    margin-bottom: 0.75rem;
+    color: var(--aw-muted);
+  }
+
+  ol {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
+  }
+
+  a {
+    color: var(--aw-accent);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .aw-tweetone-overview--with-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ------------------------------- Cards -------------------------------- */
 
 .aw-card {

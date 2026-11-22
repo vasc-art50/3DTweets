@@ -10,7 +10,7 @@ tags:
   - klipper
   - 3d tisk
 category: TweetONE
-heroImage: ../../assets/models/tweet-one/Z30_1244.webp
+heroImage: /src/assets/models/tweet-one/Z30_3932.webp
 galleryFolder: models/tweet-one
 ---
 Projekt TweetONE začal praktickou otázkou: co kdybychom využili nejlepší díly

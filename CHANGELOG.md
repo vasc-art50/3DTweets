@@ -37,13 +37,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Full article typography for blog posts (paragraphs, lists, headings,
   blockquote, code) and whole-card clickable blog cards (stretched link).
 - TweetONE documentation split into seven editable Markdown sections per
-  language, with structured cards and references configured in Pages CMS.
+  language, with metadata in Pages CMS and all technical content in Markdown.
 - TweetONE blog category, including localized labels and category filtering.
 - Markdown images in blog and TweetONE content displayed in themed cards, with
   image titles rendered as captions.
 
 ### Changed
 
+- Refined the EN and CS TweetONE project hub with a top-aligned shared gallery,
+  compact technical specifications, and numbered ISO 690 references with
+  inline citation links; removed the sticky section navigation.
 - Unified responsive hero and section heading sizes in EN/CZ, reduced hero
   spacing, and added localized `PROJECT JOURNAL` category navigation to article
   pages. Blog category filters now clear the query parameter when reset.

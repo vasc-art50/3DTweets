@@ -10,7 +10,7 @@ tags:
   - klipper
   - 3d-printing
 category: TweetONE
-heroImage: ../../assets/models/tweet-one/Z30_1244.webp
+heroImage: /src/assets/models/tweet-one/Z30_3932.webp
 galleryFolder: models/tweet-one
 ---
 The TweetONE project started with a very practical question: what if we took two older Ender 3 machines, reused the best parts, and turned them into a genuinely capable CoreXY printer?

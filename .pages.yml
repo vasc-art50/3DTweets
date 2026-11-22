@@ -1,9 +1,18 @@
 media:
-  input: src/assets/models
-  output: ../../assets/models
-  rename: false
-  categories: [image]
-  extensions: [avif, jpg, jpeg, png, webp]
+  - name: blog-images
+    label: Blog images
+    input: src/assets/models
+    output: ../../assets/models
+    rename: false
+    categories: [image]
+    extensions: [avif, jpg, jpeg, png, webp]
+  - name: tweetone-images
+    label: TweetONE images
+    input: src/assets/models
+    output: ../../../assets/models
+    rename: false
+    categories: [image]
+    extensions: [avif, jpg, jpeg, png, webp]
 
 content:
   - name: blog
@@ -82,6 +91,7 @@ content:
         required: false
         description: Uploads go to src/assets/models; the saved path is relative, for example ../../assets/models/filename.webp.
         options:
+          media: blog-images
           extensions: [avif, jpg, jpeg, png, webp]
           rename: false
       - name: galleryFolder
@@ -93,6 +103,7 @@ content:
         required: false
         description: Uploads go to src/assets/models; the saved path is relative, for example ../../assets/models/filename.webp.
         options:
+          media: blog-images
           multiple: true
           extensions: [avif, jpg, jpeg, png, webp]
           rename: false
@@ -100,6 +111,7 @@ content:
         type: rich-text
         description: Inline image uploads go to src/assets/models and use relative ../../assets/models/ paths.
         options:
+          media: blog-images
           format: markdown
           rename: false
 
@@ -179,6 +191,7 @@ content:
         required: false
         description: Nahrané obrázky se ukládají do src/assets/models; cesta je relativní, např. ../../assets/models/filename.webp.
         options:
+          media: blog-images
           extensions: [avif, jpg, jpeg, png, webp]
           rename: false
       - name: galleryFolder
@@ -190,6 +203,7 @@ content:
         required: false
         description: Nahrané obrázky se ukládají do src/assets/models; cesta je relativní, např. ../../assets/models/filename.webp.
         options:
+          media: blog-images
           multiple: true
           extensions: [avif, jpg, jpeg, png, webp]
           rename: false
@@ -197,6 +211,7 @@ content:
         type: rich-text
         description: Obrázky vložené do textu se ukládají do src/assets/models a používají relativní cestu ../../assets/models/.
         options:
+          media: blog-images
           format: markdown
           rename: false
 
@@ -228,111 +243,58 @@ content:
         label: Pořadí sekce
         type: number
         required: true
-      - name: layout
-        label: Typ rozložení
-        type: select
-        default: cards
-        options:
-          values: [overview, setup, hardware, cards, reference]
       - name: altBackground
         label: Střídavé pozadí sekce
         type: boolean
         default: false
-      - name: highlightBox
-        label: Úvodní karta Fáze 0
+      - name: heroImage
+        label: Úvodní obrázek
+        type: image
+        required: false
+        options:
+          media: tweetone-images
+          path: models/tweet-one
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: galleryFolder
+        label: Složka galerie v src/assets
+        type: string
+        required: false
+        description: Relativní cesta, například models/tweet-one.
+      - name: gallery
+        label: Galerie
+        type: image
+        list: true
+        required: false
+        options:
+          media: tweetone-images
+          path: models/tweet-one
+          multiple: true
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: specs
+        label: Technické parametry
         type: object
+        list: true
         required: false
         fields:
-          - name: eyebrow
-            label: Štítek karty
-            type: string
-            required: true
-          - name: goal
-            label: Cíl
-            type: text
-            required: true
-          - name: experiment
-            label: Test
-            type: text
-            required: true
-          - name: result
-            label: Výsledek
-            type: text
-            required: true
-      - name: cards
-        label: Karty sekce
-        type: object
-        list: true
-        fields:
-          - name: eyebrow
-            label: Štítek karty
-            type: string
-            required: false
-          - name: title
-            label: Nadpis karty
-            type: string
-            required: false
-          - name: date
-            label: Datum nebo období
-            type: string
-            required: false
-          - name: text
-            label: Text karty
-            type: text
-            required: false
-          - name: cause
-            label: Příčina problému
-            type: text
-            required: false
-          - name: fix
-            label: Řešení problému
-            type: text
-            required: false
-          - name: fixPrefix
-            label: Začátek řešení před kódem
-            type: text
-            required: false
-          - name: inlineCode
-            label: Krátký kód v řešení
-            type: string
-            required: false
-          - name: fixSuffix
-            label: Konec řešení za kódem
-            type: text
-            required: false
-          - name: items
-            label: Položky seznamu
-            type: string
-            list: true
-            required: false
-          - name: code
-            label: Konfigurační nebo terminálový kód
-            type: text
-            required: false
-          - name: column
-            label: Šířka karty v řádku
-            type: select
-            default: is-6
-            options:
-              values: [is-6, is-12]
-      - name: links
-        label: Odkazy na zdroje
-        type: object
-        list: true
-        fields:
           - name: label
-            label: Text odkazu
+            label: Parametr
             type: string
             required: true
-          - name: url
-            label: URL odkazu
+          - name: value
+            label: Hodnota
             type: string
             required: true
       - name: body
         label: Text sekce (Markdown)
         type: rich-text
+        description: Obrázky se ukládají do src/assets/models a používají relativní cestu ../../../assets/models/.
         options:
+          media: tweetone-images
+          path: models/tweet-one
           format: markdown
+          rename: false
           switcher: true
 
   - name: tweetone-en
@@ -363,109 +325,56 @@ content:
         label: Section order
         type: number
         required: true
-      - name: layout
-        label: Section layout type
-        type: select
-        default: cards
-        options:
-          values: [overview, setup, hardware, cards, reference]
       - name: altBackground
         label: Use alternating section background
         type: boolean
         default: false
-      - name: highlightBox
-        label: Phase 0 highlight card
+      - name: heroImage
+        label: Hero image
+        type: image
+        required: false
+        options:
+          media: tweetone-images
+          path: models/tweet-one
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: galleryFolder
+        label: Gallery folder under src/assets
+        type: string
+        required: false
+        description: Relative path, for example models/tweet-one.
+      - name: gallery
+        label: Gallery images
+        type: image
+        list: true
+        required: false
+        options:
+          media: tweetone-images
+          path: models/tweet-one
+          multiple: true
+          extensions: [avif, jpg, jpeg, png, webp]
+          rename: false
+      - name: specs
+        label: Technical specifications
         type: object
+        list: true
         required: false
         fields:
-          - name: eyebrow
-            label: Card eyebrow
-            type: string
-            required: true
-          - name: goal
-            label: Goal
-            type: text
-            required: true
-          - name: experiment
-            label: Experiment
-            type: text
-            required: true
-          - name: result
-            label: Result
-            type: text
-            required: true
-      - name: cards
-        label: Section cards
-        type: object
-        list: true
-        fields:
-          - name: eyebrow
-            label: Card eyebrow
-            type: string
-            required: false
-          - name: title
-            label: Card heading
-            type: string
-            required: false
-          - name: date
-            label: Date or period
-            type: string
-            required: false
-          - name: text
-            label: Card text
-            type: text
-            required: false
-          - name: cause
-            label: Problem cause
-            type: text
-            required: false
-          - name: fix
-            label: Problem fix
-            type: text
-            required: false
-          - name: fixPrefix
-            label: Fix text before inline code
-            type: text
-            required: false
-          - name: inlineCode
-            label: Inline code in fix
-            type: string
-            required: false
-          - name: fixSuffix
-            label: Fix text after inline code
-            type: text
-            required: false
-          - name: items
-            label: List items
-            type: string
-            list: true
-            required: false
-          - name: code
-            label: Configuration or terminal code
-            type: text
-            required: false
-          - name: column
-            label: Card width in row
-            type: select
-            default: is-6
-            options:
-              values: [is-6, is-12]
-      - name: links
-        label: Reference links
-        type: object
-        list: true
-        fields:
           - name: label
-            label: Link text
+            label: Specification
             type: string
             required: true
-          - name: url
-            label: Link URL
+          - name: value
+            label: Value
             type: string
             required: true
       - name: body
         label: Section body (Markdown)
         type: rich-text
+        description: Inline images are stored in src/assets/models and use relative ../../../assets/models/ paths.
         options:
+          media: tweetone-images
+          path: models/tweet-one
           format: markdown
           switcher: true
+          rename: false
