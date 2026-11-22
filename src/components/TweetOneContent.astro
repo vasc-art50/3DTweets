@@ -1,5 +1,5 @@
 ---
-import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from './CtaBand.astro';
 import ModelGallery from './blog/ModelGallery.astro';
@@ -18,12 +18,6 @@ const renderedSections = await Promise.all(
     Content: (await render(section)).Content,
   })),
 );
-const buildPosts =
-  locale === 'en' ? await getCollection('blog') : await getCollection('blogCs');
-const buildSeries = buildPosts
-  .filter((post) => post.id.toLowerCase().startsWith('tweetone-chapter'))
-  .sort((a, b) => a.id.localeCompare(b.id));
-
 const pageText = {
   en: {
     description:
@@ -32,8 +26,6 @@ const pageText = {
     heroSubtitle:
       'A dual-Ender 3 / Ender 3 V2 conversion into a high-speed CoreXY printer with Triple-Z motion, linear rails, and a CANbus-based control stack.',
     specs: 'Project specifications',
-    buildSeries: 'Six-part build series',
-    buildSeriesDescription: 'Follow the full TweetONE build in the project journal.',
     son: 'Lead Engineer & Mechatronics Architect',
     father: 'Project Lead & Technical Mentor',
     ctaEyebrow: 'Keep learning',
@@ -49,8 +41,6 @@ const pageText = {
     heroSubtitle:
       'Přestavba tiskáren Ender 3 a Ender 3 V2 na rychlou tiskárnu CoreXY s trojitou osou Z, lineárním vedením a řízením přes CANbus.',
     specs: 'Technické parametry projektu',
-    buildSeries: 'Šestidílný seriál o stavbě',
-    buildSeriesDescription: 'Celou stavbu TweetONE sledujte v projektovém deníku.',
     son: 'hlavní konstruktér a architekt mechatroniky',
     father: 'vedoucí projektu a technický mentor',
     ctaEyebrow: 'Učíme se dál',
@@ -124,27 +114,6 @@ const text = pageText[locale];
                           </div>
                         ))}
                       </dl>
-                    </div>
-                  )}
-                  {buildSeries.length > 0 && (
-                    <div class="aw-tweetone-series">
-                      <h3 class="title is-5">{text.buildSeries}</h3>
-                      <p>{text.buildSeriesDescription}</p>
-                      <ol>
-                        {buildSeries.map((post) => (
-                          <li>
-                            <a
-                              href={
-                                locale === 'en'
-                                  ? `/blog/${post.id}/`
-                                  : `/cs/blog/${post.id}/`
-                              }
-                            >
-                              {post.data.title}
-                            </a>
-                          </li>
-                        ))}
-                      </ol>
                     </div>
                   )}
                 </div>

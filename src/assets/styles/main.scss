@@ -430,41 +430,6 @@ $aw-section-inline-padding-mobile: 1.25rem;
   }
 }
 
-.aw-tweetone-series {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--aw-border);
-
-  .title {
-    margin-bottom: 0.5rem;
-    color: var(--aw-text);
-  }
-
-  p {
-    margin-bottom: 0.75rem;
-    color: var(--aw-muted);
-  }
-
-  ol {
-    margin: 0;
-    padding-left: 1.25rem;
-  }
-
-  li {
-    margin-bottom: 0.35rem;
-  }
-
-  a {
-    color: var(--aw-accent);
-    text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      text-decoration: underline;
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .aw-tweetone-overview--with-gallery {
     grid-template-columns: 1fr;
