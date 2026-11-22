@@ -1,0 +1,40 @@
+---
+import type { BlogCategory } from '../../utils/blog';
+
+interface Props {
+  category: BlogCategory;
+}
+
+const { category } = Astro.props;
+---
+
+<svg
+  class="aw-category-icon"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    category === 'projects' ? (
+      <>
+        <path d="M5 4.75h9l5 5v9.5H5z" />
+        <path d="M14 4.75v5h5M8 14h8M8 17h6" />
+      </>
+    ) : category === 'our-models' ? (
+      <>
+        <path d="m12 3.75 8 4.5v7.5l-8 4.5-8-4.5v-7.5z" />
+        <path d="m4.5 8.5 7.5 4.25 7.5-4.25M12 12.75v7.5" />
+      </>
+    ) : (
+      <>
+        <path d="M5 3.75h14v4.5H5zM4 8.25h16v8H4z" />
+        <path d="M7 16.25v4h10v-4M8 11.25h2M14 11.25h2" />
+      </>
+    )
+  }
+</svg>

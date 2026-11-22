@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { ui, type Locale } from '../../i18n/ui';
+import { formatDate } from '../../utils/date';
+import { localeUrl } from '../../i18n/utils';
+import { getBlogAuthor, type BlogCategory } from '../../utils/blog';
+import BlogCategoryIcon from './BlogCategoryIcon.astro';
+
+type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
+
+interface Props {
+  posts: BlogPost[];
+  lang: Locale;
+}
+
+const { posts, lang } = Astro.props;
+const text = ui[lang];
+const categoryLabel = (category: BlogCategory) =>
+  category === 'projects'
+    ? text.blogCategories.projects
+    : category === 'our-models'
+      ? text.blogCategories.ourModels
+      : text.blogCategories.tweetone;
+const postHref = (postId: string) =>
+  lang === 'cs' ? localeUrl('cs', `/blog/${postId}`) : `/blog/${postId}/`;
+---
+
+<ol class="aw-news-feed">
+  {
+    posts.map((post, index) => {
+      const image = post.data.heroImage ?? post.data.gallery?.[0];
+
+      return (
+        <li
+          class="aw-news-story"
+          data-blog-item
+          data-category={post.data.category}
+          data-has-image={image ? 'true' : 'false'}
+          data-story-layout={index === 0 ? 'lead' : 'compact'}
+        >
+          <article>
+            <div class="aw-news-story__content">
+              <p class="aw-news-story__category">
+                <BlogCategoryIcon category={post.data.category} />
+                {categoryLabel(post.data.category)}
+              </p>
+              <h2 class="aw-news-story__title">
+                <a href={postHref(post.id)}>{post.data.title}</a>
+              </h2>
+              <p class="aw-news-story__description">{post.data.description}</p>
+              <p class="aw-blog-meta aw-news-story__meta">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate, lang)}
+                </time>
+                <span aria-hidden="true">·</span>
+                <span>{text.articleMeta.by} {getBlogAuthor(post.data.author)}</span>
+              </p>
+            </div>
+            {image && (
+              <Image
+                src={image}
+                alt=""
+                class="aw-news-story__image"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            )}
+          </article>
+        </li>
+      );
+    })
+  }
+</ol>

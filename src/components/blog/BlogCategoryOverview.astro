@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { localeUrl } from '../../i18n/utils';
+import { ui, type Locale } from '../../i18n/ui';
+import { BLOG_CATEGORIES, type BlogCategory } from '../../utils/blog';
+import BlogCategoryIcon from './BlogCategoryIcon.astro';
+
+type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
+
+interface Props {
+  posts: BlogPost[];
+  lang: Locale;
+}
+
+const { posts, lang } = Astro.props;
+const text = ui[lang];
+const labels: Record<BlogCategory, string> = {
+  projects: text.blogCategories.projects,
+  'our-models': text.blogCategories.ourModels,
+  TweetONE: text.blogCategories.tweetone,
+};
+const categoryHref = (category: BlogCategory) =>
+  `${localeUrl(lang, '/blog')}?category=${encodeURIComponent(category)}`;
+const postHref = (postId: string) =>
+  lang === 'cs' ? localeUrl('cs', `/blog/${postId}`) : `/blog/${postId}/`;
+---
+
+<nav class="aw-category-overview" aria-label={text.blogCategories.navigationLabel}>
+  {
+    BLOG_CATEGORIES.map((category) => {
+      const latestPosts = posts
+        .filter((post) => post.data.category === category)
+        .slice(0, 2);
+
+      return (
+        <section class="aw-category-card">
+          <h2 class="aw-category-card__heading">
+            <BlogCategoryIcon category={category} />
+            <a href={categoryHref(category)}>{labels[category]}</a>
+          </h2>
+          {latestPosts.length > 0 ? (
+            <ul class="aw-category-card__articles">
+              {latestPosts.map((post) => (
+                <li>
+                  <a href={postHref(post.id)}>{post.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="aw-category-card__empty">{text.noPosts}</p>
+          )}
+        </section>
+      );
+    })
+  }
+</nav>
