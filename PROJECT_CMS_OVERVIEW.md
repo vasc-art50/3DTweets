@@ -1,8 +1,88 @@
-# 3DTweets — podklad pro manuál Pages CMS
+# 3DTweets — technický přehled a Pages CMS
 
 Tento přehled popisuje konfiguraci, která je právě v pracovním stromu repozitáře. Cesty a ukázky jsou převzaté ze zdrojových souborů; provozní časy ani chování externí aplikace Pages CMS, které repozitář nekonfiguruje, nejsou odhadovány.
 
-## 1. Co se zobrazuje v Pages CMS
+## 1. Architektura a tech stack
+
+Web je staticky generovaný pomocí Astro. Hlavní stack tvoří Astro (`^7.4.1`), Bulma (`^1.0.4`) se Sass, `astro-pagefind`, Astro RSS a sitemap integrace, Sharp a TypeScript (`^6.0.3`). Styly se sestavují z `src/assets/styles/main.scss`; Bulma se importuje po modulech přes Sass `@use` a projektové styly používají prefix `aw-`. Zvýrazňování syntaxe Astro je vypnuté. Konfigurace je v `astro.config.mjs`, balíčky v `package.json`.
+
+### Mapa projektu
+
+- `src/pages/` — EN stránky bez prefixu, české protějšky pod `cs/`, dynamické detaily blogu (`[...slug].astro`), RSS endpointy a vlastní 404 stránky.
+- `src/content/` — Markdown články `blog/` a `blog-cs/`; dokumentace TweetONE v `tweetone/en/` a `tweetone/cs/`.
+- `src/components/` — sdílené UI; `blog/` obsahuje rubriky, filtr, feed a galerii, `seo/` strukturovaná data.
+- `src/layouts/BaseLayout.astro` — společný HTML dokument, metadata, hlavička, patička, Pagefind oblast a JSON-LD.
+- `src/assets/styles/main.scss` — Bulma importy, globální typografie, responzivní styly a theme-aware `--aw-*` tokeny; `src/assets/models/` obsahuje zdrojové modelové obrázky.
+- `src/i18n/` — slovník `ui.ts` a mapování URL v `utils.ts`.
+- `src/data/` — údaje webu, služeb, cen, týmu, referencí a lokalizované CSV materiálů.
+- `src/utils/` a `scripts/` — pomocné funkce pro obsah, Markdown a optimalizaci obrázků.
+- `.github/workflows/` — produkční build/deploy a optimalizace nahraných modelových obrázků.
+- `public/` — přímo kopírované statické soubory včetně `robots.txt`, `llms.txt`, ikon, OG obrázku a `_headers`.
+
+### Motiv a lokalizace
+
+Astro i sitemap používají `en` jako výchozí jazyk bez prefixu a `cs` s prefixem `/cs/`. UI texty jsou ve slovníku `src/i18n/ui.ts`. `localeSwitchUrl()` v `src/i18n/utils.ts` zachová cestu jen pro známé lokalizované routy; u ostatních přepne na úvodní stránku cílového jazyka.
+
+`BaseLayout.astro` nastaví `data-theme` ještě před prvním vykreslením: použije uloženou volbu `theme` z `localStorage`, jinak systémové `prefers-color-scheme` (bez preference je výchozí světlý motiv). `ThemeToggle.astro` přepíná a ukládá motiv a znovu jej synchronizuje po `astro:page-load`. Barvy obou motivů vycházejí ze sdílených CSS proměnných, nikoli z pevných barev jednotlivých komponent.
+
+### Hlavní routy a integrace
+
+EN routy zahrnují `/`, `/about/`, `/services/`, `/tweetone/`, `/contact/`, `/blog/`, `/blog/<slug>/` a `/search/`; jejich české verze jsou pod `/cs/`. K dispozici jsou také `/rss.xml` a `/cs/rss.xml`. `404.astro` a `cs/404.astro` dodávají vlastní stránky nenalezené adresy. Sitemap generuje `@astrojs/sitemap`; `public/robots.txt` a `public/llms.txt` jsou statické soubory, nikoli Astro routy.
+
+`astro-pagefind` vytváří index při buildu; společný obsah stránky je označen `data-pagefind-body` a obě search stránky používají lokalizovaný Pagefind komponent. Kontakt je statický formulář odesílaný přes `fetch` na Web3Forms (`https://api.web3forms.com/submit`); serverová část v tomto projektu není. Přístupový klíč formuláře nepatří do této dokumentace.
+
+`StructuredData.astro` vytváří JSON-LD `Organization`/`ProfessionalService`; články přidávají `BlogPosting`/`TechArticle` a modelové články mohou přidat `CreativeWork`. `BaseLayout.astro` dále skládá canonical, hreflang, Open Graph, Twitter a RSS metadata. `public/_headers` obsahuje pravidla pro hosty, kteří podporují formát Netlify `_headers`; ověřte podporu cílového hostingu před spoléháním se na tyto hlavičky.
+
+## 2. Content Collections a Pages CMS — datový kontrakt
+
+Astro definuje tři kolekce: `blog`, `blogCs` a `tweetone` v `src/content.config.ts`. Pages CMS definuje čtyři editovatelné kolekce: EN/CS blog a EN/CS TweetONE. Obsah TweetONE proto má v Astro jednu společnou kolekci s jazykovými složkami, i když CMS nabízí samostatné kolekce. Podrobný seznam polí, typů, CMS popisků a ukázkové frontmatter hlavičky je v části **Detailní reference Pages CMS** níže.
+
+Blog vyžaduje `title`, `description` a `pubDate`; `updatedDate`, `printablesUrl`, `author`, `printSpecs`, `heroImage`, `galleryFolder` a `gallery` jsou volitelné. `tags` mají výchozí `[]`, `category` výchozí `projects` a autor `3DTweet team`. Pole `images` schéma ani Pages CMS nedefinují; seznam snímků se zapisuje do `gallery`, případně se načítá z `galleryFolder`. `printablesUrl` a odkazy TweetONE ověřuje Astro jako URL; Pages CMS je zadává jako textová pole. Tělo Markdownu spravuje rich-text pole CMS, není to další položka frontmatteru.
+
+Platné kategorie blogu jsou výhradně `projects` / `Projects & Guides` / `Projekty & Návody`, `our-models` / `Our Models` / `Naše modely` a `TweetONE`. Kategorie `Showcase` je zrušená; v kontrolovaném obsahu nejsou články, které by ji používaly. Změny schématu musí být sladěny v `src/content.config.ts`, obou blogových polích `.pages.yml`, překladech v `src/i18n/ui.ts` a komponentách filtrování/karet. Nepřidávejte hodnotu do CMS bez odpovídající validace a vykreslení.
+
+## 3. Skryté funkční závislosti
+
+- **Blogový filtr a navigace detailu:** detail v `src/components/blog/BlogPostNavigation.astro` vybírá aktivní kategorii z `post.data.category` a vede na `/blog/?category=<slug>` nebo `/cs/blog/?category=<slug>`. Sdílený `CategoryFilter.astro` používá hodnoty `projects`, `our-models` a `TweetONE`, aplikuje query parametr při načtení, navigaci Astro i `popstate`; kliknutí na All/Vše parametr z URL odstraní. Identifikátory filtru a kategorie musí zůstat shodné s frontmatterem.
+- **Galerie a náhledy článků:** obě detailní routy vykreslují sdílený `ModelGallery.astro`. Snímky sestaví z `heroImage`, seznamu `gallery` a/nebo `galleryFolder` (první dostupný hero snímek je hlavní; duplicity se odstraňují). Galerie potřebuje zachovat poměr 4:3, hlavní obrázek `object-fit: contain`, šipky, klikací miniatury s `aria-pressed` a delegované `click`/`keydown` obsluhy na `data-gallery-*`; události na úrovni dokumentu fungují i po navigaci přes Astro `ClientRouter`. Styly galerie i `SmartMediaFrame.astro` jsou v `src/assets/styles/main.scss`, protože `BaseLayout.astro` načítá tento jediný globální stylesheet přes URL; přesunutí těchto pravidel do nedodaného komponentového CSS by rozbilo layout. `SmartMediaFrame.astro` používají lead obrázek v `BlogNewsFeed.astro` i karty v `BlogCard.astro`: rozostřený `object-fit: cover` podklad sjednocuje výšku snímků, zatímco ostrý popřední obrázek zůstává celý (`contain`). Obě vrstvy galerie i karet čtou `--aw-media-backdrop-tone` a `--aw-media-backdrop-opacity` z motivu; tmavý motiv používá tmavý podklad, světlý zvýšený jas a nižší krytí. Zachovejte tyto kontrakty při změnách layoutu, aby portréty nebyly oříznuté a nezmizel shade efekt.
+- **EN ↔ CS články:** obě detailní routy používají `post.id` jako slug a neexistuje párovací metadata ani automatický překlad. Jazykový přepínač zachová stejnou cestu; má-li detail existovat v obou jazycích, musí být odpovídající slug přítomen v obou kolekcích.
+- **TweetONE stránky:** `src/pages/tweetone.astro` a `src/pages/cs/tweetone.astro` načítají stejnou kolekci filtrovanou podle `en/` nebo `cs/`, seřadí sekce podle `order` a předají je do `TweetOneContent.astro`. Layouty, karty, alternativní pozadí a Markdown body jsou závislé na hodnotách schématu.
+- **Materiály:** `MaterialsList.astro` čte `src/data/en/materials.csv` nebo `src/data/cs/materials.csv` během buildu. Parser rozpoznává čárku/středník, uvozované hodnoty a vyžaduje sloupce `name`, `manufacturer`, `type`, `description`; zachovejte hlavičku a počet polí.
+- **Vyhledávání a metadata:** Pagefind index vzniká při produkčním buildu a hledá pouze obsah v `data-pagefind-body`. Sitemap se generuje z rout a jazyků v `astro.config.mjs`; `robots.txt`, `llms.txt` a další soubory v `public/` se kopírují beze změny. JSON-LD, canonical a hreflang se skládají v `BaseLayout.astro` a `StructuredData.astro`.
+- **Klientské skripty a SPA navigace:** `ClientRouter` v `BaseLayout.astro` znovu vytváří DOM při přechodu mezi stránkami. Skripty Navbaru, motivu, formuláře, videa a blogového filtru proto používají delegované události nebo znovu vyhledávají aktuální elementy; neponechávejte reference na staré DOM uzly.
+
+## 4. Markdown a Rehype pipeline
+
+`astro.config.mjs` nastavuje `markdown.syntaxHighlight: false` a přidává vlastní HAST transformace přes Sätteri processor v pořadí video, obrázky, tabulky. Změna processoru nebo pořadí pluginů může změnit HTML, na které se spoléhají styly `main.scss`.
+
+- `markdown-figures.mjs` převede samostatné obrázky a odkazy obsahující pouze obrázek na `<figure class="aw-markdown-figure">`; textový `title` obrázku se stane popiskem. Smíšený text zůstává v odstavci. Styl obrázku používá theme-aware `--aw-ink-raised` a `--aw-border`.
+- `markdown-videos.mjs` rozpozná pouze samostatný validní HTTPS odkaz na YouTube mimo seznam. Vytvoří responsivní náhled a přehrávací odkaz; až po aktivaci se odkaz v `BaseLayout.astro` změní na iframe z `youtube-nocookie.com`. U podporovaných URL přijímá časové značky a při neplatném vstupu transformaci vynechá.
+- `markdown-tables.mjs` obalí Markdown i HTML tabulku ve focusovatelný `.article-table-wrapper` s horizontálním scrollováním; již obalenou tabulku neobaluje podruhé. CSS ponechává první a druhý úzký sloupec bez zalamování.
+- Inline kód styluje `.aw-markdown-body :not(pre) > code` oranžovým theme-aware akcentem. Blok `<pre><code>` zůstává neutrální, monospace, s ohraničením a vodorovným přetečením; pravidla `.aw-markdown-body pre > code` brání zdědění inline vzhledu a kaskádě Bulma.
+- Navigace seriálu TweetONE `[1] · [2] ...` je součástí Markdown těla jednotlivých článků, nikoli automaticky generovaná komponenta. Udržujte odkazy, pořadí a Markdown `title` texty (tooltipy) konzistentní ve všech kapitolách.
+
+## 5. Typografie, provoz a Git pravidla
+
+- Sdílený Hero H1 `.aw-display` používá `clamp(1.75rem, 4.2vw, 2.975rem)` a `line-height: 1.15`; jeho Bulma vertikální padding je zkrácen pomocí proměnných `--bulma-hero-body-padding*`. Sekční H2 `.aw-section-title` používá `clamp(1.5rem, 2.5vw, 2rem)` a `line-height: 1.2`. Detail článku má samostatný H1 `clamp(1.65rem, 3vw, 2.3rem)` a čtecí sloupec `.aw-prose` s `max-width: 860px`, textem `1.0625rem` a `line-height: 1.7`.
+- Blog index řadí články sestupně podle `pubDate`; karty rubrik, lead story a kompaktní feed jsou v `src/components/blog/`. Lead story i modelové/blogové karty používají `SmartMediaFrame`, ne prostý ořezaný `<Image>`. Při změně identifikátorů kategorií zachovejte soulad mezi daty, URL, filtry a navigací detailu.
+- `package.json` požaduje Node `>=22.22.0`; `.nvmrc` uvádí `24.22.1`. CI používá Node 24 a pnpm 10. Projektové příkazy jsou `pnpm check` a `pnpm build`; workflow nasazuje statický obsah z `dist/` na GitHub Pages. V repozitáři je také `package-lock.json`, ale CI a `pnpm-lock.yaml` používají pnpm — lockfile npm není zdrojem pravdy.
+- `.github/workflows/main.yml` sestavuje a nasazuje po pushi do `main` nebo ručním spuštění. `.github/workflows/optimize-images.yml` reaguje na změny `src/assets/models/**`, spouští `scripts/optimize-images.mjs`, zapisuje optimalizované obrázky zpět a následně vyvolá produkční build. Workflow neprovádějí `astro check` ani Node testy.
+- Videa ukládejte na YouTube; do Git nepatří zejména soubory nad 100 MB. `.gitignore` vylučuje `*.mp4` a `*.mov` bez ohledu na velikost; Git ignore sám velikostní limit nevynucuje, proto nepoužívejte `git add -f` pro video soubory.
+- Před úpravou obsahu ověřte odpovídající EN/CS soubory, platnost frontmatteru, URL odkazů a obrázků, výběr kategorie a slugy. Při změně schématu synchronizujte `src/content.config.ts` s `.pages.yml`; po změně komponent nebo rout ověřte `pnpm check` → `pnpm build` a mobilní i světelný/tmavý vzhled.
+
+### Na co si dát pozor, než něco změníš
+
+- Novou blogovou kategorii přidejte současně do `src/utils/blog.ts`, `src/content.config.ts`, obou blogových kolekcí v `.pages.yml`, překladů a všech komponent filtru/navigace.
+- Při přidání přeloženého detailu ověřte shodný slug v `blog/` a `blog-cs/`; jazykový přepínač automaticky nepáruje odlišné slugy.
+- Zachovejte cesty médií vůči Markdown souborům a povolené přípony; nové modelové obrázky v `src/assets/models/` procházejí samostatným workflow.
+- Při změně Astro Markdown processoru ověřte transformace obrázků, YouTube odkazů a tabulek spolu s jejich CSS i testy v `tests/`.
+- Barvy nastavujte přes `--aw-*` tokeny, aby změny zůstaly čitelné v obou motivech. Při změně rout ověřte canonical, hreflang, RSS a Pagefind.
+- Nezapisujte do Git videa ani pomocí force-add; `*.mp4`/`*.mov` jsou ignorované bez ohledu na velikost.
+- Zachovejte pnpm jako správce závislostí a `pnpm-lock.yaml` jako lockfile používaný CI.
+
+## Detailní reference Pages CMS
+
+### Kolekce a pole CMS
 
 `.pages.yml` obsahuje čtyři položky typu `collection` v tomto pořadí. Neobsahuje samostatné položky typu `file` ani další skupiny.
 
@@ -28,7 +108,7 @@ Obě kolekce mají shodná pole. U běžných blogových polí není `label` vý
 | `tags` | neuveden | `string` | `required` neuvedeno | `list: true`, výchozí `[]` |
 | `category` | neuveden | `select` | `required` neuvedeno | Výchozí hodnota `projects` |
 | `printablesUrl` | neuveden | `string` | ne | URL stránky modelu/tisku |
-| `author` | neuveden | `string` | ne | — |
+| `author` | neuveden | `string` | ne | Výchozí hodnota `3DTweet team` |
 | `printSpecs` | neuveden | `object` | ne | Vnořená pole jsou níže |
 | `heroImage` | neuveden | `image` | ne | Rozšíření: `avif`, `jpg`, `jpeg`, `png`, `webp`; přejmenování uploadu vypnuté |
 | `galleryFolder` | neuveden | `string` | ne | Složka pod `src/assets`, např. `models/henrys-shave` |
@@ -50,10 +130,9 @@ Kategorie ukládají do frontmatteru technickou hodnotu `name`; v EN a CS kolekc
 |---|---|---|
 | `projects` | Projects & Guides | Projekty & Návody |
 | `our-models` | Our Models | Naše modely |
-| `showcase` | Showcase | Oblíbené tisky |
 | `TweetONE` | TweetONE | TweetONE |
 
-`src/content.config.ts` validuje `category` právě hodnotami `projects`, `our-models`, `showcase`, `TweetONE` a při vynechání použije `projects`. `printablesUrl` je v CMS typu `string`, ale Astro schéma jej validuje jako URL; zadávejte proto úplnou platnou URL. EN a CS články jsou samostatné soubory, jejich překlad se automaticky nevytváří.
+`src/content.config.ts` validuje `category` právě hodnotami `projects`, `our-models` a `TweetONE` a při vynechání použije `projects`. `author` je volitelné a při vynechání se doplní jako `3DTweet team`. `printablesUrl` je v CMS typu `string`, ale Astro schéma jej validuje jako URL; zadávejte proto úplnou platnou URL. EN a CS články jsou samostatné soubory, jejich překlad se automaticky nevytváří.
 
 ### TweetONE Dokumentace (CS) a TweetONE Documentation (EN)
 
@@ -110,9 +189,9 @@ V `.pages.yml` je `links[].url` formulářové pole typu `string`; `src/content.
 
 V TweetONE schématu nejsou další výběrová pole ani jiné typy, než které Pages CMS podporuje. Pole `cards[].code` je v konfiguraci `text`; frontmatter jej ukládá jako řetězec, obvykle pomocí YAML bloku `|`.
 
-## 2. Příklady skutečných souborů
+### Příklady skutečných souborů
 
-### Blog: `src/content/blog/henrys-shave-medieval-pedestal.md`
+#### Blog: `src/content/blog/henrys-shave-medieval-pedestal.md`
 
 Kompletní současný článek včetně celé YAML hlavičky:
 
@@ -156,7 +235,7 @@ These settings are a practical starting point rather than a substitute for check
 Download the [Henry's Shave pedestal on Printables](https://www.printables.com/model/1624431-henrys-shave-medieval-pedestal-for-philips-oneblad), or browse [Václav's other models](https://www.printables.com/@Vaclav_757444/models).
 ````
 
-### TweetONE: `src/content/tweetone/en/03-hardware-bom.md`
+#### TweetONE: `src/content/tweetone/en/03-hardware-bom.md`
 
 Tento kompletní soubor ukazuje YAML frontmatter pro karty a HTML tabulku v těle dokumentu:
 
@@ -231,9 +310,9 @@ highlightBox:
   result: Stable XY and independent Triple-Z control before the mechanical rebuild began.
 ```
 
-## 3. Obrázky, Save a nasazení
+### Obrázky, Save a nasazení
 
-### Kam CMS ukládá obrázky
+#### Kam CMS ukládá obrázky
 
 Globální media konfigurace v `.pages.yml` je:
 
@@ -242,9 +321,9 @@ Globální media konfigurace v `.pages.yml` je:
 - `rename: false`
 - povolená rozšíření: `avif`, `jpg`, `jpeg`, `png`, `webp`
 
-Blogová pole `heroImage` a `gallery` i obrázky vložené do `body` používají tento zdroj médií. Cesta `../../assets/models/...` je relativní k Markdown souboru v `src/content/blog` nebo `src/content/blog-cs`. Galerie může místo seznamu cest použít `galleryFolder` pod `src/assets`, například `models/henrys-shave`; komponenta pak načítá obrázky z dané složky.
+Blogová pole `heroImage` a `gallery` i obrázky vložené do `body` používají tento zdroj médií. Cesta `../../assets/models/...` je relativní k Markdown souboru v `src/content/blog` nebo `src/content/blog-cs`. Galerie může místo seznamu cest použít `galleryFolder` pod `src/assets`, například `models/henrys-shave`; komponenta pak načítá obrázky z dané složky. `ModelGallery.astro` vytváří 4:3 scénu a náhledy; pozadí zobrazuje obrázek rozostřeně přes `cover`, popředí bez ořezu přes `contain`. Lead story a `BlogCard.astro` dosahují stejného chování přes `SmartMediaFrame.astro`. Světlý/tmavý vzhled pozadí řídí tokeny `--aw-media-backdrop-tone` a `--aw-media-backdrop-opacity` v `src/assets/styles/main.scss`; nepřepisujte je pevnými barvami ani nevracejte náhledy k `object-fit: cover`.
 
-### Co dělá optimalizace
+#### Co dělá optimalizace
 
 `scripts/optimize-images.mjs` se zaměřuje pouze na změněné soubory ve `src/assets/models`. Zpracovává `.jpg`, `.jpeg` a `.png` (ne AVIF ani již existující WebP), podle EXIF obrázek otočí, zmenší jej nejvýše na rozměr 1600 × 1600 px při zachování poměru stran a bez zvětšování menších obrázků, uloží WebP v kvalitě 82, upraví odpovídající cesty ve všech `src/content/**/*.md` a smaže originál. Nepřepisuje již existující WebP a odmítá symbolické odkazy.
 
@@ -252,7 +331,7 @@ Toto převádí zdrojové soubory v repozitáři. Nezaměňovat s build optimali
 
 `public/` není vstupem uploadů Pages CMS ani automatizace. Obsahuje jiné statické obrázky a favicony; workflow je mimo povolenou cestu, a proto je nemaže ani nepřejmenovává.
 
-### Co lze říct o publikování po Save
+#### Co lze říct o publikování po Save
 
 V repozitáři není uvedena cílová větev, kterou má aplikace Pages CMS při Save použít. Určuje ji nastavení připojeného repozitáře v Pages CMS. Workflow však reagují pouze na větev `main`:
 
@@ -263,9 +342,9 @@ V repozitáři není uvedena cílová větev, kterou má aplikace Pages CMS při
 
 Angličtina a čeština se neupravují automatickým překladem. Blog má kolekce `blog` a `blog-cs`; TweetONE má oddělené kolekce `tweetone-en` a `tweetone-cs`, každou se sedmi soubory. Astro používá výchozí jazyk EN bez prefixu a český prefix `/cs/`; stránky TweetONE vybírají složku `en/` nebo `cs/` a řadí sekce podle pole `order`.
 
-## 4. Co upravit v CMS a co přes VS Code
+### Co upravit v CMS a co přes VS Code
 
-### Přímo přes Pages CMS
+#### Přímo přes Pages CMS
 
 - **Blogové články:** vytvářet a upravovat EN a CS články v odpovídající kolekci. CMS nabízí metadata, kategorie, parametry tisku, obrázky, galerii a Markdown rich-text tělo.
 - **TweetONE dokumentaci:** upravovat samostatné sekce EN a CS, jejich pořadí, styl pozadí, layout, karty, seznamy, víceřádkový konfigurační text, odkazy a Markdown tělo.
@@ -273,7 +352,7 @@ Angličtina a čeština se neupravují automatickým překladem. Blog má kolekc
 
 V `.pages.yml` nejsou položky pro úvodní stránku, O nás, služby, ceny, tým, reference, navigaci, CSV ani styl stránky.
 
-### Vyžaduje zásah vývojáře ve VS Code
+#### Vyžaduje zásah vývojáře ve VS Code
 
 | Obsah nebo chování | Zdroj v projektu |
 |---|---|
@@ -290,6 +369,6 @@ V `.pages.yml` nejsou položky pro úvodní stránku, O nás, služby, ceny, tý
 
 Materiálové CSV očekávají sloupce `name,manufacturer,type,description`. Stránky je parsují při buildu, takže je třeba zachovat jejich hlavičku a počet polí. Změny tras, formulářů, rozložení nebo CSS nejsou editací textu v Pages CMS; vyžadují odpovídající změnu komponent a následný build.
 
-### Projektové prostředí
+#### Projektové prostředí
 
 `package.json` vyžaduje Node `>=22.22.0`; `.nvmrc` obsahuje `24.22.1`. Závislosti jsou spravovány pnpm a `pnpm-lock.yaml`. Astro má výchozí locale `en`, locale `cs` a `prefixDefaultLocale: false`.

@@ -1,11 +1,12 @@
 ---
-import BlogCard from '../../../components/BlogCard.astro';
+import BlogCategoryOverview from '../../../components/blog/BlogCategoryOverview.astro';
+import BlogNewsFeed from '../../../components/blog/BlogNewsFeed.astro';
 import PageHero from '../../../components/PageHero.astro';
 import CategoryFilter from '../../../components/blog/CategoryFilter.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { readingTime } from '../../../utils/reading-time';
 import { localeUrl } from '../../../i18n/utils';
+import { ui } from '../../../i18n/ui';
 
 const posts = (await getCollection('blogCs')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -16,39 +17,29 @@ const posts = (await getCollection('blogCs')).sort(
   title="Blog"
   description="Praktické poznámky k 3D návrhu, ladění tiskáren a vývoji prototypů z dílny 3DTweets."
 >
-  <PageHero
-    eyebrow="Zápisník z dílny"
-    title="Poznámky z našich projektů"
-    subtitle="Praktické články o 3D návrhu, seřizování tiskáren, prototypech a drobných vylepšeních, díky kterým projekt funguje lépe."
-    compact
-  />
-  <section class="section aw-section">
-    <div class="container">
-      <CategoryFilter lang="cs" />
-      {posts.length > 0 ? (
-        <div class="columns is-multiline">
-          {posts.map((post) => (
-            <div class="column is-4" data-blog-item data-category={post.data.category}>
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                pubDate={post.data.pubDate}
-                tags={post.data.tags}
-                category={post.data.category}
-                printablesUrl={post.data.printablesUrl}
-                coverImage={post.data.heroImage ?? post.data.gallery?.[0]}
-                href={localeUrl('cs', `/blog/${post.id}`)}
-                readingTime={readingTime(post.body ?? '', 'cs')}
-              />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p class="has-text-centered">
-          Zatím tu žádné články nejsou. Zastavte se později nebo nám
-          <a href={localeUrl('cs', '/contact')}> napište</a>, o čem byste si chtěli přečíst.
-        </p>
-      )}
-    </div>
-  </section>
+  <div class="aw-blog-index">
+    <PageHero
+      eyebrow={ui.cs.blogJournal}
+      title="Poznámky z našich projektů"
+      subtitle="Praktické články o 3D návrhu, seřizování tiskáren, prototypech a drobných vylepšeních, díky kterým projekt funguje lépe."
+      compact
+      className="aw-blog-page-hero"
+    />
+    <section class="section aw-section">
+      <div class="container">
+        <CategoryFilter lang="cs" />
+        {posts.length > 0 ? (
+          <>
+            <BlogCategoryOverview posts={posts} lang="cs" />
+            <BlogNewsFeed posts={posts} lang="cs" />
+          </>
+        ) : (
+          <p class="has-text-centered">
+            Zatím tu žádné články nejsou. Zastavte se později nebo nám
+            <a href={localeUrl('cs', '/contact')}> napište</a>, o čem byste si chtěli přečíst.
+          </p>
+        )}
+      </div>
+    </section>
+  </div>
 </BaseLayout>

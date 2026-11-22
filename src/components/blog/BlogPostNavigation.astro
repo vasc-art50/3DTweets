@@ -1,0 +1,45 @@
+---
+import type { BlogCategory } from '../../utils/blog';
+import { localeUrl } from '../../i18n/utils';
+import { ui, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  category: BlogCategory;
+}
+
+const { lang, category } = Astro.props;
+const text = ui[lang];
+const blogUrl = localeUrl(lang, '/blog');
+const categories = [
+  { id: 'projects', label: text.blogCategories.projects },
+  { id: 'our-models', label: text.blogCategories.ourModels },
+  { id: 'TweetONE', label: text.blogCategories.tweetone },
+] as const;
+---
+
+<nav class="aw-blog-post-navigation" aria-label={text.blogCategories.navigationLabel}>
+  <p class="aw-eyebrow mb-2">{text.blogJournal}</p>
+  <div class="aw-category-filter" role="group" aria-label={text.blogCategories.navigationLabel}>
+    <a class="button is-small is-rounded aw-filter-button is-outlined" href={blogUrl}>
+      {text.blogCategories.all}
+    </a>
+    {
+      categories.map(({ id, label }) => (
+        <a
+          class:list={[
+            'button',
+            'is-small',
+            'is-rounded',
+            'aw-filter-button',
+            category === id ? 'is-primary' : 'is-outlined',
+          ]}
+          href={`${blogUrl}?category=${encodeURIComponent(id)}`}
+          aria-current={category === id ? 'true' : undefined}
+        >
+          {label}
+        </a>
+      ))
+    }
+  </div>
+</nav>

@@ -4,8 +4,11 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ModelDetailsBox from '../../components/blog/ModelDetailsBox.astro';
 import ModelGallery from '../../components/blog/ModelGallery.astro';
+import BlogPostNavigation from '../../components/blog/BlogPostNavigation.astro';
 import { formatDate } from '../../utils/date';
 import { readingTime } from '../../utils/reading-time';
+import { ui } from '../../i18n/ui';
+import { getBlogAuthor } from '../../utils/blog';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -21,6 +24,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const text = ui.en;
 
 ---
 
@@ -33,15 +37,18 @@ const { Content } = await render(post);
   <section class="section aw-section">
     <div class="container">
       <article class="aw-prose">
+        <BlogPostNavigation lang="en" category={post.data.category} />
         <p class="aw-blog-meta mb-3">
           <time datetime={post.data.pubDate.toISOString()}>
             {formatDate(post.data.pubDate)}
           </time>
           {' · '}
           {readingTime(post.body ?? '')}
+          {' · '}
+          {text.articleMeta.by} {getBlogAuthor(post.data.author)}
         </p>
 
-        <h1 class="title is-1 mb-5">{post.data.title}</h1>
+        <h1 class="title aw-article-title mb-5">{post.data.title}</h1>
 
         <div class="mb-6">
           {post.data.tags.map((tag) => <span class="aw-tag">#{tag}</span>)}

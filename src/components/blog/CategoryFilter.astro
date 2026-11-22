@@ -11,17 +11,22 @@ const categories = [
   { id: 'all', label: text.all },
   { id: 'projects', label: text.projects },
   { id: 'our-models', label: text.ourModels },
-  { id: 'showcase', label: text.showcase },
   { id: 'TweetONE', label: text.tweetone },
 ] as const;
 ---
 
-<div class="buttons mb-5" role="group" aria-label={text.filterLabel}>
+<div class="aw-category-filter mb-4" role="group" aria-label={text.filterLabel}>
   {
     categories.map(({ id, label }, index) => (
       <button
         type="button"
-        class:list={['button', index === 0 ? 'is-primary' : 'is-outlined']}
+        class:list={[
+          'button',
+          'is-small',
+          'is-rounded',
+          'aw-filter-button',
+          index === 0 ? 'is-primary' : 'is-outlined',
+        ]}
         data-filter-btn={id}
         aria-pressed={index === 0 ? 'true' : 'false'}
       >
@@ -53,20 +58,28 @@ const categories = [
         button.setAttribute('aria-pressed', String(active));
       });
 
+      let firstVisibleStory = true;
       document.querySelectorAll('[data-blog-item]').forEach((item) => {
         const matches = selected === 'all' || item.dataset.category === selected;
         item.hidden = !matches;
 
         if (matches) {
           item.style.removeProperty('display');
+          item.dataset.storyLayout = firstVisibleStory ? 'lead' : 'compact';
+          firstVisibleStory = false;
         } else {
           item.style.setProperty('display', 'none', 'important');
+          item.dataset.storyLayout = 'compact';
         }
       });
 
       if (updateUrl) {
         const url = new URL(window.location.href);
-        url.searchParams.set('category', selected);
+        if (selected === 'all') {
+          url.searchParams.delete('category');
+        } else {
+          url.searchParams.set('category', selected);
+        }
         window.history.replaceState(window.history.state, '', url);
       }
     };
@@ -91,9 +104,3 @@ const categories = [
     }
   })();
 </script>
-
-<style>
-  .buttons .button {
-    font-size: 0.9em;
-  }
-</style>

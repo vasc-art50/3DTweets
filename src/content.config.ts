@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR } from './utils/blog';
 
 /**
  * Shared English and Czech blog content schema (Content Layer).
@@ -13,9 +14,9 @@ const blogFields = {
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
   tags: z.array(z.string()).default([]),
-  category: z.enum(['projects', 'our-models', 'showcase', 'TweetONE']).default('projects'),
+  category: z.enum(BLOG_CATEGORIES).default('projects'),
   printablesUrl: z.string().url().optional(),
-  author: z.string().optional(),
+  author: z.string().default(DEFAULT_BLOG_AUTHOR),
   printSpecs: z
     .object({
       material: z.string().optional(),

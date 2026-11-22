@@ -51,8 +51,6 @@ content:
               label: Projects & Guides
             - name: our-models
               label: Our Models
-            - name: showcase
-              label: Showcase
             - name: TweetONE
               label: TweetONE
       - name: printablesUrl
@@ -62,6 +60,7 @@ content:
       - name: author
         type: string
         required: false
+        default: 3DTweet team
       - name: printSpecs
         type: object
         required: false
@@ -149,8 +148,6 @@ content:
               label: Projekty & Návody
             - name: our-models
               label: Naše modely
-            - name: showcase
-              label: Oblíbené tisky
             - name: TweetONE
               label: TweetONE
       - name: printablesUrl
@@ -160,6 +157,7 @@ content:
       - name: author
         type: string
         required: false
+        default: 3DTweet team
       - name: printSpecs
         type: object
         required: false

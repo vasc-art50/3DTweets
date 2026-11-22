@@ -3,6 +3,7 @@ import { getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { site } from '../../data/site';
 import { getLocale } from '../../i18n/utils';
+import { DEFAULT_BLOG_AUTHOR } from '../../utils/blog';
 
 interface Props {
   schema?: Record<string, unknown>;
@@ -37,8 +38,11 @@ if (post) {
       })
     : undefined;
   const canonicalUrl = new URL(Astro.url.pathname, site.url).href;
-  const authorName = post.data.author?.trim() || 'Václav';
-  const author = { '@type': 'Person', name: authorName };
+  const authorName = post.data.author?.trim() || DEFAULT_BLOG_AUTHOR;
+  const author = {
+    '@type': authorName === DEFAULT_BLOG_AUTHOR ? 'Organization' : 'Person',
+    name: authorName,
+  };
   const printablesUrl = post.data.printablesUrl?.trim();
   const material = post.data.printSpecs?.material?.trim();
   const modelPost =

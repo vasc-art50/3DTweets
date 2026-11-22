@@ -3,9 +3,8 @@ import type { ImageMetadata } from 'astro';
 import { formatDate } from '../utils/date';
 import { getLocale } from '../i18n/utils';
 import { ui } from '../i18n/ui';
+import type { BlogCategory } from '../utils/blog';
 import SmartMediaFrame from './blog/SmartMediaFrame.astro';
-
-type BlogCategory = 'projects' | 'our-models' | 'showcase' | 'TweetONE';
 
 interface Props {
   title: string;
@@ -33,11 +32,13 @@ const {
 const locale = getLocale(Astro.currentLocale);
 const text = ui[locale];
 const categoryLabel =
-  category === 'our-models'
-    ? text.blogCategories.ourModels
-    : category === 'TweetONE'
-      ? text.blogCategories.tweetone
-      : category && text.blogCategories[category];
+  category === 'projects'
+    ? text.blogCategories.projects
+    : category === 'our-models'
+      ? text.blogCategories.ourModels
+      : category === 'TweetONE'
+        ? text.blogCategories.tweetone
+        : undefined;
 ---
 
 <article class="card aw-card aw-card--link">

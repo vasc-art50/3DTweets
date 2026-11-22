@@ -54,16 +54,18 @@ const outputDimensions = (image: ImageMetadata, maxDimension: number) => {
 
 const slides = await Promise.all(
   images.map(async (image, index) => {
+    const fullDimensions = outputDimensions(image, 1600);
+    const thumbnailDimensions = outputDimensions(image, 300);
     const [full, thumbnail] = await Promise.all([
       getImage({
         src: image,
-        ...outputDimensions(image, 1600),
+        ...fullDimensions,
         format: 'webp',
         quality: 82,
       }),
       getImage({
         src: image,
-        ...outputDimensions(image, 300),
+        ...thumbnailDimensions,
         format: 'webp',
         quality: 75,
       }),
@@ -71,11 +73,11 @@ const slides = await Promise.all(
 
     return {
       fullSrc: full.src,
-      fullWidth: full.width,
-      fullHeight: full.height,
+      fullWidth: fullDimensions.width,
+      fullHeight: fullDimensions.height,
       thumbnailSrc: thumbnail.src,
-      thumbnailWidth: thumbnail.width,
-      thumbnailHeight: thumbnail.height,
+      thumbnailWidth: thumbnailDimensions.width,
+      thumbnailHeight: thumbnailDimensions.height,
       alt: `${post.data.title} — ${text.gallery} ${index + 1}`,
     };
   }),
@@ -241,143 +243,3 @@ const slides = await Promise.all(
     });
   })();
 </script>
-
-<style>
-  .model-gallery {
-    width: 100%;
-  }
-
-  .hero-stage {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--bulma-radius-large, 0.75rem);
-    background: var(--aw-ink-soft);
-  }
-
-  .hero-stage__background,
-  .hero-stage__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero-stage__background {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    object-fit: cover;
-    filter: blur(18px) var(--aw-media-backdrop-tone);
-    opacity: var(--aw-media-backdrop-opacity);
-    transform: scale(1.15);
-    pointer-events: none;
-  }
-
-  .hero-stage__image {
-    position: relative;
-    z-index: 1;
-    object-fit: contain;
-  }
-
-  .gallery-arrow {
-    position: absolute;
-    top: 50%;
-    z-index: 2;
-    display: grid;
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0;
-    place-items: center;
-    transform: translateY(-50%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.48);
-    color: #fff;
-    font-size: 1.75rem;
-    line-height: 1;
-    cursor: pointer;
-    transition:
-      background-color 160ms ease,
-      transform 160ms ease;
-  }
-
-  .gallery-arrow:hover,
-  .gallery-arrow:focus-visible {
-    background: rgba(0, 0, 0, 0.72);
-    transform: translateY(-50%) scale(1.05);
-  }
-
-  .gallery-arrow:focus-visible,
-  .thumbnail:focus-visible {
-    outline: 2px solid var(--aw-accent, #ff6b2b);
-    outline-offset: 2px;
-  }
-
-  .gallery-arrow--previous {
-    left: 0.75rem;
-  }
-
-  .gallery-arrow--next {
-    right: 0.75rem;
-  }
-
-  .thumbnail-strip {
-    display: flex;
-    gap: 0.65rem;
-    overflow-x: auto;
-    margin-top: 0.75rem;
-    padding: 0.15rem 0.15rem 0.5rem;
-    scroll-snap-type: x mandatory;
-  }
-
-  .thumbnail {
-    position: relative;
-    display: block;
-    flex: 0 0 96px;
-    width: 96px;
-    height: 68px;
-    overflow: hidden;
-    padding: 0;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    background: var(--aw-ink-soft);
-    cursor: pointer;
-    scroll-snap-align: start;
-  }
-
-  .thumbnail[aria-pressed='true'] {
-    border-color: var(--aw-accent, #ff6b2b);
-  }
-
-  .thumbnail__frame {
-    position: absolute;
-    inset: 0;
-    display: block;
-    overflow: hidden;
-  }
-
-  .thumbnail__background,
-  .thumbnail__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .thumbnail__background {
-    position: absolute;
-    inset: 0;
-    object-fit: cover;
-    filter: blur(10px) var(--aw-media-backdrop-tone);
-    opacity: var(--aw-media-backdrop-opacity);
-    transform: scale(1.15);
-    pointer-events: none;
-  }
-
-  .thumbnail__image {
-    position: relative;
-    z-index: 1;
-    object-fit: contain;
-  }
-</style>

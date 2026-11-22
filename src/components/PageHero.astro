@@ -4,12 +4,13 @@ interface Props {
   title: string;
   subtitle?: string;
   compact?: boolean;
+  className?: string;
 }
 
-const { eyebrow, title, subtitle, compact = false } = Astro.props;
+const { eyebrow, title, subtitle, compact = false, className } = Astro.props;
 ---
 
-<section class:list={['hero', 'aw-hero', { 'is-medium': !compact }]}>
+<section class:list={['hero', 'aw-hero', className, { 'is-medium': !compact }]}>
   <div class="hero-body">
     <div class="container">
       <div class:list={['columns is-vcentered', { 'is-centered': compact }]}>

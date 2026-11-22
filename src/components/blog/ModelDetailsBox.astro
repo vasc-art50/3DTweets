@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getLocale } from '../../i18n/utils';
 import { ui } from '../../i18n/ui';
+import { DEFAULT_BLOG_AUTHOR } from '../../utils/blog';
 
 type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
 
@@ -13,7 +14,8 @@ const { post } = Astro.props;
 const locale = getLocale(Astro.currentLocale);
 const text = ui[locale].modelDetails;
 const { author, printablesUrl, printSpecs } = post.data;
-const authorName = author?.trim();
+const articleAuthor = author?.trim();
+const authorName = articleAuthor && articleAuthor !== DEFAULT_BLOG_AUTHOR ? articleAuthor : undefined;
 const printablesHref = printablesUrl?.trim();
 const specs = [
   { label: text.material, value: printSpecs?.material?.trim() },

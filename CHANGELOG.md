@@ -43,8 +43,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Unified responsive hero and section heading sizes in EN/CZ, reduced hero
+  spacing, and added localized `PROJECT JOURNAL` category navigation to article
+  pages. Blog category filters now clear the query parameter when reset.
+- Redesigned the English and Czech blog indexes as compact, filterable news
+  feeds with category shortcuts, and improved article typography and bylines.
 - Improved inline code and responsive Markdown table readability in both themes.
 - Lightened image backdrops in light mode while preserving the dark theme.
+- Restored theme-aware ambient backdrops for blog lead images and responsive
+  carousel styling for article galleries.
 - Connected the Czech TweetONE build articles with a series index and chapter navigation.
 - Markdown code blocks now use neutral, theme-aware boxes without syntax highlighting.
 - Reworked the starter into a 3D design and printing portfolio, with a bold
@@ -59,6 +66,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Restored accent-colored inline code and reduced desktop table overflow.
+- Corrected the escaped Services ampersand and repaired `.gitignore` so its
+  video exclusions work without ignoring all new files.
 
 - Improved readability and hover feedback for outlined pricing-plan buttons.
 - Theme resetting to light after client-side navigation — re-applied on

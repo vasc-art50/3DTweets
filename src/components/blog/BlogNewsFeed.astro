@@ -1,11 +1,11 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { ui, type Locale } from '../../i18n/ui';
 import { formatDate } from '../../utils/date';
 import { localeUrl } from '../../i18n/utils';
 import { getBlogAuthor, type BlogCategory } from '../../utils/blog';
 import BlogCategoryIcon from './BlogCategoryIcon.astro';
+import SmartMediaFrame from './SmartMediaFrame.astro';
 
 type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'blogCs'>;
 
@@ -58,10 +58,11 @@ const postHref = (postId: string) =>
               </p>
             </div>
             {image && (
-              <Image
+              <SmartMediaFrame
                 src={image}
                 alt=""
-                class="aw-news-story__image"
+                className="aw-news-story__image"
+                aspectRatio="4 / 3"
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
             )}
