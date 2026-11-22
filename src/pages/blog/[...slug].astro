@@ -34,10 +34,10 @@ const text = ui.en;
   ogType="article"
   post={post}
 >
-  <section class="section aw-section">
+  <BlogPostNavigation lang="en" category={post.data.category} />
+  <section class="section aw-section aw-blog-article-section">
     <div class="container">
       <article class="aw-prose">
-        <BlogPostNavigation lang="en" category={post.data.category} />
         <p class="aw-blog-meta mb-3">
           <time datetime={post.data.pubDate.toISOString()}>
             {formatDate(post.data.pubDate)}

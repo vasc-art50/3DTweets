@@ -48,6 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   pages. Blog category filters now clear the query parameter when reset.
 - Redesigned the English and Czech blog indexes as compact, filterable news
   feeds with category shortcuts, and improved article typography and bylines.
+- Moved the localized blog journal title and category pills into a compact,
+  full-width banner above article details.
 - Improved inline code and responsive Markdown table readability in both themes.
 - Lightened image backdrops in light mode while preserving the dark theme.
 - Restored theme-aware ambient backdrops for blog lead images and responsive

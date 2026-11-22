@@ -29,10 +29,10 @@ const text = ui.cs;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} ogType="article" post={post}>
-  <section class="section aw-section">
+  <BlogPostNavigation lang="cs" category={post.data.category} />
+  <section class="section aw-section aw-blog-article-section">
     <div class="container">
       <article class="aw-prose">
-        <BlogPostNavigation lang="cs" category={post.data.category} />
         <p class="aw-blog-meta mb-3">
           <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, 'cs')}</time>
           {' · '}

@@ -297,8 +297,11 @@ main {
 
 /* ------------------------------ Sections ------------------------------ */
 
+$aw-section-inline-padding: 1.5rem;
+$aw-section-inline-padding-mobile: 1.25rem;
+
 .aw-section {
-  padding: 4.5rem 1.5rem;
+  padding: 4.5rem $aw-section-inline-padding;
 }
 
 .aw-section-alt {
@@ -777,8 +780,61 @@ main {
   --bulma-hero-body-padding-small: 1.25rem 1rem;
 }
 
+.aw-blog-post-banner {
+  --bulma-hero-body-padding: 0.9rem #{$aw-section-inline-padding};
+  --bulma-hero-body-padding-tablet: 0.9rem #{$aw-section-inline-padding};
+  --bulma-hero-body-padding-small: 0.9rem #{$aw-section-inline-padding};
+  --bulma-hero-body-padding-medium: 0.9rem #{$aw-section-inline-padding};
+}
+
+.aw-blog-post-navigation {
+  margin: 0;
+
+  .aw-category-filter {
+    margin-bottom: 0;
+  }
+}
+
+.aw-blog-post-navigation__title {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.3;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: 2px solid var(--aw-accent);
+      outline-offset: 3px;
+    }
+
+    &:hover .aw-blog-journal-sub {
+      color: var(--aw-accent);
+    }
+  }
+}
+
+.aw-blog-journal-kicker {
+  color: #ff5e1a;
+  font-size: 0.75em;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.aw-blog-journal-sub {
+  color: var(--aw-text);
+}
+
 .aw-blog-index .aw-section {
   padding-block: 2rem;
+}
+
+.aw-blog-article-section {
+  padding-top: 2rem;
 }
 
 .aw-category-filter {
@@ -791,14 +847,6 @@ main {
 .aw-filter-button {
   --bulma-button-padding-vertical: 0.3em;
   --bulma-button-padding-horizontal: 0.6em;
-}
-
-.aw-blog-post-navigation {
-  margin-bottom: 1.25rem;
-
-  .aw-category-filter {
-    margin-bottom: 0;
-  }
 }
 
 .aw-category-overview {
@@ -1375,15 +1423,23 @@ html {
 
 @media screen and (max-width: 768px) {
   .aw-section {
-    padding: 3rem 1.25rem;
+    padding: 3rem $aw-section-inline-padding-mobile;
   }
 
   .aw-blog-page-hero {
     --bulma-hero-body-padding: 1.25rem 1rem;
   }
 
+  .aw-blog-post-banner {
+    --bulma-hero-body-padding: 0.9rem #{$aw-section-inline-padding-mobile};
+  }
+
   .aw-blog-index .aw-section {
     padding-block: 1.5rem;
+  }
+
+  .aw-blog-article-section {
+    padding-top: 1.5rem;
   }
 
   .aw-category-overview {

@@ -11,6 +11,7 @@ interface Props {
 const { lang, category } = Astro.props;
 const text = ui[lang];
 const blogUrl = localeUrl(lang, '/blog');
+const journalTitle = text.blogJournalTitle;
 const categories = [
   { id: 'projects', label: text.blogCategories.projects },
   { id: 'our-models', label: text.blogCategories.ourModels },
@@ -18,28 +19,40 @@ const categories = [
 ] as const;
 ---
 
-<nav class="aw-blog-post-navigation" aria-label={text.blogCategories.navigationLabel}>
-  <p class="aw-eyebrow mb-2">{text.blogJournal}</p>
-  <div class="aw-category-filter" role="group" aria-label={text.blogCategories.navigationLabel}>
-    <a class="button is-small is-rounded aw-filter-button is-outlined" href={blogUrl}>
-      {text.blogCategories.all}
-    </a>
-    {
-      categories.map(({ id, label }) => (
-        <a
-          class:list={[
-            'button',
-            'is-small',
-            'is-rounded',
-            'aw-filter-button',
-            category === id ? 'is-primary' : 'is-outlined',
-          ]}
-          href={`${blogUrl}?category=${encodeURIComponent(id)}`}
-          aria-current={category === id ? 'true' : undefined}
-        >
-          {label}
-        </a>
-      ))
-    }
+<section class="hero aw-hero aw-blog-post-banner">
+  <div class="hero-body">
+    <div class="container">
+      <nav class="aw-blog-post-navigation" aria-label={text.blogCategories.navigationLabel}>
+        <p class="aw-blog-post-navigation__title">
+          <a href={blogUrl}>
+            <span class="aw-blog-journal-kicker">{text.blogJournal}</span>
+            {' '}
+            <span class="aw-blog-journal-sub">— {journalTitle}</span>
+          </a>
+        </p>
+        <div class="aw-category-filter" role="group" aria-label={text.blogCategories.navigationLabel}>
+          <a class="button is-small is-rounded aw-filter-button is-outlined" href={blogUrl}>
+            {text.blogCategories.all}
+          </a>
+          {
+            categories.map(({ id, label }) => (
+              <a
+                class:list={[
+                  'button',
+                  'is-small',
+                  'is-rounded',
+                  'aw-filter-button',
+                  category === id ? 'is-primary' : 'is-outlined',
+                ]}
+                href={`${blogUrl}?category=${encodeURIComponent(id)}`}
+                aria-current={category === id ? 'true' : undefined}
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+    </div>
   </div>
-</nav>
+</section>
