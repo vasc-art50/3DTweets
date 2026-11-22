@@ -24,5 +24,3 @@ altBackground: true
 ### Phase 5 — BTT Manta M8P v2.0 + EBB36 CANbus + DragonBurner
 
 >**August to September 2026.** We upgraded the motion controller to BTT Manta M8P v2.0 with CB1 [[6]](#ref-6) [[7]](#ref-7), then moved to a CANbus toolboard using the BTT EBB36 [[8]](#ref-8) and DragonBurner [[9]](#ref-9). Input shaper measurements, configured with Klipper [[5]](#ref-5), confirmed the final tuning envelope: the Y axis at 53.8 Hz and the X axis at 69.8 Hz, with safe acceleration limits around 8500 mm/s² and 14400 mm/s².
-
-![TweetONE](../../../assets/models/tweet-one/Z30_3932.webp "Last TweetONE CoreXY 3D printer status")

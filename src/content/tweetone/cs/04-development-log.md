@@ -24,5 +24,3 @@ altBackground: true
 ### Fáze 5 — BTT Manta M8P v2.0 + EBB36 CANbus + DragonBurner
 
 >**Srpen až září 2026.** Řadič pohybu jsme upgradovali na BTT Manta M8P v2.0 s CB1 [[6]](#ref-6) [[7]](#ref-7) a následně na CANbus nástrojovou desku BTT EBB36 [[8]](#ref-8) s DragonBurnerem [[9]](#ref-9). Měření Input Shaperu nastavené v Klipperu [[5]](#ref-5) potvrdilo výsledné nastavení: osa Y 53,8 Hz a osa X 69,8 Hz, s bezpečným zrychlením přibližně 8 500 mm/s² a 14 400 mm/s².
-
-![TweetONE](../../../assets/models/tweet-one/Z30_3932.webp "Aktuální stav tiskárny TweetONE CoreXY")

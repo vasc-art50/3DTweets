@@ -4,6 +4,7 @@ title: The idea behind the build
 order: 1
 altBackground: false
 galleryFolder: models/tweet-one
+heroImage: /src/assets/models/tweet-one/Z30_3932.webp
 specs:
   - label: Kinematics
     value: CoreXY
