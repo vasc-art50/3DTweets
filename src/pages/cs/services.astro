@@ -60,16 +60,18 @@ import { localeUrl } from '../../i18n/utils';
               <h3 class="title is-4">{plan.name}</h3>
               <p class="aw-price mb-2">{plan.price} <span>{plan.period}</span></p>
               <p class="mb-4">{plan.description}</p>
-              <ul class="aw-check-list mb-4">
+              <ul class="aw-check-list">
                 {plan.features.map((feature) => <li>{feature}</li>)}
               </ul>
-              <a
-                class:list={[
-                  'button is-fullwidth aw-plan-button',
-                  plan.highlighted ? 'is-primary' : 'is-outlined',
-                ]}
-                href={localeUrl('cs', '/contact')}
-              >Začít: {plan.name}</a>
+              <div class="aw-plan-cta">
+                <a
+                  class:list={[
+                    'button is-fullwidth aw-plan-button',
+                    plan.highlighted ? 'is-primary' : 'is-outlined',
+                  ]}
+                  href={localeUrl('cs', '/contact')}
+                >Začít: {plan.name}</a>
+              </div>
             </div>
           </div>
         ))}

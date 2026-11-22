@@ -44,6 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Aligned article card footers, project option buttons, and showcase captions
+  across each responsive card row.
 - Removed the automatically generated build-series list from the TweetONE
   overview, leaving the gallery and technical specifications.
 - Refined the EN and CS TweetONE project hub with a top-aligned shared gallery,

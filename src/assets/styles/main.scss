@@ -441,6 +441,8 @@ $aw-section-inline-padding-mobile: 1.25rem;
 .aw-card {
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: var(--aw-ink-raised);
   border: 1px solid var(--aw-border);
   border-radius: 0.75rem;
@@ -460,7 +462,15 @@ $aw-section-inline-padding-mobile: 1.25rem;
 }
 
 .aw-card-content {
-  height: 100%;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.aw-blog-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 // Blog/service card title links stay readable in both themes.
@@ -516,10 +526,6 @@ $aw-section-inline-padding-mobile: 1.25rem;
 /* ------------------------------- Pricing ------------------------------ */
 
 .aw-plan {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
   &.is-highlighted {
     border-color: var(--aw-accent);
     box-shadow: 0 24px 70px rgba(255, 107, 53, 0.18);
@@ -556,7 +562,8 @@ $aw-section-inline-padding-mobile: 1.25rem;
 }
 
 .aw-plan-cta {
-  margin-top: 1.5rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
 }
 
 .button.is-outlined {
@@ -596,13 +603,14 @@ $aw-section-inline-padding-mobile: 1.25rem;
 /* ------------------------------ Testimonials ---------------------------- */
 
 .aw-testimonial-quote {
+  margin-bottom: 1.5rem;
   font-size: 1.05rem;
   line-height: 1.55;
   color: var(--aw-text);
 }
 
 .aw-testimonial-meta {
-  margin-top: 1.5rem;
+  margin-top: auto;
   padding-top: 1.25rem;
   border-top: 1px solid var(--aw-border);
 }

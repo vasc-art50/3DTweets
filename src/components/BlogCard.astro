@@ -64,10 +64,12 @@ const categoryLabel =
         </div>
       )
     }
-    <p class="mb-4">{description}</p>
-    <div class="mb-4">
-      {tags.map((tag) => <span class="aw-tag">#{tag}</span>)}
+    <p>{description}</p>
+    <div class="aw-blog-card-footer">
+      <div class="mb-4">
+        {tags.map((tag) => <span class="aw-tag">#{tag}</span>)}
+      </div>
+      <p class="aw-card-format">{text.readArticle}</p>
     </div>
-    <p class="aw-card-format">{text.readArticle}</p>
   </div>
 </article>
