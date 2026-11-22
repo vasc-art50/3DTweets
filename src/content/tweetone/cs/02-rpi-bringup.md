@@ -55,12 +55,12 @@ serial: /dev/serial/by-id/usb-Klipper_stm32f103xe_36FFD5054252303728641943-if00
 serial: /dev/serial/by-id/usb-Klipper_gd32f303_51FFD8054252383832541143-if00
 ```
 
-**Krok 1:** Nahrajte MainsailOS nebo obraz BTT CB1 a nastavte Wi-Fi a název hostitele.
-
-**Krok 2:** Připojte se k Raspberry Pi přes SSH a zjistěte sériová ID desek.
-
-**Krok 3:** Pomocí `make menuconfig` připravte Klipper pro desku STM32F103 i GD32F303.
-
-**Krok 4:** Odpojte 5V vodič v USB kabelu, aby nedocházelo ke zpětnému napájení desek ani k nestabilitě sériové linky.
-
-**Krok 5:** Zapište správné adresy MCU do `printer.cfg` [[5]](#ref-5) a ověřte pohyb před konečnou montáží.
+>**Krok 1:** Nahrajte MainsailOS nebo obraz BTT CB1 a nastavte Wi-Fi a název hostitele.
+>
+>**Krok 2:** Připojte se k Raspberry Pi přes SSH a zjistěte sériová ID desek.
+>
+>**Krok 3:** Pomocí `make menuconfig` připravte Klipper pro desku STM32F103 i GD32F303.
+>
+>**Krok 4:** Odpojte 5V vodič v USB kabelu, aby nedocházelo ke zpětnému napájení desek ani k nestabilitě sériové linky.
+>
+>**Krok 5:** Zapište správné adresy MCU do `printer.cfg` [[5]](#ref-5) a ověřte pohyb před konečnou montáží.
