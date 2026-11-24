@@ -1,7 +1,8 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
 import { site } from '../data/site';
-import { getLocale, localeSwitchUrl, localeUrl } from '../i18n/utils';
+import { getLocale, localeUrl } from '../i18n/utils';
 import { ui } from '../i18n/ui';
 
 const currentPath = Astro.url.pathname;
@@ -19,13 +20,12 @@ function isActive(path: string): boolean {
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item aw-brand" href={localeUrl(locale, '/')}>
-          <span class="aw-brand-mark" aria-hidden="true" style="width: 34px; height: 26px;">
+          <span class="aw-brand-mark" aria-hidden="true">
             {/* Owl logo mark. */}
 
               <svg
               viewBox="2 4.5 20 10"
               fill="currentColor"
-              style="width: 46px; height: 23px; flex-shrink: 0; margin-right: 0.35rem;"
               aria-hidden="true"
               >
               <!-- Owl Head & Brows -->
@@ -71,9 +71,14 @@ function isActive(path: string): boolean {
           </svg>
         </a>
 
+        <div class="aw-mobile-controls">
+          <ThemeToggle />
+          <LanguageSwitch locale={locale} pathname={currentPath} idSuffix="mobile" />
+        </div>
+
         <button
           type="button"
-          class="navbar-burger"
+          class="navbar-burger aw-nav-burger"
           aria-label={text.openMenu}
           data-open-label={text.openMenu}
           data-close-label={text.closeMenu}
@@ -91,7 +96,7 @@ function isActive(path: string): boolean {
           {
             text.nav.map((item) => (
               <a
-                class:list={['navbar-item', { 'is-active': isActive(item.path) }]}
+                class:list={['navbar-item', 'aw-nav-item', { 'is-active': isActive(item.path) }]}
                 href={localeUrl(locale, item.path)}
                 aria-current={isActive(item.path) ? 'page' : undefined}
               >
@@ -99,25 +104,14 @@ function isActive(path: string): boolean {
               </a>
             ))
           }
-          <div class="navbar-item">
-            <ThemeToggle />
-          </div>
-          <div class="navbar-item">
+          <div class="navbar-item aw-nav-action">
             <a class="button is-primary" href={localeUrl(locale, '/contact')}>{text.discussIdea}</a>
           </div>
-          <div class="navbar-item" aria-label={text.languageLabel}>
-            <a
-              class:list={['navbar-item', { 'is-active': locale === 'en' }]}
-              href={localeSwitchUrl(currentPath, 'en')}
-              lang="en"
-              aria-current={locale === 'en' ? 'page' : undefined}
-            >EN</a>
-            <a
-              class:list={['navbar-item', { 'is-active': locale === 'cs' }]}
-              href={localeSwitchUrl(currentPath, 'cs')}
-              lang="cs"
-              aria-current={locale === 'cs' ? 'page' : undefined}
-            >CZ</a>
+          <div class="navbar-item aw-desktop-controls">
+            <ThemeToggle />
+          </div>
+          <div class="navbar-item aw-desktop-controls">
+            <LanguageSwitch locale={locale} pathname={currentPath} idSuffix="desktop" />
           </div>
         </div>
       </div>
@@ -147,6 +141,11 @@ function isActive(path: string): boolean {
   document.addEventListener('click', (event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
+
+    const languageSwitch = target.closest<HTMLElement>('.aw-lang-switch');
+    if (languageSwitch && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+      languageSwitch.dataset.lang = languageSwitch.dataset.lang === 'en' ? 'cs' : 'en';
+    }
 
     const burger = target.closest<HTMLElement>('.navbar-burger');
     if (burger) {

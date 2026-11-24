@@ -1,0 +1,49 @@
+---
+import type { Locale } from '../i18n/ui';
+import { localeSwitchUrl } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+  idSuffix: 'mobile' | 'desktop';
+}
+
+const { locale, pathname, idSuffix } = Astro.props;
+const target = locale === 'en' ? 'cs' : 'en';
+const switchUrl = localeSwitchUrl(pathname, target);
+const clipId = `aw-pill-cs-${idSuffix}`;
+---
+
+<a
+  class="aw-lang-switch"
+  href={switchUrl}
+  hreflang={target}
+  data-lang={locale}
+  aria-label={locale === 'en' ? 'Switch language to Czech' : 'Přepnout jazyk do angličtiny'}
+>
+  <span class="aw-lang-label aw-lang-en">EN</span>
+  <span class="aw-lang-pill">
+    {locale === 'en' ? (
+      <svg class="aw-lang-icon aw-lang-globe" viewBox="0 0 46 24" width="46" height="24" aria-hidden="true">
+        <g transform="translate(31, 12)" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round">
+          <circle cx="0" cy="0" r="7.2" />
+          <ellipse cx="0" cy="0" rx="3.4" ry="7.2" />
+          <line x1="-7.2" y1="0" x2="7.2" y2="0" />
+          <path d="M -5.8 -3.6 Q 0 -2.2 5.8 -3.6" />
+          <path d="M -5.8 3.6 Q 0 2.2 5.8 3.6" />
+        </g>
+      </svg>
+    ) : (
+      <svg class="aw-lang-flag" viewBox="0 0 46 24" width="46" height="24" aria-hidden="true">
+        <defs><clipPath id={clipId}><rect width="46" height="24" rx="12" /></clipPath></defs>
+        <g clip-path={`url(#${clipId})`}>
+          <rect width="46" height="12" y="0" fill="#ffffff" />
+          <rect width="46" height="12" y="12" fill="#D7141A" />
+          <polygon points="0,0 22,12 0,24" fill="#11457E" />
+        </g>
+      </svg>
+    )}
+    <span class="aw-lang-thumb" aria-hidden="true"></span>
+  </span>
+  <span class="aw-lang-label aw-lang-cs">CZ</span>
+</a>

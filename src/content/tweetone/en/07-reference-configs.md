@@ -5,7 +5,7 @@ order: 7
 altBackground: false
 ---
 
-### `system.cfg`
+### Example `system.cfg`
 
 ```ini
 # /boot/system.cfg

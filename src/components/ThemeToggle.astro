@@ -39,16 +39,21 @@ const text = ui[getLocale(Astro.currentLocale)];
     }
   };
 
+  const syncToggleLabels = (theme: string) => {
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => {
+      toggle.setAttribute(
+        'aria-label',
+        theme === 'light' ? toggle.dataset.darkLabel ?? '' : toggle.dataset.lightLabel ?? '',
+      );
+    });
+  };
+
   const syncTheme = () => {
     const stored = readStored();
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
     root.setAttribute('data-theme', theme);
-    const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-    toggle?.setAttribute(
-      'aria-label',
-      theme === 'light' ? toggle.dataset.darkLabel ?? '' : toggle.dataset.lightLabel ?? '',
-    );
+    syncToggleLabels(theme);
   };
 
   document.addEventListener('click', (event) => {
@@ -62,7 +67,7 @@ const text = ui[getLocale(Astro.currentLocale)];
         } catch {
           // The theme still applies for this session when storage is unavailable.
         }
-        syncTheme();
+        syncToggleLabels(next);
       };
       if (document.startViewTransition) {
         document.startViewTransition(apply);

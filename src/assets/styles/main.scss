@@ -216,16 +216,186 @@ main {
 // Small dumbbell mark; replace with your logo if you have one.
 .aw-brand-mark {
   display: inline-block;
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 34px;
+  height: 26px;
   margin-right: 0.5rem;
   color: var(--aw-accent);
 
   svg {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 46px;
+    height: 23px;
+    flex-shrink: 0;
+    margin-right: 0.35rem;
   }
+}
+
+.aw-mobile-controls {
+  display: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .aw-mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .aw-desktop-controls {
+    display: none;
+  }
+
+  .aw-nav-burger {
+    margin-left: 0.125rem;
+    flex-shrink: 0;
+  }
+
+  .aw-navbar .aw-brand {
+    padding-inline: 0.3rem;
+    font-size: 0.8125rem;
+  }
+
+  .aw-brand-mark {
+    width: 26px;
+  }
+
+  .aw-brand-mark svg {
+    width: 34px;
+  }
+
+  .aw-navbar .aw-search-link {
+    padding-inline: 0.25rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .aw-navbar .aw-brand {
+    padding-inline: 0.125rem;
+  }
+
+  .aw-brand-mark {
+    width: 20px;
+  }
+
+  .aw-brand-mark svg {
+    width: 28px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1215px) {
+  .aw-nav-item,
+  .aw-desktop-controls,
+  .aw-nav-action {
+    padding-inline: 0.35rem;
+  }
+}
+
+.aw-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.2rem 0.25rem;
+  text-decoration: none;
+  user-select: none;
+}
+
+.aw-lang-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--aw-text);
+  opacity: 0.42;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.aw-lang-switch[data-lang='en'] .aw-lang-en,
+.aw-lang-switch[data-lang='cs'] .aw-lang-cs {
+  opacity: 1;
+}
+
+.aw-lang-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 46px;
+  height: 24px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  overflow: hidden;
+  color: #3b4658;
+  background: linear-gradient(180deg, #cfd6e0 0%, #e6ebf2 100%);
+  border: 1.5px solid #e2e8f0;
+  box-shadow:
+    0 2px 5px rgba(15, 23, 42, 0.14),
+    inset 0 2px 4px rgba(15, 23, 42, 0.32),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.aw-lang-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow:
+    inset 0 2px 4px rgba(15, 23, 42, 0.36),
+    inset 0 0 0 1px rgba(15, 23, 42, 0.12),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.55);
+}
+
+.aw-lang-icon,
+.aw-lang-flag {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.aw-lang-thumb {
+  position: absolute;
+  z-index: 2;
+  top: 2px;
+  left: 2px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f1f4f9 65%, #d8dfe9 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.38),
+    0 1px 1px rgba(15, 23, 42, 0.25),
+    inset 0 1px 1px #ffffff;
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.aw-lang-switch[data-lang='cs'] .aw-lang-thumb {
+  transform: translateX(22px);
+}
+
+[data-theme='dark'] .aw-lang-pill {
+  color: #cbd5e1;
+  background: linear-gradient(180deg, #0f141c 0%, #1e2633 100%);
+  border: 1.5px solid #2e3848;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 2px 5px rgba(0, 0, 0, 0.75),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .aw-lang-pill::after {
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.78),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .aw-lang-thumb {
+  background: radial-gradient(circle at 35% 30%, #4b5565 0%, #2d3543 65%, #1d232d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
 }
 
 /* -------------------------------- Hero -------------------------------- */
