@@ -34,6 +34,7 @@ const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fontUrl =
   'https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap';
+const cloudflareBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN?.trim();
 ---
 
 <!doctype html>
@@ -105,6 +106,17 @@ const fontUrl =
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{pageTitle}</title>
+
+    {
+      import.meta.env.PROD && cloudflareBeaconToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cloudflareBeaconToken })}
+        />
+      )
+    }
 
     <ClientRouter />
 
