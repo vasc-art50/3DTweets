@@ -43,7 +43,7 @@ jobs:
         run: pnpm build
         working-directory: ${{ env.BUILD_PATH }}
         env:
-          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
+          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN || '5e706dc5859a4ed9819ceefa6837497d' }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
