@@ -21,6 +21,7 @@ smart-home electronics.
 - `astro-pagefind` for site search
 - `@astrojs/sitemap` for sitemap generation
 - Structured data, canonical URLs, and localized `hreflang` links
+- Cloudflare Web Analytics beacon on production builds with `PUBLIC_CF_BEACON_TOKEN`
 
 The project requires Node.js >= 22.22.0 and uses pnpm.
 

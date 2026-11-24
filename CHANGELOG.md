@@ -44,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Made theme and 3D globe/flag language controls visible and spaced in the mobile navbar.
+- Made theme and 3D globe/flag language controls visible and spaced in the mobile navbar; only the language pill is clickable.
 - Gave the TweetONE reference configuration examples unique heading anchors.
 - Aligned article card footers, project option buttons, and showcase captions
   across each responsive card row.

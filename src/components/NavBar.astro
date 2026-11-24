@@ -18,7 +18,7 @@ function isActive(path: string): boolean {
 <header>
   <nav class="navbar aw-navbar" aria-label={text.navigation}>
     <div class="container">
-      <div class="navbar-brand">
+      <div class="navbar-brand aw-navbar-brand">
         <a class="navbar-item aw-brand" href={localeUrl(locale, '/')}>
           <span class="aw-brand-mark" aria-hidden="true">
             {/* Owl logo mark. */}
@@ -142,7 +142,7 @@ function isActive(path: string): boolean {
     const target = event.target;
     if (!(target instanceof Element)) return;
 
-    const languageSwitch = target.closest<HTMLElement>('.aw-lang-switch');
+    const languageSwitch = target.closest('.aw-lang-pill')?.closest<HTMLElement>('.aw-lang-switch');
     if (languageSwitch && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
       languageSwitch.dataset.lang = languageSwitch.dataset.lang === 'en' ? 'cs' : 'en';
     }

@@ -10,8 +10,8 @@ Web je staticky generovaný pomocí Astro. Hlavní stack tvoří Astro (`^7.4.1`
 
 - `src/pages/` — EN stránky bez prefixu, české protějšky pod `cs/`, dynamické detaily blogu (`[...slug].astro`), RSS endpointy a vlastní 404 stránky.
 - `src/content/` — Markdown články `blog/` a `blog-cs/`; dokumentace TweetONE v `tweetone/en/` a `tweetone/cs/`.
-- `src/components/` — sdílené UI; `blog/` obsahuje rubriky, filtr, feed a galerii, `seo/` strukturovaná data.
-- `src/layouts/BaseLayout.astro` — společný HTML dokument, metadata, hlavička, patička, Pagefind oblast a JSON-LD.
+- `src/components/` — sdílené UI včetně `NavBar.astro`, `ThemeToggle.astro` a `LanguageSwitch.astro`; `blog/` obsahuje rubriky, filtr, feed a galerii, `seo/` strukturovaná data.
+- `src/layouts/BaseLayout.astro` — společný HTML dokument, metadata, hlavička, patička, Pagefind oblast, JSON-LD a volitelný produkční Cloudflare Web Analytics beacon.
 - `src/assets/styles/main.scss` — Bulma importy, globální typografie, responzivní styly a theme-aware `--aw-*` tokeny; `src/assets/models/` obsahuje zdrojové modelové obrázky.
 - `src/i18n/` — slovník `ui.ts` a mapování URL v `utils.ts`.
 - `src/data/` — údaje webu, služeb, cen, týmu, referencí a lokalizované CSV materiálů.
@@ -23,7 +23,9 @@ Web je staticky generovaný pomocí Astro. Hlavní stack tvoří Astro (`^7.4.1`
 
 Astro i sitemap používají `en` jako výchozí jazyk bez prefixu a `cs` s prefixem `/cs/`. UI texty jsou ve slovníku `src/i18n/ui.ts`. `localeSwitchUrl()` v `src/i18n/utils.ts` zachová cestu jen pro známé lokalizované routy; u ostatních přepne na úvodní stránku cílového jazyka.
 
-`BaseLayout.astro` nastaví `data-theme` ještě před prvním vykreslením: použije uloženou volbu `theme` z `localStorage`, jinak systémové `prefers-color-scheme` (bez preference je výchozí světlý motiv). `ThemeToggle.astro` přepíná a ukládá motiv a znovu jej synchronizuje po `astro:page-load`. Barvy obou motivů vycházejí ze sdílených CSS proměnných, nikoli z pevných barev jednotlivých komponent.
+`BaseLayout.astro` nastaví `data-theme` ještě před prvním vykreslením: použije uloženou volbu `theme` z `localStorage`, jinak systémové `prefers-color-scheme` (bez preference je výchozí světlý motiv). `ThemeToggle.astro` přepíná a ukládá motiv a znovu jej synchronizuje po `astro:page-load`. Základní barvy motivů vycházejí ze sdílených CSS proměnných; jazyková pilulka má vlastní barvy a stíny pro oba motivy.
+
+Pod 1024 px jsou v `.navbar-brand` za logem a vyhledáváním trvale viditelné přepínač motivu, jazykový přepínač a hamburger v tomto pořadí; na desktopu jsou přepínače za CTA tlačítkem v navigaci. `ThemeToggle.astro` vykresluje tlačítka `[data-theme-toggle]` bez pevných ID. `LanguageSwitch.astro` obsahuje neklikací popisky EN/CZ a odkaz `.aw-lang-pill` s glóbem pro EN nebo českou vlajkou pro CS; mobilní a desktopový `clipPath` mají různá ID.
 
 ### Hlavní routy a integrace
 
@@ -34,6 +36,8 @@ EN routy zahrnují `/`, `/about/`, `/services/`, `/tweetone/`, `/contact/`, `/bl
 Oficiální YouTube kanál je https://www.youtube.com/channel/UCsNenKWa07G8v30aRlqicUw; jeho URL spolu s e-mailem spravuje `src/data/site.ts`. `ContactLink.astro` vykresluje odkazy s ikonami ve sdílené patičce a na stránce Kontakt pro oba jazyky. URL kanálu je také v JSON-LD `sameAs` společně s Printables profilem.
 
 `StructuredData.astro` vytváří JSON-LD `Organization`/`ProfessionalService`; články přidávají `BlogPosting`/`TechArticle` a modelové články mohou přidat `CreativeWork`. `BaseLayout.astro` dále skládá canonical, hreflang, Open Graph, Twitter a RSS metadata. `public/_headers` obsahuje pravidla pro hosty, kteří podporují formát Netlify `_headers`; ověřte podporu cílového hostingu před spoléháním se na tyto hlavičky.
+
+Cloudflare Web Analytics se v `BaseLayout.astro` vkládá jako inline nezpracovaný beacon pouze při produkčním buildu s neprázdným `PUBLIC_CF_BEACON_TOKEN`. Deploy workflow předává hodnotu repository variable, případně výchozí token; lokální vývoj beacon nevkládá.
 
 ## 2. Content Collections a Pages CMS — datový kontrakt
 
@@ -53,7 +57,7 @@ Platné kategorie blogu jsou výhradně `projects` / `Projects & Guides` / `Proj
 - **Citace TweetONE:** sekce `07-reference-configs.md` v EN i CS obsahuje číslovaný seznam externích zdrojů podle ČSN ISO 690:2022 s kotvami `ref-1` až `ref-10`. Relevantní textové odkazy z kapitol `01`–`07` používají tvar `[[číslo]](#ref-číslo)`; `.aw-tweetone-references li:target` jemně zvýrazní cíl odkazu. Při změně bibliografie zachovejte stejné identifikátory a pořadí v obou jazycích.
 - **Materiály:** `MaterialsList.astro` čte `src/data/en/materials.csv` nebo `src/data/cs/materials.csv` během buildu. Parser rozpoznává čárku/středník, uvozované hodnoty a vyžaduje sloupce `name`, `manufacturer`, `type`, `description`; zachovejte hlavičku a počet polí.
 - **Vyhledávání a metadata:** Pagefind index vzniká při produkčním buildu a hledá pouze obsah v `data-pagefind-body`. Sitemap se generuje z rout a jazyků v `astro.config.mjs`; `robots.txt`, `llms.txt` a další soubory v `public/` se kopírují beze změny. JSON-LD, canonical a hreflang se skládají v `BaseLayout.astro` a `StructuredData.astro`.
-- **Klientské skripty a SPA navigace:** `ClientRouter` v `BaseLayout.astro` znovu vytváří DOM při přechodu mezi stránkami. Skripty Navbaru, motivu, formuláře, videa a blogového filtru proto používají delegované události nebo znovu vyhledávají aktuální elementy; neponechávejte reference na staré DOM uzly.
+- **Klientské skripty a SPA navigace:** `ClientRouter` v `BaseLayout.astro` znovu vytváří DOM při přechodu mezi stránkami. Skripty Navbaru, motivu, formuláře, videa a blogového filtru proto používají delegované události nebo znovu vyhledávají aktuální elementy; neponechávejte reference na staré DOM uzly. Navbar animuje změnu `data-lang` při běžném kliknutí na `.aw-lang-pill`, ale navigaci odkazu neblokuje; motiv synchronizuje všechny `[data-theme-toggle]` při `astro:page-load`.
 
 ## 4. Markdown a Rehype pipeline
 
@@ -287,7 +291,7 @@ V `.pages.yml` nejsou položky pro úvodní stránku, O nás, služby, ceny, tý
 
 | Obsah nebo chování | Zdroj v projektu |
 |---|---|
-| Hlavní navigace a překlady UI (EN/CS) | `src/i18n/ui.ts`; vykresluje ji `src/components/NavBar.astro` |
+| Hlavní navigace, přepínače motivu/jazyka a překlady UI (EN/CS) | `src/i18n/ui.ts`, `src/i18n/utils.ts`, `src/components/NavBar.astro`, `ThemeToggle.astro` a `LanguageSwitch.astro` |
 | Texty a struktura domovské stránky | `src/pages/index.astro`, `src/pages/cs/index.astro` |
 | Obecné údaje webu (název, e-mail, adresa, URL) | `src/data/site.ts` |
 | Služby | `src/data/services.ts` |
@@ -295,7 +299,7 @@ V `.pages.yml` nejsou položky pro úvodní stránku, O nás, služby, ceny, tý
 | Tým a hodnoty | `src/data/team.ts` |
 | Reference / ukázky | `src/data/testimonials.ts` |
 | Tabulky materiálů | `src/data/en/materials.csv`, `src/data/cs/materials.csv`; načítá je `src/components/MaterialsList.astro` |
-| Designové tokeny a Bulma Sass | `src/assets/styles/main.scss` a styly jednotlivých komponent |
+| Designové tokeny, navigace a Bulma Sass | `src/assets/styles/main.scss` |
 | URL routy, schémata obsahu a validace Markdown frontmatteru | `src/pages/`, `src/content.config.ts`, `astro.config.mjs` |
 
 Materiálové CSV očekávají sloupce `name,manufacturer,type,description`. Stránky je parsují při buildu, takže je třeba zachovat jejich hlavičku a počet polí. Změny tras, formulářů, rozložení nebo CSS nejsou editací textu v Pages CMS; vyžadují odpovídající změnu komponent a následný build.
