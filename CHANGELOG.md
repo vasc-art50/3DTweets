@@ -77,6 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Prevented mobile navbar controls from colliding with the brand at larger browser font sizes.
 - Restored accent-colored inline code and reduced desktop table overflow.
 - Corrected the escaped Services ampersand and repaired `.gitignore` so its
   video exclusions work without ignoring all new files.

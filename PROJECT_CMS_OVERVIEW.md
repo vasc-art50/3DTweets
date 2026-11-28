@@ -72,6 +72,7 @@ Platné kategorie blogu jsou výhradně `projects` / `Projects & Guides` / `Proj
 
 ## 5. Typografie, provoz a Git pravidla
 
+- Mobilní horní navigace používá pevné `px` pro velikost značky, ovládacích prvků a jejich rozestupy, aby se při zvětšení základního písma nepřekrývaly; běžný obsah zůstává v `rem`.
 - Sdílený Hero H1 `.aw-display` používá `clamp(1.75rem, 4.2vw, 2.975rem)` a `line-height: 1.15`; jeho Bulma vertikální padding je zkrácen pomocí proměnných `--bulma-hero-body-padding*`. Sekční H2 `.aw-section-title` používá `clamp(1.5rem, 2.5vw, 2rem)` a `line-height: 1.2`. Detail článku má samostatný H1 `clamp(1.65rem, 3vw, 2.3rem)` a čtecí sloupec `.aw-prose` s `max-width: 860px`, textem `1.0625rem` a `line-height: 1.7`.
 - Blog index řadí články sestupně podle `pubDate`; karty rubrik, lead story a kompaktní feed jsou v `src/components/blog/`. Lead story i modelové/blogové karty používají `SmartMediaFrame`, ne prostý ořezaný `<Image>`. Při změně identifikátorů kategorií zachovejte soulad mezi daty, URL, filtry a navigací detailu.
 - `package.json` požaduje Node `>=22.22.0`; `.nvmrc` uvádí `24.22.1`. CI používá Node 24 a pnpm 10. Projektové příkazy jsou `pnpm check` a `pnpm build`; workflow nasazuje statický obsah z `dist/` na GitHub Pages. V repozitáři je také `package-lock.json`, ale CI a `pnpm-lock.yaml` používají pnpm — lockfile npm není zdrojem pravdy.

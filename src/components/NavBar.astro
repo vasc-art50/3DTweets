@@ -50,45 +50,47 @@ function isActive(path: string): boolean {
           {site.name}
         </a>
 
-        <a
-          class="navbar-item aw-search-link"
-          href={localeUrl(locale, '/search')}
-          aria-label={text.searchLabel}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+        <div class="aw-navbar-actions">
+          <a
+            class="navbar-item aw-search-link"
+            href={localeUrl(locale, '/search')}
+            aria-label={text.searchLabel}
           >
-            <circle cx="11" cy="11" r="7" />
-            <path d="m20 20-4-4" />
-          </svg>
-        </a>
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+          </a>
 
-        <div class="aw-mobile-controls">
-          <ThemeToggle />
-          <LanguageSwitch locale={locale} pathname={currentPath} idSuffix="mobile" />
+          <div class="aw-mobile-controls">
+            <ThemeToggle />
+            <LanguageSwitch locale={locale} pathname={currentPath} idSuffix="mobile" />
+          </div>
+
+          <button
+            type="button"
+            class="navbar-burger aw-nav-burger"
+            aria-label={text.openMenu}
+            data-open-label={text.openMenu}
+            data-close-label={text.closeMenu}
+            aria-expanded="false"
+            aria-controls="main-navbar"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
         </div>
-
-        <button
-          type="button"
-          class="navbar-burger aw-nav-burger"
-          aria-label={text.openMenu}
-          data-open-label={text.openMenu}
-          data-close-label={text.closeMenu}
-          aria-expanded="false"
-          aria-controls="main-navbar"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
       </div>
 
       <div id="main-navbar" class="navbar-menu">

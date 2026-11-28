@@ -240,17 +240,30 @@ main {
   display: none;
 }
 
+.aw-navbar-actions {
+  display: contents;
+}
+
 @media screen and (max-width: 1023px) {
   .aw-navbar-brand {
-    max-width: 100%;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-inline: 2px;
+  }
+
+  .aw-navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
   }
 
   .aw-mobile-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-left: auto;
+    gap: 2px;
     flex-shrink: 0;
   }
 
@@ -258,35 +271,73 @@ main {
     display: none;
   }
 
+  .aw-navbar .aw-search-link,
+  .aw-mobile-controls .aw-theme-toggle,
   .aw-nav-burger {
-    margin-left: 0.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .aw-mobile-controls .aw-theme-toggle {
+    border-radius: 8px;
+  }
+
+  .aw-mobile-controls .aw-theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .aw-mobile-controls .aw-lang-switch {
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .aw-mobile-controls .aw-lang-label {
+    font-size: 12px;
     flex-shrink: 0;
   }
 
   .aw-navbar .aw-brand {
-    padding-inline: 0.3rem;
-    font-size: 0.8125rem;
-    min-width: 0;
-    flex-shrink: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    font-size: 18px;
+    flex-shrink: 0;
     white-space: nowrap;
   }
 
   .aw-brand-mark {
-    width: 26px;
+    width: 34px;
+    margin: 0;
+    flex-shrink: 0;
   }
 
   .aw-brand-mark svg {
     width: 34px;
-  }
-
-  .aw-navbar .aw-search-link {
-    padding-inline: 0.25rem;
+    margin: 0;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 419px) {
   .aw-navbar .aw-brand {
-    padding-inline: 0.125rem;
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+
+  .aw-navbar-actions,
+  .aw-mobile-controls {
+    gap: 1px;
+  }
+
+  .aw-mobile-controls .aw-lang-switch {
+    gap: 2px;
   }
 
   .aw-brand-mark {
@@ -294,7 +345,7 @@ main {
   }
 
   .aw-brand-mark svg {
-    width: 28px;
+    width: 20px;
   }
 }
 
