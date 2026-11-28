@@ -44,6 +44,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Kept the navbar visible while scrolling and added a compact localized context
+  bar that appears after the page introduction scrolls out of view and repeats
+  its eyebrow and heading.
 - Made theme and 3D globe/flag language controls visible and spaced in the mobile navbar; only the language pill is clickable.
 - Gave the TweetONE reference configuration examples unique heading anchors.
 - Aligned article card footers, project option buttons, and showcase captions

@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="aw-hero aw-small-hero-body" aria-hidden="true">
+  <div class="container">
+    <span class="aw-small-hero-title"><span class="aw-small-hero-eyebrow"></span><span class="aw-small-hero-separator"></span><span class="aw-small-hero-display">{title}</span></span>
+  </div>
+</div>

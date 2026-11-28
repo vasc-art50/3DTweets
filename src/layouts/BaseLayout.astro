@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import type { CollectionEntry } from 'astro:content';
 import Footer from '../components/Footer.astro';
 import NavBar from '../components/NavBar.astro';
+import SmallHeroBar from '../components/SmallHeroBar.astro';
 import StructuredData from '../components/seo/StructuredData.astro';
 import { site } from '../data/site';
 import { alternateLocaleUrls, getLocale } from '../i18n/utils';
@@ -124,7 +125,10 @@ const cloudflareBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN?.trim();
   </head>
   <body>
     <a class="aw-skip-link" href="#main-content">{text.skipToContent}</a>
-    <NavBar />
+    <header class="aw-site-header">
+      <NavBar />
+      <SmallHeroBar title={title} />
+    </header>
     <main id="main-content" data-pagefind-body>
       <slot />
     </main>
@@ -133,6 +137,39 @@ const cloudflareBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN?.trim();
 </html>
 
 <script>
+  const updateSmallHero = () => {
+    const header = document.querySelector<HTMLElement>('.aw-site-header');
+    const bar = header?.querySelector<HTMLElement>('.aw-small-hero-body');
+    const hero = document.querySelector<HTMLElement>('main .aw-hero, main .aw-section-head');
+    if (!header || !bar || !hero) return;
+    bar.classList.toggle('is-visible', hero.getBoundingClientRect().bottom <= header.getBoundingClientRect().bottom);
+  };
+
+  const headerObserver = new ResizeObserver(updateSmallHero);
+  document.addEventListener('astro:page-load', () => {
+    const header = document.querySelector<HTMLElement>('.aw-site-header');
+    const hero = document.querySelector<HTMLElement>('main .aw-hero, main .aw-section-head');
+    const eyebrow = hero?.querySelector('.aw-eyebrow, .aw-blog-journal-kicker')?.textContent?.trim();
+    const display = (hero?.querySelector('.aw-display, h1') ?? document.querySelector('main h1'))?.textContent?.trim();
+    const barEyebrow = header?.querySelector<HTMLElement>('.aw-small-hero-eyebrow');
+    const barSeparator = header?.querySelector<HTMLElement>('.aw-small-hero-separator');
+    const barDisplay = header?.querySelector<HTMLElement>('.aw-small-hero-display');
+    if (barEyebrow && barSeparator && barDisplay && display) {
+      barEyebrow.textContent = eyebrow ?? '';
+      barSeparator.textContent = eyebrow ? ' — ' : '';
+      barDisplay.textContent = display;
+    }
+    if (header) headerObserver.observe(header);
+    if (hero) headerObserver.observe(hero);
+    updateSmallHero();
+  });
+  document.addEventListener('astro:before-swap', () => {
+    headerObserver.disconnect();
+    document.querySelector('.aw-small-hero-body')?.classList.remove('is-visible');
+  });
+  window.addEventListener('scroll', updateSmallHero, { passive: true });
+  window.addEventListener('resize', updateSmallHero, { passive: true });
+
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const target = event.target;

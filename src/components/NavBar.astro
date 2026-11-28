@@ -15,8 +15,7 @@ function isActive(path: string): boolean {
 }
 ---
 
-<header>
-  <nav class="navbar aw-navbar" aria-label={text.navigation}>
+<nav class="navbar aw-navbar" aria-label={text.navigation}>
     <div class="container">
       <div class="navbar-brand aw-navbar-brand">
         <a class="navbar-item aw-brand" href={localeUrl(locale, '/')}>
@@ -93,7 +92,7 @@ function isActive(path: string): boolean {
         </div>
       </div>
 
-      <div id="main-navbar" class="navbar-menu">
+      <div id="main-navbar" class="navbar-menu aw-nav-menu">
         <div class="navbar-end">
           {
             text.nav.map((item) => (
@@ -118,8 +117,7 @@ function isActive(path: string): boolean {
         </div>
       </div>
     </div>
-  </nav>
-</header>
+</nav>
 
 <script>
   // Bulma ships without JS, so the mobile menu toggle lives here.

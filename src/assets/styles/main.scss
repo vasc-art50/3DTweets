@@ -51,6 +51,7 @@
 // Prefix: "aw-" (3D Tweets) to avoid collisions with Bulma classes.
 // Dark is the default theme; `[data-theme='light']` flips every token.
 :root {
+  --aw-anchor-offset: calc(3.25rem + 1.5rem + 42px);
   --aw-ink: #0e1216;
   --aw-ink-soft: #141a20;
   --aw-ink-raised: #1a222b;
@@ -183,10 +184,25 @@ main {
   flex: 1;
 }
 
+main[id],
+.aw-tweetone-section[id],
+.aw-tweetone-references li[id],
+.aw-markdown-body :is(h1, h2, h3, h4, h5, h6)[id] {
+  scroll-margin-block-start: var(--aw-anchor-offset);
+}
+
 /* ------------------------------- Navbar ------------------------------- */
 
+.aw-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
 .aw-navbar {
+  z-index: 1;
   background-color: color-mix(in srgb, var(--aw-ink) 92%, transparent);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--aw-border);
 
   .navbar-item,
@@ -269,6 +285,13 @@ main {
 
   .aw-desktop-controls {
     display: none;
+  }
+
+  .aw-nav-menu {
+    max-height: calc(100vh - var(--bulma-navbar-height, 3.25rem) - 1px);
+    max-height: calc(100dvh - var(--bulma-navbar-height, 3.25rem) - 1px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .aw-navbar .aw-search-link,
@@ -597,7 +620,6 @@ $aw-section-inline-padding-mobile: 1.25rem;
 .aw-tweetone-references li {
   padding: 0.2rem 0.35rem;
   border-radius: 0.3rem;
-  scroll-margin-block: 1rem;
 }
 
 .aw-tweetone-references a {
@@ -1157,6 +1179,62 @@ $aw-section-inline-padding-mobile: 1.25rem;
   --bulma-hero-body-padding-tablet: 0.9rem #{$aw-section-inline-padding};
   --bulma-hero-body-padding-small: 0.9rem #{$aw-section-inline-padding};
   --bulma-hero-body-padding-medium: 0.9rem #{$aw-section-inline-padding};
+}
+
+.aw-small-hero-body {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 10px 24px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%);
+  pointer-events: none;
+  transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.aw-small-hero-title {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--aw-text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+
+  .aw-small-hero-eyebrow,
+  .aw-small-hero-display {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .aw-small-hero-eyebrow {
+    max-width: 55%;
+    color: var(--aw-accent);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 1.92px;
+    text-transform: uppercase;
+  }
+
+  .aw-small-hero-separator {
+    flex-shrink: 0;
+    white-space: pre;
+  }
 }
 
 .aw-blog-post-navigation {
@@ -1828,6 +1906,10 @@ html {
 
   .aw-blog-post-banner {
     --bulma-hero-body-padding: 0.9rem #{$aw-section-inline-padding-mobile};
+  }
+
+  .aw-small-hero-body {
+    padding-inline: 20px;
   }
 
   .aw-blog-index .aw-section {
