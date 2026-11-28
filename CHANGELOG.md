@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Balanced mobile navigation spacing around the theme and language controls.
 - Kept the navbar visible while scrolling and added a compact localized context
   bar that appears after the page introduction scrolls out of view and repeats
   its eyebrow and heading.

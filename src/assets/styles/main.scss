@@ -316,8 +316,13 @@ main[id],
     height: 18px;
   }
 
+  .aw-navbar .aw-search-link svg {
+    transform: translateX(5px);
+  }
+
   .aw-mobile-controls .aw-lang-switch {
     gap: 3px;
+    margin-left: 5px;
     flex-shrink: 0;
   }
 
@@ -352,6 +357,7 @@ main[id],
   .aw-navbar .aw-brand {
     font-size: 15px;
     letter-spacing: 0;
+    gap: 4px;
   }
 
   .aw-navbar-actions,
@@ -364,11 +370,11 @@ main[id],
   }
 
   .aw-brand-mark {
-    width: 20px;
+    width: 17px;
   }
 
   .aw-brand-mark svg {
-    width: 20px;
+    width: 17px;
   }
 }
 
