@@ -121,6 +121,25 @@
   margin-left: auto;
   margin-right: auto;
   --pf-searchbox-max-width: 100%;
+  --pf-dropdown-z-index: 50;
+}
+
+// Pagefind resets its internal elements with ID-level specificity.
+.aw-search-container#search:is(*, #\#):is(*, #\#) .pf-searchbox-results {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 767px) {
+  .aw-search-container {
+    --pf-searchbox-dropdown-max-height: min(60vh, 420px, var(--aw-search-available-height, 100vh));
+    --pf-searchbox-dropdown-max-height: min(60dvh, 420px, var(--aw-search-available-height, 100dvh));
+  }
+
+  .aw-search-container pagefind-searchbox:has(.pf-searchbox.open) {
+    position: sticky;
+    top: var(--aw-anchor-offset);
+  }
 }
 
 .aw-search-container .pagefind-ui,

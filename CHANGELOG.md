@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+
+- Keep mobile search suggestions below the sticky header, scrollable and dismissed when the page scrolls.
+
 ### Added
 
 - YouTube channel links and email icons in the bilingual footer and contact page.
